@@ -1,0 +1,227 @@
+(footprint "st7789_1.9inch"
+	(version 20240108)
+	(generator "pcbnew")
+	(generator_version "8.0")
+	(layer "F.Cu")
+	(property "Reference" "REF**"
+		(at 0 -0.5 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "9143dace-b2ad-4dba-aa2f-3f163fdf4285")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+		)
+	)
+	(property "Value" "st7789_1.9inch"
+		(at 0 1 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "f5829242-a3f4-4085-a92e-1d671e1f11c3")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Footprint" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "501f67b0-d97c-447c-9089-e3baa1eba409")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "f8d5771c-6d6a-458c-b530-6630abc44316")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "32289134-ecb8-4abc-a78c-100075276745")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr through_hole)
+	(fp_line
+		(start -5.5 -1.5)
+		(end -5.5 60.5)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "4df5b0da-4229-486c-9b37-c7e79cf63204")
+	)
+	(fp_line
+		(start -5.5 -1.5)
+		(end 0 -1.5)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "dd65db30-b992-4c07-85db-cd920322184d")
+	)
+	(fp_line
+		(start -5.5 -1.5)
+		(end 23.5 -1.5)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "5e1dc217-8728-4f3b-b68c-d1f92725dbd4")
+	)
+	(fp_line
+		(start -5.5 0)
+		(end -5.5 -1.5)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "59f56a3c-88da-45a9-b342-7818fcfad943")
+	)
+	(fp_line
+		(start 0 -1.5)
+		(end 18.5 -1.5)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "1206cf55-9009-4127-b746-9f2f35ccdc1a")
+	)
+	(fp_line
+		(start 23.5 -1.5)
+		(end 23.5 60.5)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "41960784-b86e-4185-9248-0e73342c0b7a")
+	)
+	(fp_line
+		(start 23.5 60.5)
+		(end -5.5 60.5)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "726c2106-ed9f-4b99-a9f1-0a310a2970ef")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 2.5 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "1af6120d-72cd-4f74-83cc-f3f30ceea7e9")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "0" thru_hole circle
+		(at 0 0)
+		(size 1.524 1.524)
+		(drill 0.762)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "fb0ac2c2-567a-4e70-a47a-f4808a227112")
+	)
+	(pad "1" thru_hole circle
+		(at 2.54 0)
+		(size 1.524 1.524)
+		(drill 0.762)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "f9f84ddf-59a6-4d10-8788-b739fb80760e")
+	)
+	(pad "2" thru_hole circle
+		(at 5.08 0)
+		(size 1.524 1.524)
+		(drill 0.762)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "7eeaa8ff-bfad-4c84-890e-a11cebea1dc0")
+	)
+	(pad "3" thru_hole circle
+		(at 7.62 0)
+		(size 1.524 1.524)
+		(drill 0.762)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "e67a15c4-da0c-4ded-bfd0-64fd1594e1b1")
+	)
+	(pad "4" thru_hole circle
+		(at 10.16 0)
+		(size 1.524 1.524)
+		(drill 0.762)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "a6939a6e-6873-4837-847e-9e2604ec46ef")
+	)
+	(pad "5" thru_hole circle
+		(at 12.7 0)
+		(size 1.524 1.524)
+		(drill 0.762)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "8aa34879-1850-4388-ab2f-e878acf78078")
+	)
+	(pad "6" thru_hole circle
+		(at 15.24 0)
+		(size 1.524 1.524)
+		(drill 0.762)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "85243520-097f-4ee6-9582-e7cfe7896df3")
+	)
+	(pad "7" thru_hole circle
+		(at 17.78 0)
+		(size 1.524 1.524)
+		(drill 0.762)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "d1cac7f3-439b-4e67-adc8-d70d303a0358")
+	)
+	(model "E:/Projects/MacroKeypad_Project/KiCadLib/cad-8-pin-header-1.snapshot.2/1_Dupont_Stiftleiste v6.step"
+		(offset
+			(xyz 17.7 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

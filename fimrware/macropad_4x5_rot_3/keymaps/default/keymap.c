@@ -8,6 +8,7 @@
 bool is_locked = false;
 
 extern lv_obj_t *tab_view;
+extern struct kb_layer_type kb_layers[LAYER_COUNT];
 
 tap_dance_action_t tap_dance_actions[] =
 {
@@ -55,6 +56,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     CPP_KEY_4, CPP_KEY_5, CPP_KEY_6, CPP_KEY_7,
     CPP_KEY_0, CPP_KEY_1, CPP_KEY_2, CPP_KEY_3
     ),
+
+    /* Resource Layer purely GUI */
+    [RESOURCE_LAYER] = LAYOUT(
+    KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO
+    ),
     };
 
 
@@ -66,7 +76,6 @@ void keyboard_pre_init_user(void) {
 
 int convert_tabview_to_layer(int tab_sel)
 {
-    extern struct kb_layer_type kb_layers[3];
     if(tab_sel < LAYER_COUNT)
     {
         return kb_layers[tab_sel].layer;
@@ -173,10 +182,10 @@ void matrix_scan_user(void) {
     encoder_left_push_button_prev = encoder_left_push_button_now;
     encoder_right_push_button_prev = encoder_right_push_button_now;
 
-    /* if Both Buttons are pressed for 2000ms, reset the keypad */
+    /* if Both Buttons are pressed for 1000ms, reset the keypad */
     if(encoder_left_push_button_now == false && encoder_right_push_button_now == false)
     {
-        wait_ms(2000);
+        wait_ms(1000);
         //check again the buttons press value
         encoder_left_push_button_now = readPin(ENCODER_LEFT_PUSH_BUTTON_PIN);
         encoder_right_push_button_now = readPin(ENCODER_RIGHT_PUSH_BUTTON_PIN);
@@ -251,3 +260,40 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return true;
 }
 
+#include "raw_hid.h"
+#include "lvgl/resource_screen.h"
+#define CHANGE_LVGL_KEYPAD_LAYER(LAYER_NAME) lv_tabview_set_act(tab_view, kb_layers[LAYER_NAME].layer, LV_ANIM_OFF)
+void raw_hid_receive(uint8_t *data, uint8_t length)
+{
+    //uint8_t response[length];
+    //memset(response, 0, length);
+    //response[0] = 'B';
+
+    /* getting time from host
+     * FOrmat : ti123456
+    */
+    if(data[0] == 't' && data[1] == 'i') {
+        int hr = (data[2] - '0')*10 + (data[3] - '0');
+        int min= (data[4] - '0')*10 + (data[5] - '0');
+        int sec= (data[6] - '0')*10 + (data[7] - '0');
+       clock_update_time(hr, min,sec);
+        //raw_hid_send(response, length);
+    }
+    if(data[0] == 'c' && data[1] == 'p')
+    {
+        int cpu_res_in_percent = (data[2] - '0') * 100 + (data[3] - '0') * 10 + (data[4] - '0');
+        cpu_resource_set_value(cpu_res_in_percent);
+    }
+    if(data[0] == 'a' && data[1] == 'p' && data[2] == 'p' && data[3] == '_')
+    {
+        uint8_t * app_name = &data[4];
+        if(app_name[0] == 't' && app_name[1] == 't' && app_name[2] == 'c')
+        {
+            CHANGE_LVGL_KEYPAD_LAYER(TOTAL_COMMANDER_LAYER);
+        }
+        else if(app_name[0] == 'c' && app_name[1] == 'a' && app_name[2] == 'l')
+        {
+            CHANGE_LVGL_KEYPAD_LAYER(NUMPAD_LAYER);
+        }
+    }
+}

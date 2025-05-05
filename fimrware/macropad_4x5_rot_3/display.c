@@ -19,15 +19,6 @@ lv_style_t style_button_active;
 static lv_obj_t *screen_home;
 
 /* home screen content */
-#if 0
-static lv_obj_t *label_shift;
-static lv_obj_t *label_ctrl;
-static lv_obj_t *label_alt;
-static lv_obj_t *label_gui;
-#endif
-static lv_obj_t *label_caps;
-
-extern uint8_t keyboard_language;
 painter_device_t display;
 
 void init_styles(void) {
@@ -87,7 +78,6 @@ void init_screen_home(void) {
     lv_obj_set_style_text_font(label_locked, &lv_font_montserrat_48, LV_PART_MAIN);
 #endif
 
-    //label_caps = create_button(screen_home, "CAPS", &style_button, &style_button_active);
 }
 #include "lvgl/ui.h"
 void keyboard_post_init_kb(void)
@@ -97,22 +87,12 @@ void keyboard_post_init_kb(void)
     qp_init(display, QP_ROTATION_90);
     qp_set_viewport_offsets(display, 0, 35);
     qp_power(display, 1);
-#if 1
 
     qp_lvgl_attach(display);
     lv_disp_t  *lv_display = lv_disp_get_default();
     lv_theme_t *lv_theme   = lv_theme_default_init(lv_display, lv_palette_main(LV_PALETTE_AMBER), lv_palette_main(LV_PALETTE_BLUE), true, LV_FONT_DEFAULT);
     lv_disp_set_theme(lv_display, lv_theme);
     init_styles();
-
-#else
-
-    myanmar_flag_image = qp_load_image_mem(gfx_myanmarflag);
-    us_flag_image = qp_load_image_mem(gfx_usflag);
-    qp_rect(display, 0, 0, 320, 170, HSV_BLACK, 1);
-    qp_drawimage(display, 220, 112, us_flag_image);
-    qp_flush(display);
-#endif
     ui_init();
 }
 
@@ -125,6 +105,4 @@ void display_housekeeping_task(void) {
 }
 
 __attribute__((weak)) void display_process_caps(bool active) {
-    dprint("display_process_caps\n");
-    toggle_state(label_caps, LV_STATE_PRESSED, active);
 }

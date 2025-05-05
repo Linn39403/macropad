@@ -7,6 +7,7 @@ enum keyboard_layers_enum{
     TOTAL_COMMANDER_LAYER = 1,
     NUMPAD_LAYER = 2, //numpad
     CPP_LAYER = 3,
+    RESOURCE_LAYER = 4,
     LAYER_COUNT
 };
 

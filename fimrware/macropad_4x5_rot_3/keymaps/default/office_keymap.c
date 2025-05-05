@@ -61,17 +61,6 @@ bool officelayer_function_key_pressed(uint16_t keycode) {
             //register_code(KC_LGUI);   // Hold the Win key
             //tap_code(KC_SPACE);       // Tap the Space key
             //unregister_code(KC_LGUI); // Release the Win key
-
-#if 0
-            if (keyboard_language == US_ENGLISH) {
-                keyboard_language = BURMESE;
-                qp_drawimage(display, 220, 112, myanmar_flag_image);
-            } else {
-                keyboard_language = US_ENGLISH;
-                qp_drawimage(display, 220, 112, us_flag_image);
-            }
-            qp_flush(display);
-#endif
             return false;
 
         default:

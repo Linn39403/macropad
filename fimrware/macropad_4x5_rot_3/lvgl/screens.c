@@ -9,26 +9,27 @@
 #include "ui.h"
 #include <string.h>
 #include "keymap.h"
+#include "resource_screen.h"
+#include "keypad_screen.h"
 
 objects_t objects;
-lv_obj_t *tick_value_change_obj;
 lv_obj_t *tab_view;
-lv_obj_t * volumeControl_slider;
 
-void lv_keypad_button_create(lv_obj_t *parent_screen);
 
 struct kb_layer_type kb_layers[LAYER_COUNT] =
 {
-    {"1", NULL, OFFICE_LAYER},
-    {"2", NULL, TOTAL_COMMANDER_LAYER},
-    {"3", NULL, NUMPAD_LAYER},
-    {"4", NULL, CPP_LAYER},
+    {"office", NULL, OFFICE_LAYER},
+    {"total_com", NULL, TOTAL_COMMANDER_LAYER},
+    {"numpad", NULL, NUMPAD_LAYER},
+    {"cpp", NULL, CPP_LAYER},
+    {"resource", NULL, RESOURCE_LAYER},
 };
 
 #define TAB_VIEW_OFFICE           kb_layers[OFFICE_LAYER].tab_view_obj
 #define TAB_VIEW_TOTAL_COMMANDER  kb_layers[TOTAL_COMMANDER_LAYER].tab_view_obj
 #define TAB_VIEW_NUMPAD           kb_layers[NUMPAD_LAYER].tab_view_obj
 #define TAB_VIEW_CPP              kb_layers[CPP_LAYER].tab_view_obj
+#define TAB_VIEW_RESOURCE         kb_layers[RESOURCE_LAYER].tab_view_obj
 
 void create_screen_main(void) {
     lv_obj_t *obj = lv_obj_create(0);
@@ -39,7 +40,7 @@ void create_screen_main(void) {
         //create a tab view obj
         lv_obj_t *parent_obj = obj;
         {
-            tab_view = lv_tabview_create(parent_obj, LV_DIR_LEFT, 0);
+            tab_view = lv_tabview_create(parent_obj, LV_DIR_TOP, 0);
             //lv_obj_set_pos(tab_view, 0, 0);
             //lv_obj_set_size(tab_view, 320, 170);
 
@@ -47,6 +48,8 @@ void create_screen_main(void) {
             TAB_VIEW_TOTAL_COMMANDER = lv_tabview_add_tab(tab_view, kb_layers[TOTAL_COMMANDER_LAYER].tab_view_name);
             TAB_VIEW_NUMPAD = lv_tabview_add_tab(tab_view, kb_layers[NUMPAD_LAYER].tab_view_name);
             TAB_VIEW_CPP = lv_tabview_add_tab(tab_view, kb_layers[CPP_LAYER].tab_view_name);
+            TAB_VIEW_RESOURCE = lv_tabview_add_tab(tab_view, kb_layers[RESOURCE_LAYER].tab_view_name);
+
 
             /**************************************************************************/
             /* Create matrix button GUI for the Personal layout */
@@ -67,25 +70,8 @@ void create_screen_main(void) {
             lv_obj_set_style_bg_opa(TAB_VIEW_OFFICE, LV_OPA_COVER, 0);
             /**************************************************************************/
             /* Create matrix button GUI for the Numpad layout */
-            lv_keypad_button_create(TAB_VIEW_NUMPAD);
-            #if 0
-            static const char * btnm_map[] =
-                                   {"C", "D", "E", "F/<-", "\n",
-                                    "9", "A", "B", "/", "\n",
-                                    "6", "7", "8", "*", "\n",
-                                    "3", "4", "5", "-", "\n",
-                                    "0", "1", "2", "+/=", "\n",
-                                    "" //termination element
-                                    };
-            lv_obj_t * btnm_matrix = lv_btnmatrix_create(TAB_VIEW_NUMPAD);
-            lv_btnmatrix_set_map(btnm_matrix, btnm_map);
+            lv_keypad_screen_create(TAB_VIEW_NUMPAD);
 
-
-            lv_obj_align(btnm_matrix, LV_ALIGN_CENTER, 0, 0);
-
-            lv_obj_set_style_bg_color(TAB_VIEW_NUMPAD, lv_palette_lighten(LV_PALETTE_YELLOW,3),0);
-            lv_obj_set_style_bg_opa(TAB_VIEW_NUMPAD, LV_OPA_COVER, 0);
-            #endif
             /**************************************************************************/
             /* Create matrix button GUI for the TotalCommander Layout */
             static const char * tc_map[] =
@@ -124,6 +110,11 @@ void create_screen_main(void) {
 
             lv_obj_set_style_bg_color(TAB_VIEW_CPP, lv_palette_lighten(LV_PALETTE_RED,3),0);
             lv_obj_set_style_bg_opa(TAB_VIEW_CPP, LV_OPA_COVER, 0);
+
+            /**************************************************************************/
+            /* Create tab view for the Resource Layer */
+            //lvgl_digital_clock_init(TAB_VIEW_RESOURCE);
+            lvgl_cpu_meter_init(TAB_VIEW_RESOURCE);
         }
     }
 }

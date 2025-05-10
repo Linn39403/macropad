@@ -1,36 +1,124 @@
 #include <string.h>
-
 #include "screens.h"
-#include "images.h"
 #include "fonts.h"
 #include "actions.h"
-#include "vars.h"
-#include "styles.h"
-#include "ui.h"
 #include <string.h>
 #include "keymap.h"
 #include "resource_screen.h"
 #include "keypad_screen.h"
+#include "total_commander_screen.h"
+#include "lvgl_helpers.h"
+#include "config.h"
 
-objects_t objects;
+// /objects_t objects;
 lv_obj_t *tab_view;
-
-
+static uint16_t kb_current_active_layer = 0;
 struct kb_layer_type kb_layers[LAYER_COUNT] =
 {
-    {"office", NULL, OFFICE_LAYER},
-    {"total_com", NULL, TOTAL_COMMANDER_LAYER},
-    {"numpad", NULL, NUMPAD_LAYER},
-    {"cpp", NULL, CPP_LAYER},
-    {"resource", NULL, RESOURCE_LAYER},
+#ifdef ENABLE_RESOURCE_LAYER
+    {
+     .screen_obj = NULL,
+     .screen_layer_id = HOME_SCREEN_LAYER},
+#endif
+#ifdef ENABLE_TOTAL_COMMANDER_LAYER
+    {
+     .screen_obj = NULL,
+     .screen_init_fptr = &lv_tc_screen_create,
+     .screen_layer_id = TOTAL_COMMANDER_LAYER},
+#endif
+#ifdef ENABLE_NUMPAD_LAYER
+    {
+     .screen_obj = NULL,
+     .screen_init_fptr = &lv_keypad_screen_create,
+     .screen_layer_id = NUMPAD_LAYER},
+#endif
+#ifdef ENABLE_CPP_LAYER
+    {
+     .screen_obj = NULL,
+     .screen_layer_id = CPP_LAYER},
+#endif
+#ifdef ENABLE_RESOURCE_LAYER
+    {
+     .screen_obj = NULL,
+     .screen_layer_id = RESOURCE_LAYER},
+#endif
 };
 
-#define TAB_VIEW_OFFICE           kb_layers[OFFICE_LAYER].tab_view_obj
-#define TAB_VIEW_TOTAL_COMMANDER  kb_layers[TOTAL_COMMANDER_LAYER].tab_view_obj
-#define TAB_VIEW_NUMPAD           kb_layers[NUMPAD_LAYER].tab_view_obj
-#define TAB_VIEW_CPP              kb_layers[CPP_LAYER].tab_view_obj
-#define TAB_VIEW_RESOURCE         kb_layers[RESOURCE_LAYER].tab_view_obj
+#ifdef ENABLE_RESOURCE_LAYER
+#define TAB_VIEW_OFFICE           kb_layers[HOME_SCREEN_LAYER].tab_view_obj
+#endif
 
+#ifdef ENABLE_TOTAL_COMMANDER_LAYER
+#define TAB_VIEW_TOTAL_COMMANDER  kb_layers[TOTAL_COMMANDER_LAYER].tab_view_obj
+#endif
+
+#ifdef ENABLE_NUMPAD_LAYER
+#define TAB_VIEW_NUMPAD           kb_layers[NUMPAD_LAYER].tab_view_obj
+#endif
+
+#ifdef ENABLE_CPP_LAYER
+#define TAB_VIEW_CPP              kb_layers[CPP_LAYER].tab_view_obj
+#endif
+
+#ifdef ENABLE_RESOURCE_LAYER
+#define TAB_VIEW_RESOURCE         kb_layers[RESOURCE_LAYER].tab_view_obj
+#endif
+
+uint16_t get_active_kb_layer(void)
+{
+    return kb_layers[kb_current_active_layer].screen_layer_id;
+}
+
+void set_kb_layer(uint16_t kb_layer_index)
+{
+    if(kb_layer_index < LAYER_COUNT)
+    {
+        kb_current_active_layer = kb_layer_index;
+        lv_scr_load(kb_layers[kb_current_active_layer].screen_obj);
+    }
+}
+
+void init_screen_home(void)
+{
+#if 0
+    #define HOME_SCR_ST kb_layers[HOME_SCREEN_LAYER]
+    HOME_SCR_ST.screen_obj = lv_scr_act();
+    if(HOME_SCR_ST.screen_obj != NULL)
+    {
+        lv_style_init(&HOME_SCR_ST.screen_style);
+        lv_style_set_bg_color(&HOME_SCR_ST.screen_style, lv_color_black());
+
+        lv_obj_add_style(HOME_SCR_ST.screen_obj, &HOME_SCR_ST.screen_style, 0);
+        //[TODO] will add flex feature later
+        use_flex_row(HOME_SCR_ST.screen_obj);
+
+        lv_obj_t *btn1 = lv_btn_create(HOME_SCR_ST.screen_obj);
+        lv_obj_set_size(btn1, 50, 25);
+        lv_obj_align(btn1, LV_ALIGN_DEFAULT, 100, 100);
+
+        lv_obj_t* label_btn1 = lv_label_create(btn1);
+        lv_label_set_text(label_btn1, "TEST");
+        lv_obj_center(label_btn1);
+    }
+#endif
+    #define HOME_SCR_ST kb_layers[NUMPAD_LAYER]
+    #define TC_SCR_ST   kb_layers[TOTAL_COMMANDER_LAYER]
+
+    for(uint16_t cnt = 0; cnt < LAYER_COUNT; cnt ++ )
+    {
+        /* set as active screen for the first layer */
+        if(cnt == 0 )
+        {
+            kb_layers[cnt].screen_obj = lv_scr_act();
+        }
+        else
+        {
+            kb_layers[cnt].screen_obj = lv_obj_create(NULL);
+        }
+        kb_layers[cnt].screen_init_fptr(kb_layers[cnt].screen_obj);
+    }
+}
+#if 0
 void create_screen_main(void) {
     lv_obj_t *obj = lv_obj_create(0);
     objects.main = obj;
@@ -44,7 +132,7 @@ void create_screen_main(void) {
             //lv_obj_set_pos(tab_view, 0, 0);
             //lv_obj_set_size(tab_view, 320, 170);
 
-            TAB_VIEW_OFFICE = lv_tabview_add_tab(tab_view, kb_layers[OFFICE_LAYER].tab_view_name);
+            TAB_VIEW_OFFICE = lv_tabview_add_tab(tab_view, kb_layers[HOME_SCREEN_LAYER].tab_view_name);
             TAB_VIEW_TOTAL_COMMANDER = lv_tabview_add_tab(tab_view, kb_layers[TOTAL_COMMANDER_LAYER].tab_view_name);
             TAB_VIEW_NUMPAD = lv_tabview_add_tab(tab_view, kb_layers[NUMPAD_LAYER].tab_view_name);
             TAB_VIEW_CPP = lv_tabview_add_tab(tab_view, kb_layers[CPP_LAYER].tab_view_name);
@@ -118,20 +206,11 @@ void create_screen_main(void) {
         }
     }
 }
-
+#endif
 
 
 
 void tick_screen_main(void) {
-}
-
-
-void create_screens(void) {
-    lv_disp_t *dispp = lv_disp_get_default();
-    lv_theme_t *theme = lv_theme_default_init(dispp, lv_palette_main(LV_PALETTE_GREEN), lv_palette_main(LV_PALETTE_RED), true, LV_FONT_DEFAULT);
-    lv_disp_set_theme(dispp, theme);
-
-    create_screen_main();
 }
 
 typedef void (*tick_screen_func_t)(void);

@@ -1,19 +1,13 @@
-// Copyright 2023 zzeneg (@zzeneg)
-// SPDX-License-Identifier: GPL-2.0-or-later
-
 #pragma once
-
+/**************************** QMK Config ******************************/
 
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U
-
-/* any side can be master by default, enable split sync to support it */
 
 /* SPI config for display */
 #define SPI_DRIVER SPID1
 #define SPI_SCK_PIN GP10
 #define SPI_MOSI_PIN GP11
-//#define SPI_MISO_PIN GP12
 
 /* LCD config */
 #define LCD_DC_PIN GP6
@@ -45,5 +39,13 @@
 #define ENCODER_MAIN_PUSH_BUTTON_PIN  GP22
 #define ENCODER_RIGHT_PUSH_BUTTON_PIN GP21
 
-#define TAPPING_TERM 240
+#define TAPPING_TERM 210
 #define TAPPING_TERM_PER_KEY
+
+/*********************** Keypad Config *********************************/
+#define ENABLE_NUMPAD_LAYER
+//#define ENABLE_HOME_SCREEN_LAYER
+#define ENABLE_TOTAL_COMMANDER_LAYER
+//#define ENABLE_CPP_LAYER
+//#define ENABLE_RESOURCE_LAYER
+/**********************************************************************/

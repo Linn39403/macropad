@@ -7,15 +7,20 @@ static lv_obj_t * lv_keypad_button_create(lv_obj_t* parent_screen, const char * 
     lv_obj_set_size(btn, btn_loc_st->btn_size_x, btn_loc_st->btn_size_y);
     lv_obj_align(btn, BUTTON_ALIGN_STYLE, btn_loc_st->btn_align_x, btn_loc_st->btn_align_y);
 
+    /* Keypad Button Color */
+    lv_obj_set_style_bg_color(btn, lv_color_hex(0x3498db), 0);
+
     lv_obj_t* label_btn = lv_label_create(btn);
     lv_label_set_text(label_btn, text);
     lv_obj_center(label_btn);
+
+    /* Keypad Text Color */
+    lv_obj_set_style_text_color(label_btn, lv_color_hex(0xffffff), 0);
     return btn;
 }
 
 void lv_keypad_screen_create(lv_obj_t *parent_screen)
 {
-
     struct lv_keypad_btn_location btn_loc_st;
     btn_loc_st.btn_size_x = NUM_PAD_BUTTON_SIZE_X;
     btn_loc_st.btn_size_y = NUM_PAD_BUTTON_SIZE_Y;
@@ -191,15 +196,13 @@ static inline void keypad_button_release(lv_obj_t * button)
 }
 
 /* to change the button pressed animation for the keypad screen */
-bool keypad_layer_function_key_pressed(uint16_t keycode)
+void keypad_layer_function_key_pressed(uint16_t keycode)
 {
     keypad_layer_lv_state_change(keycode, keypad_button_press);
-    return true;
 }
 
 /* to change the button released animation for the keypad screen */
-bool keypad_layer_function_key_released(uint16_t keycode)
+void keypad_layer_function_key_released(uint16_t keycode)
 {
     keypad_layer_lv_state_change(keycode, keypad_button_release);
-    return true;
 }

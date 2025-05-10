@@ -5,14 +5,12 @@ ENCODER_ENABLE = yes
 CONSOSLE_ENABLE = yes
 MOUSEKEY_ENABLE = yes
 RAW_ENABLE = yes
+CONSOLE_ENABLE = yes
 SRC += lvgl_helpers.c \
 	   display.c \
 	   office_keymap.c \
 	   cpp_keymap.c \
-	   lvgl/ui.c \
-	   lvgl/images.c \
 	   lvgl/screens.c \
-	   lvgl/styles.c \
 	   lvgl/keypad_screen.c \
 	   lvgl/resource_screen.c \
 	   lvgl/total_commander_screen.c \

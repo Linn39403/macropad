@@ -1,4 +1,4 @@
-// Copyright 2023 zzeneg (@zzeneg)
+// Copyright 2023 zzeneg (@zzeneg)screen_home
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "display.h"
@@ -15,8 +15,7 @@ lv_style_t style_container;
 lv_style_t style_button;
 lv_style_t style_button_active;
 
-/* screens */
-static lv_obj_t *screen_home;
+
 
 /* home screen content */
 painter_device_t display;
@@ -49,37 +48,13 @@ void init_styles(void) {
     lv_style_set_text_color(&style_button_active, lv_color_black());
 }
 
-void init_screen_home(void) {
-    screen_home = lv_scr_act();
-
-    lv_obj_add_style(screen_home, &style_screen, 0);
-    use_flex_column(screen_home);
-
-    //lv_obj_t *mods = lv_obj_create(screen_home);
-    //lv_obj_add_style(mods, &style_container, 0);
-    //use_flex_column(mods);
-
-    //lv_obj_t *mods_row2 = lv_obj_create(mods);
-    //lv_obj_add_style(mods_row2, &style_container, 0);
-    //use_flex_row(mods_row2);
-    //label_ctrl  = create_button(mods_row2, "CTL", &style_button, &style_button_active);
-    //label_shift = create_button(mods_row2, "SFT", &style_button, &style_button_active);
-
-    lv_obj_t *label_locked = lv_label_create(screen_home);
-    lv_label_set_text(label_locked, "LOCKED");
-
-    static lv_style_t style_locked_text;
-    lv_style_init(&style_locked_text);
-    lv_style_set_text_color(&style_locked_text, lv_color_hex(0xff0000));
-    lv_obj_add_style(label_locked, &style_locked_text, 0);
-    lv_obj_align(label_locked, LV_ALIGN_CENTER, 0, 0);
-
-#if LV_FONT_MONTSERRAT_48
-    lv_obj_set_style_text_font(label_locked, &lv_font_montserrat_48, LV_PART_MAIN);
-#endif
-
+void init_screen_home(void);
+bool display_init_user(void)
+{
+    init_screen_home();
+    return false;
 }
-#include "lvgl/ui.h"
+
 void keyboard_post_init_kb(void)
 {
     display = qp_st7789_make_spi_device(170, 320, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, 4, 3);
@@ -92,16 +67,18 @@ void keyboard_post_init_kb(void)
     lv_disp_t  *lv_display = lv_disp_get_default();
     lv_theme_t *lv_theme   = lv_theme_default_init(lv_display, lv_palette_main(LV_PALETTE_AMBER), lv_palette_main(LV_PALETTE_BLUE), true, LV_FONT_DEFAULT);
     lv_disp_set_theme(lv_display, lv_theme);
-    init_styles();
-    ui_init();
+    //init_styles();
+    display_init_user();
 }
 
+#if 0
 __attribute__((weak)) bool display_init_user(void) {
     return true;
 }
+#endif
 
 void display_housekeeping_task(void) {
-    qp_flush(display);
+    //qp_flush(display);
 }
 
 __attribute__((weak)) void display_process_caps(bool active) {

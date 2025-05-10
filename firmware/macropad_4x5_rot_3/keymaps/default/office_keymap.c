@@ -1,5 +1,8 @@
 #include "keymap.h"
 #include QMK_KEYBOARD_H
+#include "config.h"
+
+#ifdef ENABLE_HOME_SCREEN_LAYER
 
 static uint16_t last_reset_key_a_press_time = 0;
 static uint16_t last_reset_key_b_press_time = 0;
@@ -82,3 +85,5 @@ bool officelayer_function_key_released(uint16_t keycode)
             return false;
     }
 }
+
+#endif

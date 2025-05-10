@@ -1,11 +1,7 @@
 #include <string.h>
 #include "screens.h"
-#include "images.h"
 #include "fonts.h"
 #include "actions.h"
-#include "vars.h"
-#include "styles.h"
-#include "ui.h"
 #include <string.h>
 #include "keymap.h"
 #include QMK_KEYBOARD_H
@@ -37,10 +33,10 @@ KEYPAD_SCREEN_EXTERN lv_obj_t* btn_dot;
 #ifdef __KEYPAD_SCREEN_C
     #define NUM_PAD_BUTTON_SIZE_X 50
     #define NUM_PAD_BUTTON_SIZE_Y 25
-    #define NUM_PAD_BUTTON_SPACE_X 6
-    #define NUM_PAD_BUTTON_SPACE_Y 6
+    #define NUM_PAD_BUTTON_SPACE_X 5
+    #define NUM_PAD_BUTTON_SPACE_Y 5
     #define NUM_PAD_X_OFFSET_FROM_LEFT 10
-    #define NUM_PAD_Y_OFFSET_FROM_TOP 0
+    #define NUM_PAD_Y_OFFSET_FROM_TOP 10
     #define BUTTON_ALIGN_STYLE LV_ALIGN_DEFAULT
 
     struct lv_keypad_btn_location

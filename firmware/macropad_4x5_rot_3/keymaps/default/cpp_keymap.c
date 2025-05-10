@@ -1,5 +1,8 @@
 #include "keymap.h"
 #include QMK_KEYBOARD_H
+#include "config.h"
+
+#ifdef ENABLE_CPP_LAYER
 
 bool cpplayer_function_key_pressed(uint16_t keycode) {
     switch (keycode) {
@@ -62,3 +65,5 @@ bool cpplayer_function_key_released(uint16_t keycode)
             return false;
     }
 }
+
+#endif

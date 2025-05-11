@@ -1,9 +1,7 @@
 #include <string.h>
-#include "screens.h"
-#include "fonts.h"
-#include "actions.h"
 #include <string.h>
 #include "keymap.h"
+#include "GUI_include.h"
 #include QMK_KEYBOARD_H
 
 enum TC_BUTTONS_ENUM
@@ -32,22 +30,21 @@ enum TC_BUTTONS_ENUM
 };
 #ifdef __TOTAL_COMMANDER_SCREEN_C
 
-struct lv_tc_btn_st
+struct TC_stBtnInfo
 {
-    lv_obj_t * btn;
-    const char * btn_name;
+    lv_obj_t * m_spBtn;
+    const char * m_cpBtnName;
 };
 
-//TOTAL_COMMANDER_SCREEN_EXTERN lv_obj_t * btn_tc_array[TC_BUTTON_COUNT];
-static struct lv_tc_btn_st btn_tc_array[TC_BUTTON_COUNT] =
+static struct TC_stBtnInfo TC_staBtnInfo [TC_BUTTON_COUNT] =
 {
     {NULL, "RNme"},
     {NULL, "Prop"},
-    {NULL, "NTxt"},
+    {NULL, "NewTxt"},
     {NULL, "Root"},
-    {NULL, "NTab"},
-    {NULL, "CTab"},
-    {NULL, "CHng"},
+    {NULL, "NewTab"},
+    {NULL, "ClTab"},
+    {NULL, "CHngTb"},
     {NULL, "Swch"},
     {NULL, "SName"},
     {NULL, "SExt"},
@@ -64,7 +61,7 @@ static struct lv_tc_btn_st btn_tc_array[TC_BUTTON_COUNT] =
 };
 
 
-#define TC_BUTTON_SIZE_X 50
+#define TC_BUTTON_SIZE_X 60
 #define TC_BUTTON_SIZE_Y 25
 #define TC_BUTTON_SPACE_X 5
 #define TC_BUTTON_SPACE_Y 5
@@ -72,15 +69,8 @@ static struct lv_tc_btn_st btn_tc_array[TC_BUTTON_COUNT] =
 #define TC_Y_OFFSET_FROM_TOP 10
 #define TC_BUTTON_ALIGN_STYLE LV_ALIGN_DEFAULT
 
-struct lv_tc_btn_location
-{
-    int32_t btn_size_x;
-    int32_t btn_size_y;
-    int32_t btn_align_x;
-    int32_t btn_align_y;
-};
 
-typedef void (*lv_obj_state_fptr)(lv_obj_t *);
+typedef void (*TTCMD_tpfnvGuiStateFunc)(lv_obj_t *);
 #endif
 
-void lv_tc_screen_create(lv_obj_t *parent_screen);
+void TTCMD_vScreenCreate(lv_obj_t *);

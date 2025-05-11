@@ -1,98 +1,72 @@
 #include <string.h>
-#include "screens.h"
-#include "fonts.h"
-#include "actions.h"
-#include <string.h>
 #include "keymap.h"
 #include "resource_screen.h"
 #include "keypad_screen.h"
 #include "total_commander_screen.h"
-#include "lvgl_helpers.h"
 #include "config.h"
 
-// /objects_t objects;
-lv_obj_t *tab_view;
-static uint16_t kb_current_active_layer = 0;
+lv_obj_t *tab_view; //unused
+static uint8_t u8SCREEN__CurrentActiveLayer = 0;
 struct kb_layer_type kb_layers[LAYER_COUNT] =
 {
 #ifdef ENABLE_RESOURCE_LAYER
     {
-     .screen_obj = NULL,
-     .screen_layer_id = HOME_SCREEN_LAYER},
+     .m_spScreenObj = NULL,
+     .m_u8ScreenLayerId = HOME_SCREEN_LAYER},
 #endif
 #ifdef ENABLE_TOTAL_COMMANDER_LAYER
     {
-     .screen_obj = NULL,
-     .screen_init_fptr = &lv_tc_screen_create,
-     .screen_layer_id = TOTAL_COMMANDER_LAYER},
+     .m_spScreenObj = NULL,
+     .m_pfnScreenInit = &TTCMD_vScreenCreate,
+     .m_u8ScreenLayerId = TOTAL_COMMANDER_LAYER},
 #endif
 #ifdef ENABLE_NUMPAD_LAYER
     {
-     .screen_obj = NULL,
-     .screen_init_fptr = &lv_keypad_screen_create,
-     .screen_layer_id = NUMPAD_LAYER},
+     .m_spScreenObj = NULL,
+     .m_pfnScreenInit = &KPAD_vScreenCreate,
+     .m_u8ScreenLayerId = NUMPAD_LAYER},
 #endif
 #ifdef ENABLE_CPP_LAYER
     {
-     .screen_obj = NULL,
-     .screen_layer_id = CPP_LAYER},
+     .m_spScreenObj = NULL,
+     .m_u8ScreenLayerId = CPP_LAYER},
 #endif
 #ifdef ENABLE_RESOURCE_LAYER
     {
-     .screen_obj = NULL,
-     .screen_layer_id = RESOURCE_LAYER},
+     .m_spScreenObj = NULL,
+     .m_u8ScreenLayerId = RESOURCE_LAYER},
 #endif
 };
 
-#ifdef ENABLE_RESOURCE_LAYER
-#define TAB_VIEW_OFFICE           kb_layers[HOME_SCREEN_LAYER].tab_view_obj
-#endif
-
-#ifdef ENABLE_TOTAL_COMMANDER_LAYER
-#define TAB_VIEW_TOTAL_COMMANDER  kb_layers[TOTAL_COMMANDER_LAYER].tab_view_obj
-#endif
-
-#ifdef ENABLE_NUMPAD_LAYER
-#define TAB_VIEW_NUMPAD           kb_layers[NUMPAD_LAYER].tab_view_obj
-#endif
-
-#ifdef ENABLE_CPP_LAYER
-#define TAB_VIEW_CPP              kb_layers[CPP_LAYER].tab_view_obj
-#endif
-
-#ifdef ENABLE_RESOURCE_LAYER
-#define TAB_VIEW_RESOURCE         kb_layers[RESOURCE_LAYER].tab_view_obj
-#endif
-
-uint16_t get_active_kb_layer(void)
+uint8_t SCREEN_u8GetActiveLayer(void)
 {
-    return kb_layers[kb_current_active_layer].screen_layer_id;
+    return kb_layers[u8SCREEN__CurrentActiveLayer].m_u8ScreenLayerId;
 }
 
-void set_kb_layer(uint16_t kb_layer_index)
+void SCREEN_vChangeLayer(uint8_t u8Layer)
 {
-    if(kb_layer_index < LAYER_COUNT)
+    if(u8Layer < LAYER_COUNT)
     {
-        kb_current_active_layer = kb_layer_index;
-        lv_scr_load(kb_layers[kb_current_active_layer].screen_obj);
+        u8SCREEN__CurrentActiveLayer = u8Layer;
+        lv_scr_load(kb_layers[u8SCREEN__CurrentActiveLayer].m_spScreenObj);
     }
 }
 
-void init_screen_home(void)
+void SCREEN_vInit(void)
 {
 #if 0
     #define HOME_SCR_ST kb_layers[HOME_SCREEN_LAYER]
-    HOME_SCR_ST.screen_obj = lv_scr_act();
-    if(HOME_SCR_ST.screen_obj != NULL)
+    HOME_SCR_ST.m_spScreenObj = lv_scr_act();
+    if(HOME_SCR_ST.m_spScreenObj != NULL)
     {
         lv_style_init(&HOME_SCR_ST.screen_style);
         lv_style_set_bg_color(&HOME_SCR_ST.screen_style, lv_color_black());
 
-        lv_obj_add_style(HOME_SCR_ST.screen_obj, &HOME_SCR_ST.screen_style, 0);
+        lv_obj_add_style(HOME_SCR_ST.m_spScreenObj, &HOME_SCR_ST.screen_style, 0);
         //[TODO] will add flex feature later
-        use_flex_row(HOME_SCR_ST.screen_obj);
+        use_flex_row(HOME_SCR_ST.m_spScreenObj);
 
-        lv_obj_t *btn1 = lv_btn_create(HOME_SCR_ST.screen_obj);
+        lv_obj_t *btn1 = lv_btn_create(HOME_SCR_ST.m_spScreenObj);
         lv_obj_set_size(btn1, 50, 25);
         lv_obj_align(btn1, LV_ALIGN_DEFAULT, 100, 100);
 
@@ -104,18 +78,18 @@ void init_screen_home(void)
     #define HOME_SCR_ST kb_layers[NUMPAD_LAYER]
     #define TC_SCR_ST   kb_layers[TOTAL_COMMANDER_LAYER]
 
-    for(uint16_t cnt = 0; cnt < LAYER_COUNT; cnt ++ )
+    for(uint8_t u8Layer = 0; u8Layer < LAYER_COUNT; u8Layer ++ )
     {
         /* set as active screen for the first layer */
-        if(cnt == 0 )
+        if(u8Layer == 0 )
         {
-            kb_layers[cnt].screen_obj = lv_scr_act();
+            kb_layers[u8Layer].m_spScreenObj = lv_scr_act();
         }
         else
         {
-            kb_layers[cnt].screen_obj = lv_obj_create(NULL);
+            kb_layers[u8Layer].m_spScreenObj = lv_obj_create(NULL);
         }
-        kb_layers[cnt].screen_init_fptr(kb_layers[cnt].screen_obj);
+        kb_layers[u8Layer].m_pfnScreenInit(kb_layers[u8Layer].m_spScreenObj);
     }
 }
 #if 0

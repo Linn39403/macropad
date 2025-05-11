@@ -1,11 +1,11 @@
 #define __KEYPAD_SCREEN_C
 #include "keypad_screen.h"
 
-static lv_obj_t * lv_keypad_button_create(lv_obj_t* parent_screen, const char * text, struct lv_keypad_btn_location * btn_loc_st )
+static lv_obj_t * KPAD__spButtonCreate(lv_obj_t* spParentScreen, const char * text, GUI_tsBtnLocation * stBtnLoc )
 {
-    lv_obj_t *btn = lv_btn_create(parent_screen);
-    lv_obj_set_size(btn, btn_loc_st->btn_size_x, btn_loc_st->btn_size_y);
-    lv_obj_align(btn, BUTTON_ALIGN_STYLE, btn_loc_st->btn_align_x, btn_loc_st->btn_align_y);
+    lv_obj_t *btn = lv_btn_create(spParentScreen);
+    lv_obj_set_size(btn, stBtnLoc->m_u8BtnSizeX, stBtnLoc->m_u8BtnSizeY);
+    lv_obj_align(btn, BUTTON_ALIGN_STYLE, stBtnLoc->m_u8BtnLocX, stBtnLoc->m_u8BtnLocY);
 
     /* Keypad Button Color */
     lv_obj_set_style_bg_color(btn, lv_color_hex(0x3498db), 0);
@@ -19,190 +19,190 @@ static lv_obj_t * lv_keypad_button_create(lv_obj_t* parent_screen, const char * 
     return btn;
 }
 
-void lv_keypad_screen_create(lv_obj_t *parent_screen)
+void KPAD_vScreenCreate(lv_obj_t *spParentScreen)
 {
-    struct lv_keypad_btn_location btn_loc_st;
-    btn_loc_st.btn_size_x = NUM_PAD_BUTTON_SIZE_X;
-    btn_loc_st.btn_size_y = NUM_PAD_BUTTON_SIZE_Y;
+    GUI_tsBtnLocation stBtnLoc;
+    stBtnLoc.m_u8BtnSizeX = NUM_PAD_BUTTON_SIZE_X;
+    stBtnLoc.m_u8BtnSizeY = NUM_PAD_BUTTON_SIZE_Y;
     /*************** FIRST ROW *******************/
     //BackSpace Button
-    btn_loc_st.btn_align_x = NUM_PAD_X_OFFSET_FROM_LEFT;
-    btn_loc_st.btn_align_y = NUM_PAD_Y_OFFSET_FROM_TOP;
-    btn_bks = lv_keypad_button_create(parent_screen, LV_SYMBOL_BACKSPACE, &btn_loc_st);
+    stBtnLoc.m_u8BtnLocX = NUM_PAD_X_OFFSET_FROM_LEFT;
+    stBtnLoc.m_u8BtnLocY = NUM_PAD_Y_OFFSET_FROM_TOP;
+    btn_bks = KPAD__spButtonCreate(spParentScreen, LV_SYMBOL_BACKSPACE, &stBtnLoc);
 
     //Divide Button
-    btn_loc_st.btn_align_x = (NUM_PAD_X_OFFSET_FROM_LEFT + NUM_PAD_BUTTON_SPACE_X + NUM_PAD_BUTTON_SIZE_X);
-    btn_loc_st.btn_align_y = (NUM_PAD_Y_OFFSET_FROM_TOP);
-    btn_div = lv_keypad_button_create(parent_screen, "/", &btn_loc_st);
+    stBtnLoc.m_u8BtnLocX = (NUM_PAD_X_OFFSET_FROM_LEFT + NUM_PAD_BUTTON_SPACE_X + NUM_PAD_BUTTON_SIZE_X);
+    stBtnLoc.m_u8BtnLocY = (NUM_PAD_Y_OFFSET_FROM_TOP);
+    btn_div = KPAD__spButtonCreate(spParentScreen, "/", &stBtnLoc);
 
     //Multiply Button
-    btn_loc_st.btn_align_x = (NUM_PAD_X_OFFSET_FROM_LEFT + NUM_PAD_BUTTON_SPACE_X * 2 + NUM_PAD_BUTTON_SIZE_X * 2);
-    btn_loc_st.btn_align_y = (NUM_PAD_Y_OFFSET_FROM_TOP);
-    btn_mul = lv_keypad_button_create(parent_screen, "*", &btn_loc_st);
+    stBtnLoc.m_u8BtnLocX = (NUM_PAD_X_OFFSET_FROM_LEFT + NUM_PAD_BUTTON_SPACE_X * 2 + NUM_PAD_BUTTON_SIZE_X * 2);
+    stBtnLoc.m_u8BtnLocY = (NUM_PAD_Y_OFFSET_FROM_TOP);
+    btn_mul = KPAD__spButtonCreate(spParentScreen, "*", &stBtnLoc);
 
     //Minus Button
-    btn_loc_st.btn_align_x = (NUM_PAD_X_OFFSET_FROM_LEFT + NUM_PAD_BUTTON_SPACE_X * 3 + NUM_PAD_BUTTON_SIZE_X * 3);
-    btn_loc_st.btn_align_y = (NUM_PAD_Y_OFFSET_FROM_TOP);
-    btn_min = lv_keypad_button_create(parent_screen, "-", &btn_loc_st);
+    stBtnLoc.m_u8BtnLocX = (NUM_PAD_X_OFFSET_FROM_LEFT + NUM_PAD_BUTTON_SPACE_X * 3 + NUM_PAD_BUTTON_SIZE_X * 3);
+    stBtnLoc.m_u8BtnLocY = (NUM_PAD_Y_OFFSET_FROM_TOP);
+    btn_min = KPAD__spButtonCreate(spParentScreen, "-", &stBtnLoc);
 
     /*************** SECOND ROW *******************/
     //7 Button
-    btn_loc_st.btn_align_x = (NUM_PAD_X_OFFSET_FROM_LEFT);
-    btn_loc_st.btn_align_y = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y + NUM_PAD_BUTTON_SIZE_Y);
-    btn_7 = lv_keypad_button_create(parent_screen, "7  A", &btn_loc_st);
+    stBtnLoc.m_u8BtnLocX = (NUM_PAD_X_OFFSET_FROM_LEFT);
+    stBtnLoc.m_u8BtnLocY = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y + NUM_PAD_BUTTON_SIZE_Y);
+    btn_7 = KPAD__spButtonCreate(spParentScreen, "7  A", &stBtnLoc);
 
     //8 Button
-    btn_loc_st.btn_align_x = (NUM_PAD_X_OFFSET_FROM_LEFT + NUM_PAD_BUTTON_SPACE_X + NUM_PAD_BUTTON_SIZE_X);
-    btn_loc_st.btn_align_y = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y + NUM_PAD_BUTTON_SIZE_Y);
-    btn_8 = lv_keypad_button_create(parent_screen, "8  B", &btn_loc_st);
+    stBtnLoc.m_u8BtnLocX = (NUM_PAD_X_OFFSET_FROM_LEFT + NUM_PAD_BUTTON_SPACE_X + NUM_PAD_BUTTON_SIZE_X);
+    stBtnLoc.m_u8BtnLocY = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y + NUM_PAD_BUTTON_SIZE_Y);
+    btn_8 = KPAD__spButtonCreate(spParentScreen, "8  B", &stBtnLoc);
 
     //9 Button
-    btn_loc_st.btn_align_x = (NUM_PAD_X_OFFSET_FROM_LEFT + NUM_PAD_BUTTON_SPACE_X * 2 + NUM_PAD_BUTTON_SIZE_X * 2);
-    btn_loc_st.btn_align_y = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y + NUM_PAD_BUTTON_SIZE_Y);
-    btn_9 = lv_keypad_button_create(parent_screen, "9  C", &btn_loc_st);
+    stBtnLoc.m_u8BtnLocX = (NUM_PAD_X_OFFSET_FROM_LEFT + NUM_PAD_BUTTON_SPACE_X * 2 + NUM_PAD_BUTTON_SIZE_X * 2);
+    stBtnLoc.m_u8BtnLocY = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y + NUM_PAD_BUTTON_SIZE_Y);
+    btn_9 = KPAD__spButtonCreate(spParentScreen, "9  C", &stBtnLoc);
 
     //+ Button
-    btn_loc_st.btn_size_x = NUM_PAD_BUTTON_SIZE_X;
-    btn_loc_st.btn_size_y = NUM_PAD_BUTTON_SIZE_Y * 2 + NUM_PAD_BUTTON_SPACE_Y;
-    btn_loc_st.btn_align_x = (NUM_PAD_X_OFFSET_FROM_LEFT + NUM_PAD_BUTTON_SPACE_X * 3 + NUM_PAD_BUTTON_SIZE_X * 3);
-    btn_loc_st.btn_align_y = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y + NUM_PAD_BUTTON_SIZE_Y);
-    btn_plus = lv_keypad_button_create(parent_screen, "+", &btn_loc_st);
+    stBtnLoc.m_u8BtnSizeX = NUM_PAD_BUTTON_SIZE_X;
+    stBtnLoc.m_u8BtnSizeY = NUM_PAD_BUTTON_SIZE_Y * 2 + NUM_PAD_BUTTON_SPACE_Y;
+    stBtnLoc.m_u8BtnLocX = (NUM_PAD_X_OFFSET_FROM_LEFT + NUM_PAD_BUTTON_SPACE_X * 3 + NUM_PAD_BUTTON_SIZE_X * 3);
+    stBtnLoc.m_u8BtnLocY = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y + NUM_PAD_BUTTON_SIZE_Y);
+    btn_plus = KPAD__spButtonCreate(spParentScreen, "+", &stBtnLoc);
 
     /*************** THRID ROW *******************/
     //4 Button
-    btn_loc_st.btn_size_x = NUM_PAD_BUTTON_SIZE_X;
-    btn_loc_st.btn_size_y = NUM_PAD_BUTTON_SIZE_Y;
-    btn_loc_st.btn_align_x = (NUM_PAD_X_OFFSET_FROM_LEFT);
-    btn_loc_st.btn_align_y = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y * 2 + NUM_PAD_BUTTON_SIZE_Y * 2);
-    btn_4 = lv_keypad_button_create(parent_screen, "4  D", &btn_loc_st);
+    stBtnLoc.m_u8BtnSizeX = NUM_PAD_BUTTON_SIZE_X;
+    stBtnLoc.m_u8BtnSizeY = NUM_PAD_BUTTON_SIZE_Y;
+    stBtnLoc.m_u8BtnLocX = (NUM_PAD_X_OFFSET_FROM_LEFT);
+    stBtnLoc.m_u8BtnLocY = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y * 2 + NUM_PAD_BUTTON_SIZE_Y * 2);
+    btn_4 = KPAD__spButtonCreate(spParentScreen, "4  D", &stBtnLoc);
 
     //5 Button
-    btn_loc_st.btn_align_x = (NUM_PAD_X_OFFSET_FROM_LEFT + NUM_PAD_BUTTON_SPACE_X + NUM_PAD_BUTTON_SIZE_X);
-    btn_loc_st.btn_align_y = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y * 2 + NUM_PAD_BUTTON_SIZE_Y * 2);
-    btn_5 = lv_keypad_button_create(parent_screen, "5  E", &btn_loc_st);
+    stBtnLoc.m_u8BtnLocX = (NUM_PAD_X_OFFSET_FROM_LEFT + NUM_PAD_BUTTON_SPACE_X + NUM_PAD_BUTTON_SIZE_X);
+    stBtnLoc.m_u8BtnLocY = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y * 2 + NUM_PAD_BUTTON_SIZE_Y * 2);
+    btn_5 = KPAD__spButtonCreate(spParentScreen, "5  E", &stBtnLoc);
 
     //6 Button
-    btn_loc_st.btn_align_x = (NUM_PAD_X_OFFSET_FROM_LEFT + NUM_PAD_BUTTON_SPACE_X * 2 + NUM_PAD_BUTTON_SIZE_X * 2);
-    btn_loc_st.btn_align_y = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y * 2 + NUM_PAD_BUTTON_SIZE_Y * 2);
-    btn_6 = lv_keypad_button_create(parent_screen, "6  F", &btn_loc_st);
+    stBtnLoc.m_u8BtnLocX = (NUM_PAD_X_OFFSET_FROM_LEFT + NUM_PAD_BUTTON_SPACE_X * 2 + NUM_PAD_BUTTON_SIZE_X * 2);
+    stBtnLoc.m_u8BtnLocY = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y * 2 + NUM_PAD_BUTTON_SIZE_Y * 2);
+    btn_6 = KPAD__spButtonCreate(spParentScreen, "6  F", &stBtnLoc);
 
     /*************** FOURTH ROW *******************/
     //1 Button
-    btn_loc_st.btn_align_x = (NUM_PAD_X_OFFSET_FROM_LEFT);
-    btn_loc_st.btn_align_y = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y * 3 + NUM_PAD_BUTTON_SIZE_Y * 3);
-    btn_1 = lv_keypad_button_create(parent_screen, "1", &btn_loc_st);
+    stBtnLoc.m_u8BtnLocX = (NUM_PAD_X_OFFSET_FROM_LEFT);
+    stBtnLoc.m_u8BtnLocY = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y * 3 + NUM_PAD_BUTTON_SIZE_Y * 3);
+    btn_1 = KPAD__spButtonCreate(spParentScreen, "1", &stBtnLoc);
 
     //2 Button
-    btn_loc_st.btn_align_x = (NUM_PAD_X_OFFSET_FROM_LEFT + NUM_PAD_BUTTON_SPACE_X + NUM_PAD_BUTTON_SIZE_X);
-    btn_loc_st.btn_align_y = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y * 3 + NUM_PAD_BUTTON_SIZE_Y * 3);
-    btn_2 = lv_keypad_button_create(parent_screen, "2", &btn_loc_st);
+    stBtnLoc.m_u8BtnLocX = (NUM_PAD_X_OFFSET_FROM_LEFT + NUM_PAD_BUTTON_SPACE_X + NUM_PAD_BUTTON_SIZE_X);
+    stBtnLoc.m_u8BtnLocY = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y * 3 + NUM_PAD_BUTTON_SIZE_Y * 3);
+    btn_2 = KPAD__spButtonCreate(spParentScreen, "2", &stBtnLoc);
 
     //3 Button
-    btn_loc_st.btn_align_x = (NUM_PAD_X_OFFSET_FROM_LEFT + NUM_PAD_BUTTON_SPACE_X * 2 + NUM_PAD_BUTTON_SIZE_X * 2);
-    btn_loc_st.btn_align_y = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y * 3 + NUM_PAD_BUTTON_SIZE_Y * 3);
-    btn_3 = lv_keypad_button_create(parent_screen, "3", &btn_loc_st);
+    stBtnLoc.m_u8BtnLocX = (NUM_PAD_X_OFFSET_FROM_LEFT + NUM_PAD_BUTTON_SPACE_X * 2 + NUM_PAD_BUTTON_SIZE_X * 2);
+    stBtnLoc.m_u8BtnLocY = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y * 3 + NUM_PAD_BUTTON_SIZE_Y * 3);
+    btn_3 = KPAD__spButtonCreate(spParentScreen, "3", &stBtnLoc);
 
     //Enter Button
-    btn_loc_st.btn_size_x = NUM_PAD_BUTTON_SIZE_X;
-    btn_loc_st.btn_size_y = NUM_PAD_BUTTON_SIZE_Y * 2 + NUM_PAD_BUTTON_SPACE_Y;
-    btn_loc_st.btn_align_x = (NUM_PAD_X_OFFSET_FROM_LEFT + NUM_PAD_BUTTON_SPACE_X * 3 + NUM_PAD_BUTTON_SIZE_X * 3);
-    btn_loc_st.btn_align_y = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y * 3 + NUM_PAD_BUTTON_SIZE_Y * 3);
-    btn_ent = lv_keypad_button_create(parent_screen, LV_SYMBOL_NEW_LINE, &btn_loc_st);
+    stBtnLoc.m_u8BtnSizeX = NUM_PAD_BUTTON_SIZE_X;
+    stBtnLoc.m_u8BtnSizeY = NUM_PAD_BUTTON_SIZE_Y * 2 + NUM_PAD_BUTTON_SPACE_Y;
+    stBtnLoc.m_u8BtnLocX = (NUM_PAD_X_OFFSET_FROM_LEFT + NUM_PAD_BUTTON_SPACE_X * 3 + NUM_PAD_BUTTON_SIZE_X * 3);
+    stBtnLoc.m_u8BtnLocY = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y * 3 + NUM_PAD_BUTTON_SIZE_Y * 3);
+    btn_ent = KPAD__spButtonCreate(spParentScreen, LV_SYMBOL_NEW_LINE, &stBtnLoc);
 
     /*************** FIFTH ROW *******************/
     //ZERO Button
-    btn_loc_st.btn_size_x = NUM_PAD_BUTTON_SIZE_X * 2 + NUM_PAD_BUTTON_SPACE_X;
-    btn_loc_st.btn_size_y = NUM_PAD_BUTTON_SIZE_Y;
-    btn_loc_st.btn_align_x = (NUM_PAD_X_OFFSET_FROM_LEFT);
-    btn_loc_st.btn_align_y = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y * 4 + NUM_PAD_BUTTON_SIZE_Y * 4);
-    btn_0 = lv_keypad_button_create(parent_screen, "0", &btn_loc_st);
+    stBtnLoc.m_u8BtnSizeX = NUM_PAD_BUTTON_SIZE_X * 2 + NUM_PAD_BUTTON_SPACE_X;
+    stBtnLoc.m_u8BtnSizeY = NUM_PAD_BUTTON_SIZE_Y;
+    stBtnLoc.m_u8BtnLocX = (NUM_PAD_X_OFFSET_FROM_LEFT);
+    stBtnLoc.m_u8BtnLocY = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y * 4 + NUM_PAD_BUTTON_SIZE_Y * 4);
+    btn_0 = KPAD__spButtonCreate(spParentScreen, "0", &stBtnLoc);
 
     //dot Button
-    btn_loc_st.btn_size_x = NUM_PAD_BUTTON_SIZE_X;
-    btn_loc_st.btn_size_y = NUM_PAD_BUTTON_SIZE_Y;
-    btn_loc_st.btn_align_x = (NUM_PAD_X_OFFSET_FROM_LEFT + NUM_PAD_BUTTON_SPACE_X * 2+ NUM_PAD_BUTTON_SIZE_X * 2);
-    btn_loc_st.btn_align_y = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y * 4 + NUM_PAD_BUTTON_SIZE_Y * 4);
-    btn_dot = lv_keypad_button_create(parent_screen, ".", &btn_loc_st);
+    stBtnLoc.m_u8BtnSizeX = NUM_PAD_BUTTON_SIZE_X;
+    stBtnLoc.m_u8BtnSizeY = NUM_PAD_BUTTON_SIZE_Y;
+    stBtnLoc.m_u8BtnLocX = (NUM_PAD_X_OFFSET_FROM_LEFT + NUM_PAD_BUTTON_SPACE_X * 2+ NUM_PAD_BUTTON_SIZE_X * 2);
+    stBtnLoc.m_u8BtnLocY = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y * 4 + NUM_PAD_BUTTON_SIZE_Y * 4);
+    btn_dot = KPAD__spButtonCreate(spParentScreen, ".", &stBtnLoc);
 }
 
-static void keypad_layer_lv_state_change(uint16_t keycode, lv_obj_state_fptr state_callback)
+static void KPAD__vLayerGUIStateChange(uint16_t u16KeyCode, lv_obj_state_fptr pfnStateCb)
 {
-    switch(keycode)
+    switch(u16KeyCode)
     {
         case KC_BACKSPACE:
-            state_callback(btn_bks);
+            pfnStateCb(btn_bks);
         break;
         case KC_KP_SLASH:
-            state_callback(btn_div);
+            pfnStateCb(btn_div);
         break;
         case KC_KP_ASTERISK:
-            state_callback(btn_mul);
+            pfnStateCb(btn_mul);
         break;
         case KC_KP_MINUS:
-            state_callback(btn_min);
+            pfnStateCb(btn_min);
         break;
         case TD(NUM_KEY_7_AND_A):
-            state_callback(btn_7);
+            pfnStateCb(btn_7);
         break;
         case TD(NUM_KEY_8_AND_B):
-            state_callback(btn_8);
+            pfnStateCb(btn_8);
         break;
         case TD(NUM_KEY_9_AND_C):
-            state_callback(btn_9);
+            pfnStateCb(btn_9);
         break;
         case KC_KP_PLUS:
-            state_callback(btn_plus);
+            pfnStateCb(btn_plus);
         break;
         case TD(NUM_KEY_4_AND_D):
-            state_callback(btn_4);
+            pfnStateCb(btn_4);
         break;
         case TD(NUM_KEY_5_AND_E):
-            state_callback(btn_5);
+            pfnStateCb(btn_5);
         break;
         case TD(NUM_KEY_6_AND_F):
-            state_callback(btn_6);
+            pfnStateCb(btn_6);
         break;
         case KC_KP_1:
-            state_callback(btn_1);
+            pfnStateCb(btn_1);
         break;
         case KC_KP_2:
-            state_callback(btn_2);
+            pfnStateCb(btn_2);
         break;
         case KC_KP_3:
-            state_callback(btn_3);
+            pfnStateCb(btn_3);
         break;
         case KC_KP_ENTER:
-            state_callback(btn_ent);
+            pfnStateCb(btn_ent);
         break;
         case KC_KP_0:
-            state_callback(btn_0);
+            pfnStateCb(btn_0);
         break;
         case KC_KP_DOT:
-            state_callback(btn_dot);
+            pfnStateCb(btn_dot);
         break;
         default:
         break;
     }
 }
 
-static inline void keypad_button_press(lv_obj_t * button)
+static inline void KPAD__vButtonPress(lv_obj_t * spButton)
 {
-    lv_obj_add_state(button, LV_STATE_PRESSED);
+    lv_obj_add_state(spButton, LV_STATE_PRESSED);
 }
 
-static inline void keypad_button_release(lv_obj_t * button)
+static inline void KPAD__vButtonRelease(lv_obj_t * spButton)
 {
-    lv_obj_clear_state(button, LV_STATE_PRESSED);
+    lv_obj_clear_state(spButton, LV_STATE_PRESSED);
 }
 
 /* to change the button pressed animation for the keypad screen */
-void keypad_layer_function_key_pressed(uint16_t keycode)
+void KPAD_vKeyPressedCallBackFunction(uint16_t u16KeyCode)
 {
-    keypad_layer_lv_state_change(keycode, keypad_button_press);
+    KPAD__vLayerGUIStateChange(u16KeyCode, KPAD__vButtonPress);
 }
 
 /* to change the button released animation for the keypad screen */
-void keypad_layer_function_key_released(uint16_t keycode)
+void KPAD_vKeyReleasedCallBackFunction(uint16_t u16KeyCode)
 {
-    keypad_layer_lv_state_change(keycode, keypad_button_release);
+    KPAD__vLayerGUIStateChange(u16KeyCode, KPAD__vButtonRelease);
 }

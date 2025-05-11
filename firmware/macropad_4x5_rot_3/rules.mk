@@ -6,8 +6,7 @@ CONSOSLE_ENABLE = yes
 MOUSEKEY_ENABLE = yes
 RAW_ENABLE = yes
 CONSOLE_ENABLE = yes
-SRC += lvgl_helpers.c \
-	   display.c \
+SRC += display.c \
 	   office_keymap.c \
 	   cpp_keymap.c \
 	   lvgl/screens.c \

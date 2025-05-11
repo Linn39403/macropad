@@ -4,12 +4,6 @@
 
 #ifdef ENABLE_HOME_SCREEN_LAYER
 
-static uint16_t last_reset_key_a_press_time = 0;
-static uint16_t last_reset_key_b_press_time = 0;
-bool reset_key_a_pressed = false;
-bool reset_key_b_pressed = false;
-extern painter_device_t display;
-
 /* return true for the tap dance keys, otherwise return false */
 bool officelayer_function_key_pressed(uint16_t keycode) {
     uint16_t current_time = timer_read();
@@ -40,23 +34,9 @@ bool officelayer_function_key_pressed(uint16_t keycode) {
             return false;
 
         case RESET_KEY1:
-            if (current_time - last_reset_key_a_press_time > 800) {
-                reset_key_a_pressed = true;
-            } else {
-                reset_key_a_pressed = false;
-            }
-            last_reset_key_a_press_time = current_time;
             return false;
 
         case RESET_KEY2:
-            if (current_time - last_reset_key_b_press_time > 800) {
-                reset_key_b_pressed = true;
-            } else {
-                reset_key_b_pressed = false;
-            }
-            last_reset_key_b_press_time = current_time;
-            //wait_ms(600);
-            //reset_keyboard();
             return false;
 
         case OFC_RELAY_CTRL:

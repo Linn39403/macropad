@@ -2,90 +2,90 @@
 #include "total_commander_screen.h"
 #include "print.h"
 
-static lv_obj_t * lv_tc_button_create(lv_obj_t* parent_screen, const char * text, struct lv_tc_btn_location * btn_loc_st )
+static lv_obj_t * TTCMD__spButtonCreate(lv_obj_t* spParentScreen, const char * pcText, GUI_tsBtnLocation * spBtnInfo )
 {
-    lv_obj_t *btn = lv_btn_create(parent_screen);
-    lv_obj_set_size(btn, btn_loc_st->btn_size_x, btn_loc_st->btn_size_y);
-    lv_obj_align(btn, TC_BUTTON_ALIGN_STYLE, btn_loc_st->btn_align_x, btn_loc_st->btn_align_y);
+    lv_obj_t *spBtn = lv_btn_create(spParentScreen);
+    lv_obj_set_size(spBtn, spBtnInfo->m_u8BtnSizeX, spBtnInfo->m_u8BtnSizeY);
+    lv_obj_align(spBtn, TC_BUTTON_ALIGN_STYLE, spBtnInfo->m_u8BtnLocX, spBtnInfo->m_u8BtnLocY);
 
     /* Keypad Button Color */
-    lv_obj_set_style_bg_color(btn, lv_color_hex(0x4CCF35), 0);
+    lv_obj_set_style_bg_color(spBtn, lv_color_hex(0x4CCF35), 0);
 
-    lv_obj_t* label_btn = lv_label_create(btn);
-    lv_label_set_text(label_btn, text);
-    lv_obj_center(label_btn);
+    lv_obj_t* spBtnLabel = lv_label_create(spBtn);
+    lv_label_set_text(spBtnLabel, pcText);
+    lv_obj_center(spBtnLabel);
 
     /* Keypad Text Color */
-    lv_obj_set_style_text_color(label_btn, lv_color_hex(0xffffff), 0);
-    return btn;
+    lv_obj_set_style_text_color(spBtnLabel, lv_color_hex(0xffffff), 0);
+    return spBtn;
 }
 
-void lv_tc_screen_create(lv_obj_t * parent_screen)
+void TTCMD_vScreenCreate(lv_obj_t * spParentScreen)
 {
-    uint16_t row_cnt = 4; /* 4 buttons per row */
-    uint16_t col_cnt = TC_BUTTON_COUNT / row_cnt;
+    uint8_t u8RowCnt = 4; /* 4 buttons per row */
+    uint8_t u8ColCnt = TC_BUTTON_COUNT / u8RowCnt;
 
     /* 4 buttons per role, 5 rows in total */
-    struct lv_tc_btn_location btn_loc_st;
-    btn_loc_st.btn_size_x = TC_BUTTON_SIZE_X;
-    btn_loc_st.btn_size_y = TC_BUTTON_SIZE_Y;
+    GUI_tsBtnLocation stBtnLoc;
+    stBtnLoc.m_u8BtnSizeX = TC_BUTTON_SIZE_X;
+    stBtnLoc.m_u8BtnSizeY = TC_BUTTON_SIZE_Y;
 
-    for(uint16_t c = 0; c < col_cnt; c++)
+    for(uint8_t u8Col = 0; u8Col < u8ColCnt; u8Col++)
     {
-        for(uint16_t r = 0; r < row_cnt; r++)
+        for(uint8_t u8Row = 0; u8Row < u8RowCnt; u8Row++)
         {
-            btn_loc_st.btn_align_x = TC_X_OFFSET_FROM_LEFT + (r * TC_BUTTON_SPACE_X) + (r * TC_BUTTON_SIZE_X);
-            btn_loc_st.btn_align_y = TC_Y_OFFSET_FROM_TOP + (c * TC_BUTTON_SPACE_Y) + (c * TC_BUTTON_SIZE_Y);
-            btn_tc_array[r+(row_cnt*c)].btn = lv_tc_button_create(
-                                              parent_screen,
-                                              btn_tc_array[r+(row_cnt*c)].btn_name ,
-                                              &btn_loc_st);
+            stBtnLoc.m_u8BtnLocX = TC_X_OFFSET_FROM_LEFT + (u8Row * TC_BUTTON_SPACE_X) + (u8Row * TC_BUTTON_SIZE_X);
+            stBtnLoc.m_u8BtnLocY = TC_Y_OFFSET_FROM_TOP + (u8Col * TC_BUTTON_SPACE_Y) + (u8Col * TC_BUTTON_SIZE_Y);
+            TC_staBtnInfo[u8Row+(u8RowCnt*u8Col)].m_spBtn = TTCMD__spButtonCreate(
+                                              spParentScreen,
+                                              TC_staBtnInfo[u8Row+(u8RowCnt*u8Col)].m_cpBtnName ,
+                                              &stBtnLoc);
         }
     }
 }
 
-static void tc_layer_lv_state_change(uint16_t keycode, lv_obj_state_fptr state_callback)
+static void TTCMD__vLayerGUIStateChange(uint16_t u16KeyCode, TTCMD_tpfnvGuiStateFunc pfnStateCb)
 {
-    switch(keycode)
+    switch(u16KeyCode)
     {
         case S(KC_F6):
-            state_callback(btn_tc_array[TC_BUTTON_RENAME].btn);
+            pfnStateCb(TC_staBtnInfo[TC_BUTTON_RENAME].m_spBtn);
         break;
         case S(KC_F10):
-            state_callback(btn_tc_array[TC_BUTTON_PROPERTIES].btn);
+            pfnStateCb(TC_staBtnInfo[TC_BUTTON_PROPERTIES].m_spBtn);
         break;
         case S(KC_F4):
-            state_callback(btn_tc_array[TC_BUTTON_NEW_TXT_FILE].btn);
+            pfnStateCb(TC_staBtnInfo[TC_BUTTON_NEW_TXT_FILE].m_spBtn);
         break;
         case LCTL(KC_BSLS):
-            state_callback(btn_tc_array[TC_BUTTON_JUMP_TO_ROOT].btn);
+            pfnStateCb(TC_staBtnInfo[TC_BUTTON_JUMP_TO_ROOT].m_spBtn);
         break;
         case LCTL(KC_UP):
-            state_callback(btn_tc_array[TC_BUTTON_NEW_TAB].btn);
+            pfnStateCb(TC_staBtnInfo[TC_BUTTON_NEW_TAB].m_spBtn);
         break;
         case LCTL(KC_W):
-            state_callback(btn_tc_array[TC_BUTTON_CLOSE_TAB].btn);
+            pfnStateCb(TC_staBtnInfo[TC_BUTTON_CLOSE_TAB].m_spBtn);
         break;
         case LCTL(KC_TAB):
-            state_callback(btn_tc_array[TC_BUTTON_TAB_CHANGE].btn);
+            pfnStateCb(TC_staBtnInfo[TC_BUTTON_TAB_CHANGE].m_spBtn);
         break;
         case KC_TAB:
-            state_callback(btn_tc_array[TC_BUTTON_SWITCH_TAB].btn);
+            pfnStateCb(TC_staBtnInfo[TC_BUTTON_SWITCH_TAB].m_spBtn);
         break;
         case LCTL(KC_F3):
-            state_callback(btn_tc_array[TC_BUTTON_SORT_BY_NAME].btn);
+            pfnStateCb(TC_staBtnInfo[TC_BUTTON_SORT_BY_NAME].m_spBtn);
         break;
         case LCTL(KC_F4):
-            state_callback(btn_tc_array[TC_BUTTON_SORT_BY_EXT].btn);
+            pfnStateCb(TC_staBtnInfo[TC_BUTTON_SORT_BY_EXT].m_spBtn);
         break;
         case LCTL(KC_F5):
-            state_callback(btn_tc_array[TC_BUTTON_SORT_BY_TIME].btn);
+            pfnStateCb(TC_staBtnInfo[TC_BUTTON_SORT_BY_TIME].m_spBtn);
         break;
         case LCTL(KC_F6):
-            state_callback(btn_tc_array[TC_BUTTON_SORT_BY_SIZE].btn);
+            pfnStateCb(TC_staBtnInfo[TC_BUTTON_SORT_BY_SIZE].m_spBtn);
         break;
         case KC_BACKSPACE:
-            state_callback(btn_tc_array[TC_BUTTON_BACK].btn);
+            pfnStateCb(TC_staBtnInfo[TC_BUTTON_BACK].m_spBtn);
         break;
         case KC_NO:
             /* Do nothing because these keys are not used*/
@@ -95,28 +95,26 @@ static void tc_layer_lv_state_change(uint16_t keycode, lv_obj_state_fptr state_c
     }
 }
 
-static inline void tc_button_press(lv_obj_t * button)
+static inline void TTCMD__vButtonPress(lv_obj_t * spButton)
 {
-    lv_obj_add_state(button, LV_STATE_PRESSED);
+    lv_obj_add_state(spButton, LV_STATE_PRESSED);
 }
 
-static inline void tc_button_release(lv_obj_t * button)
+static inline void TTCMD__vButtonRelease(lv_obj_t * spButton)
 {
-    lv_obj_clear_state(button, LV_STATE_PRESSED);
+    lv_obj_clear_state(spButton, LV_STATE_PRESSED);
 }
 
 /* to change the button pressed animation for the keypad screen */
-void tc_layer_function_key_pressed(uint16_t keycode)
+void TTCMD_vKeyPressedCallBackFunction(uint16_t u16KeyCode)
 {
-    uprintf("tc key press: %x\n",keycode);
-    tc_layer_lv_state_change(keycode, tc_button_press);
+    TTCMD__vLayerGUIStateChange(u16KeyCode, TTCMD__vButtonPress);
 }
 
 /* to change the button released animation for the keypad screen */
-void tc_layer_function_key_released(uint16_t keycode)
+void TTCMD_vKeyReleasedCallBackFunction(uint16_t u16KeyCode)
 {
-    uprintf("tc key release: %x\n",keycode);
-    tc_layer_lv_state_change(keycode, tc_button_release);
+    TTCMD__vLayerGUIStateChange(u16KeyCode, TTCMD__vButtonRelease);
 }
 
 

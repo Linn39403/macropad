@@ -28,10 +28,9 @@ enum keyboard_layers_enum{
 };
 
 struct kb_layer_type{
-    lv_obj_t * screen_obj;
-    lv_style_t screen_style;
-    const unsigned char screen_layer_id;
-    void (*screen_init_fptr)(lv_obj_t*);
+    lv_obj_t * m_spScreenObj;
+    const uint8_t m_u8ScreenLayerId;
+    void (*m_pfnScreenInit)(lv_obj_t*);
 };
 
 #ifdef ENABLE_HOME_SCREEN_LAYER
@@ -77,10 +76,10 @@ enum cpp_Keys{
 
 bool officelayer_function_key_pressed(uint16_t keycode);
 bool officelayer_function_key_released(uint16_t keycode);
-void keypad_layer_function_key_pressed(uint16_t keycode);
-void keypad_layer_function_key_released(uint16_t keycode);
 bool cpplayer_function_key_pressed(uint16_t keycode);
 bool cpplayer_function_key_released(uint16_t keycode);
 
-void tc_layer_function_key_pressed(uint16_t keycode);
-void tc_layer_function_key_released(uint16_t keycode);
+void TTCMD_vKeyPressedCallBackFunction(uint16_t keycode);
+void TTCMD_vKeyReleasedCallBackFunction(uint16_t keycode);
+void KPAD_vKeyPressedCallBackFunction(uint16_t keycode);
+void KPAD_vKeyReleasedCallBackFunction(uint16_t keycode);

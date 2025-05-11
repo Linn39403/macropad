@@ -8,10 +8,9 @@
 
 bool is_locked = false;
 
-extern lv_obj_t *tab_view;
 extern struct kb_layer_type kb_layers[LAYER_COUNT];
-uint16_t get_active_kb_layer(void);
-void set_kb_layer(uint16_t kb_layer_index);
+uint8_t SCREEN_u8GetActiveLayer(void);
+void SCREEN_vChangeLayer(uint16_t kb_layer_index);
 #ifdef ENABLE_NUMPAD_LAYER
 tap_dance_action_t tap_dance_actions[] =
 {
@@ -82,67 +81,56 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     };
 
 
-void keyboard_pre_init_user(void) {
+void keyboard_pre_init_user(void)
+{
     setPinInputHigh(ENCODER_LEFT_PUSH_BUTTON_PIN);
     setPinInputHigh(ENCODER_MAIN_PUSH_BUTTON_PIN);
     setPinInputHigh(ENCODER_RIGHT_PUSH_BUTTON_PIN);
-}
-//this func need to destory
-int convert_tabview_to_layer(int tab_sel)
-{
-    if(tab_sel < LAYER_COUNT)
-    {
-        return kb_layers[tab_sel].screen_layer_id;
-    }
-    //return default
-    return 0;
 }
 
 /*
 - Returning true lets QMK keep processing the key event (running its built‑in functions or further custom processing).
 - Returning false stops QMK from doing any further processing for that key event.
 */
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    //int8_t current_layer = convert_tabview_to_layer(lv_tabview_get_tab_act(tab_view));
-    //layer_move(current_layer);
-    uint16_t current_layer = get_active_kb_layer();
-    layer_move(current_layer);
+bool process_record_user(uint16_t u16KeyCode, keyrecord_t * spRecord) {
+    uint8_t u8CurrentLayer = SCREEN_u8GetActiveLayer();
+    layer_move(u8CurrentLayer);
     /* Button Pressed */
-    if (record->event.pressed)
+    if (spRecord->event.pressed)
     {
-        switch (current_layer)
+        switch (u8CurrentLayer)
         {
 #ifdef ENABLE_HOME_SCREEN_LAYER
             case HOME_SCREEN_LAYER:
-                officelayer_function_key_pressed(keycode);
+                officelayer_function_key_pressed(u16KeyCode);
                 return false;
 #endif
 
 #ifdef ENABLE_TOTAL_COMMANDER_LAYER
             case TOTAL_COMMANDER_LAYER:
-                tc_layer_function_key_pressed(keycode);
+                TTCMD_vKeyPressedCallBackFunction(u16KeyCode);
                 return true;
 #endif
 
 #ifdef ENABLE_NUMPAD_LAYER
             case NUMPAD_LAYER:
                 //uprintf("numpad P:Key = %d\n", keycode);
-                keypad_layer_function_key_pressed(keycode);
+                KPAD_vKeyPressedCallBackFunction(u16KeyCode);
                 return true;
 #endif
 
 #ifdef ENABLE_CPP_LAYER
             case CPP_LAYER:
-                cpplayer_function_key_pressed(keycode);
+                cpplayer_function_key_pressed(u16KeyCode);
                 return false;
 #endif
-        }/*end switch (current_layer)*/
-    }/*end if(record->event.pressed)*/
+        }/*end switch (u8CurrentLayer)*/
+    }/*end if(spRecord->event.pressed)*/
 
     /* Button Released */
-    if (!record->event.pressed)
+    if (!spRecord->event.pressed)
     {
-        switch(current_layer)
+        switch(u8CurrentLayer)
         {
 #ifdef ENABLE_HOME_SCREEN_LAYER
             case HOME_SCREEN_LAYER:
@@ -151,13 +139,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef ENABLE_TOTAL_COMMANDER_LAYER
             case TOTAL_COMMANDER_LAYER:
-                tc_layer_function_key_released(keycode);
+                TTCMD_vKeyReleasedCallBackFunction(u16KeyCode);
                 return true;
 #endif
 
 #ifdef ENABLE_NUMPAD_LAYER
             case NUMPAD_LAYER:
-                keypad_layer_function_key_released(keycode);
+                KPAD_vKeyReleasedCallBackFunction(u16KeyCode);
                 return true;
 #endif
 
@@ -165,29 +153,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case CPP_LAYER:
                 break;
 #endif
-        }/*end switch(current_layer)*/
+        }/*end switch(u8CurrentLayer)*/
         return false;
-    }/*end if (!record->event.pressed)*/
+    }/*end if (!spRecord->event.pressed)*/
     return false;
 }
 
 void matrix_scan_user(void)
 {
-    static bool encoder_left_push_button_state_prev = false;
-    static bool encoder_main_push_button_state_prev = false;
-    static bool encoder_right_push_button_state_prev = false;
+    static bool KMAP__boEncoderLeftPushBtnStatePrev = false;
+    static bool KMAP__boEncoderRightPushBtnStatePrev = false;
+    static bool KMAP__boEncoderMainPushBtnStatePrev = false;
 
-    bool encoder_left_push_button_state_now = readPin(ENCODER_LEFT_PUSH_BUTTON_PIN);
-    bool encoder_right_push_button_state_now = readPin(ENCODER_RIGHT_PUSH_BUTTON_PIN);
-    bool encoder_main_push_button_state_now = readPin(ENCODER_MAIN_PUSH_BUTTON_PIN);
+    bool KMAP_boEncoderLeftPushBtnStateNow = readPin(ENCODER_LEFT_PUSH_BUTTON_PIN);
+    bool KMAP_boEncoderRightPushBtnStateNow = readPin(ENCODER_RIGHT_PUSH_BUTTON_PIN);
+    bool KMAP_boEncoderMainPushBtnStateNow = readPin(ENCODER_MAIN_PUSH_BUTTON_PIN);
 
-    uint8_t selected_layer = get_active_kb_layer();
+    uint8_t u8ActiveLayer = SCREEN_u8GetActiveLayer();
 
-    if((encoder_main_push_button_state_now == false) &&
-       (encoder_main_push_button_state_now != encoder_main_push_button_state_prev))
+    if((KMAP_boEncoderMainPushBtnStateNow == false) &&
+       (KMAP_boEncoderMainPushBtnStateNow != KMAP__boEncoderMainPushBtnStatePrev))
     {
         /* Main Encoder Button Pressed */
-        switch(selected_layer)
+        switch(u8ActiveLayer)
         {
 #ifdef ENABLE_TOTAL_COMMANDER_LAYER
             case TOTAL_COMMANDER_LAYER:
@@ -200,39 +188,37 @@ void matrix_scan_user(void)
     }
 
     /* Two Push Buttons Read Handling */
-    if((encoder_left_push_button_state_now == false) &&
-       (encoder_left_push_button_state_now != encoder_left_push_button_state_prev))
+    if((KMAP_boEncoderLeftPushBtnStateNow == false) &&
+       (KMAP_boEncoderLeftPushBtnStateNow != KMAP__boEncoderLeftPushBtnStatePrev))
     {
-        int16_t index = get_active_kb_layer();
-        if(--index < 0)
+        if(--u8ActiveLayer == 0xFF) /* reach minus ? */
         {
-            index = LAYER_COUNT - 1;
+            u8ActiveLayer = LAYER_COUNT - 1;
         }
-        set_kb_layer(index);
+        SCREEN_vChangeLayer(u8ActiveLayer);
     }
-    else if((encoder_right_push_button_state_now == false) &&
-            (encoder_right_push_button_state_now != encoder_right_push_button_state_prev))
+    else if((KMAP_boEncoderRightPushBtnStateNow == false) &&
+            (KMAP_boEncoderRightPushBtnStateNow != KMAP__boEncoderRightPushBtnStatePrev))
     {
-        uint16_t index = get_active_kb_layer();
-        if(++index >= LAYER_COUNT)
+        if(++u8ActiveLayer >= LAYER_COUNT)
         {
-            index=0;
+            u8ActiveLayer = 0;
         }
-        set_kb_layer(index);
+        SCREEN_vChangeLayer(u8ActiveLayer);
     }
 
-    encoder_left_push_button_state_prev = encoder_left_push_button_state_now;
-    encoder_right_push_button_state_prev = encoder_right_push_button_state_now;
-    encoder_main_push_button_state_prev = encoder_main_push_button_state_now;
+    KMAP__boEncoderLeftPushBtnStatePrev = KMAP_boEncoderLeftPushBtnStateNow;
+    KMAP__boEncoderRightPushBtnStatePrev = KMAP_boEncoderRightPushBtnStateNow;
+    KMAP__boEncoderMainPushBtnStatePrev = KMAP_boEncoderMainPushBtnStateNow;
 
     /* if Both Buttons are pressed for 1000ms, reset the keypad */
-    if(encoder_left_push_button_state_now == false && encoder_right_push_button_state_now == false)
+    if(KMAP_boEncoderLeftPushBtnStateNow == false && KMAP_boEncoderRightPushBtnStateNow == false)
     {
         wait_ms(1000);
         //check again the buttons press value
-        encoder_left_push_button_state_now = readPin(ENCODER_LEFT_PUSH_BUTTON_PIN);
-        encoder_right_push_button_state_now = readPin(ENCODER_RIGHT_PUSH_BUTTON_PIN);
-        if(encoder_left_push_button_state_now == false && encoder_right_push_button_state_now == false)
+        KMAP_boEncoderLeftPushBtnStateNow = readPin(ENCODER_LEFT_PUSH_BUTTON_PIN);
+        KMAP_boEncoderRightPushBtnStateNow = readPin(ENCODER_RIGHT_PUSH_BUTTON_PIN);
+        if(KMAP_boEncoderLeftPushBtnStateNow == false && KMAP_boEncoderRightPushBtnStateNow == false)
         {
             reset_keyboard();
         }
@@ -246,7 +232,7 @@ void matrix_scan_user(void)
 */
 bool encoder_update_user(uint8_t index, bool clockwise)
 {
-    uint8_t selected_layer = get_active_kb_layer();
+    uint8_t u8ActiveLayer = SCREEN_u8GetActiveLayer();
 
     switch (index) {
         case 0: /* left */
@@ -254,7 +240,7 @@ bool encoder_update_user(uint8_t index, bool clockwise)
 
         case 1: /* main, middle */
             /* Encoder can be use for other operations depending on different layer */
-            switch(selected_layer)
+            switch(u8ActiveLayer)
             {
 #ifdef ENABLE_HOME_SCREEN_LAYER
                 case HOME_SCREEN_LAYER:
@@ -300,9 +286,7 @@ bool encoder_update_user(uint8_t index, bool clockwise)
 }
 
 #include "raw_hid.h"
-#include "lvgl/resource_screen.h"
-#define CHANGE_LVGL_KEYPAD_LAYER(LAYER_NAME) lv_tabview_set_act(tab_view, kb_layers[LAYER_NAME].screen_layer_id, LV_ANIM_OFF)
-void raw_hid_receive(uint8_t *data, uint8_t length)
+void raw_hid_receive(uint8_t *u8pData, uint8_t u8Length)
 {
     //uint8_t response[length];
     //memset(response, 0, length);
@@ -311,36 +295,36 @@ void raw_hid_receive(uint8_t *data, uint8_t length)
     /* getting time from host
      * FOrmat : ti123456
     */
-    if(data[0] == 't' && data[1] == 'i') {
-        int hr = (data[2] - '0')*10 + (data[3] - '0');
-        int min= (data[4] - '0')*10 + (data[5] - '0');
-        int sec= (data[6] - '0')*10 + (data[7] - '0');
-       clock_update_time(hr, min,sec);
+    if(u8pData[0] == 't' && u8pData[1] == 'i') {
+        //int hr = (u8pData[2] - '0')*10 + (u8pData[3] - '0');
+        //int min= (u8pData[4] - '0')*10 + (u8pData[5] - '0');
+        //int sec= (u8pData[6] - '0')*10 + (u8pData[7] - '0');
+        //clock_update_time(hr, min,sec);
         //raw_hid_send(response, length);
     }
-    if(data[0] == 'c' && data[1] == 'p')
+    if(u8pData[0] == 'c' && u8pData[1] == 'p')
     {
-        int cpu_res_in_percent = (data[2] - '0') * 100 + (data[3] - '0') * 10 + (data[4] - '0');
-        cpu_resource_set_value(cpu_res_in_percent);
+        //int cpu_res_in_percent = (u8pData[2] - '0') * 100 + (u8pData[3] - '0') * 10 + (u8pData[4] - '0');
+        //cpu_resource_set_value(cpu_res_in_percent);
     }
-    if(data[0] == 'a' && data[1] == 'p' && data[2] == 'p' && data[3] == '_')
+    if(u8pData[0] == 'a' && u8pData[1] == 'p' && u8pData[2] == 'p' && u8pData[3] == '_')
     {
-        uint8_t * app_name = &data[4];
+        uint8_t * app_name = &u8pData[4];
         if(app_name[0] == 't' && app_name[1] == 't' && app_name[2] == 'c')
         {
 #ifdef ENABLE_TOTAL_COMMANDER_LAYER
-            CHANGE_LVGL_KEYPAD_LAYER(TOTAL_COMMANDER_LAYER);
+            SCREEN_vChangeLayer(TOTAL_COMMANDER_LAYER);
 #endif
         }
         else if(app_name[0] == 'c' && app_name[1] == 'a' && app_name[2] == 'l')
         {
 #ifdef ENABLE_CPP_LAYER
-            CHANGE_LVGL_KEYPAD_LAYER(NUMPAD_LAYER);
+            SCREEN_vChangeLayer(NUMPAD_LAYER);
 #endif
         }
         else if(app_name[0] == 'v' && app_name[1] == 's' && app_name[2] == 'c')
         {
 
         }
-    }/* end if(data[0] == 'a' && data[1] == 'p' && data[2] == 'p' && data[3] == '_') */
+    }/* end if(u8pData[0] == 'a' && u8pData[1] == 'p' && u8pData[2] == 'p' && u8pData[3] == '_') */
 }

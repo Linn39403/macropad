@@ -7,6 +7,7 @@ MOUSEKEY_ENABLE = yes
 RAW_ENABLE = yes
 CONSOLE_ENABLE = yes
 SRC += display.c \
+	   ringbuffer.c \
 	   office_keymap.c \
 	   cpp_keymap.c \
 	   lvgl/screens.c \

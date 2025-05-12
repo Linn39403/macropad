@@ -6,9 +6,10 @@
 #include "config.h"
 #include "print.h"
 #include "lvgl/keypad_screen.h"
+#include "ringbuffer.h"
 
 bool is_locked = false;
-
+extern RingBuffer DISP__stRbufSoundVolume;
 extern struct kb_layer_type kb_layers[LAYER_COUNT];
 uint8_t SCREEN_u8GetActiveLayer(void);
 void SCREEN_vChangeLayer(uint16_t kb_layer_index);
@@ -265,8 +266,15 @@ bool encoder_update_user(uint8_t index, bool clockwise)
 
 #ifdef ENABLE_NUMPAD_LAYER
                 case NUMPAD_LAYER:
-                    if(clockwise) tap_code(KC_MS_WH_DOWN);
-                    else tap_code(KC_MS_WH_UP);
+                    if(clockwise)
+                    {
+                        tap_code(KC_VOLU);
+                    }
+                    else
+                    {
+                        tap_code(KC_VOLD);
+                    }
+                    //RingBuffer_Write(&DISP__stRbufSoundVolume, (uint8_t *)&KPAD_i8SoundVolume, 1);
                 break;
 #endif
 
@@ -315,10 +323,7 @@ void raw_hid_receive(uint8_t *u8pData, uint8_t u8Length)
         KPAD_i8SoundVolume = (u8pData[4] - '0') * 100 +
                              (u8pData[5] - '0') * 10  +
                              (u8pData[6] - '0');
-        //uprintf("Volume %d\n", KPAD_i8SoundVolume);
-        lv_label_set_text_fmt(KPAD_spVolumeLbl, "%03d", KPAD_i8SoundVolume);
-        lv_arc_set_value(KPAD_spVolumeObj, KPAD_i8SoundVolume);
-        //SCREEN_vChangeLayer(NUMPAD_LAYER);
+        RingBuffer_Write(&DISP__stRbufSoundVolume, (uint8_t *)&KPAD_i8SoundVolume, 1);
     }
     if(u8pData[0] == 'a' && u8pData[1] == 'p' && u8pData[2] == 'p' && u8pData[3] == '_')
     {

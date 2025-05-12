@@ -35,12 +35,17 @@ static void KPAD__vArcCreate(lv_obj_t * spParentScreen, uint8_t u8Size, uint8_t 
     lv_obj_set_style_arc_width(KPAD_spVolumeObj, 10, LV_PART_INDICATOR | LV_STATE_DEFAULT);
     lv_arc_set_value(KPAD_spVolumeObj, KPAD_i8SoundVolume);
 
-
-    /* Volume Label */
+    /* Volume Value Label */
     KPAD_spVolumeLbl = lv_label_create(spParentScreen);
-    lv_label_set_text(KPAD_spVolumeLbl, "00");
+    lv_label_set_text(KPAD_spVolumeLbl, "000");
     lv_obj_set_style_text_font(KPAD_spVolumeLbl, &lv_font_montserrat_24, LV_PART_MAIN);
     lv_obj_align(KPAD_spVolumeLbl,LV_ALIGN_DEFAULT, u8LocX + 30, u8LocY + 40);
+
+    /* Volume Text */
+    KPAD_spVolumeTxt = lv_label_create(spParentScreen);
+    lv_label_set_text(KPAD_spVolumeTxt, "Volume");
+    lv_obj_set_style_text_font(KPAD_spVolumeTxt, &lv_font_montserrat_24, LV_PART_MAIN);
+    lv_obj_align(KPAD_spVolumeTxt,LV_ALIGN_DEFAULT, u8LocX + 10, u8LocY + 110);
 }
 
 void KPAD_vScreenCreate(lv_obj_t *spParentScreen)
@@ -149,7 +154,7 @@ void KPAD_vScreenCreate(lv_obj_t *spParentScreen)
     btn_dot = KPAD__spButtonCreate(spParentScreen, ".", &stBtnLoc);
 
     /*************** LVGL Arc GUI *******************/
-    KPAD__vArcCreate(spParentScreen, 110, 200, 30);
+    KPAD__vArcCreate(spParentScreen, 110, 200, 20);
 }
 
 static void KPAD__vLayerGUIStateChange(uint16_t u16KeyCode, lv_obj_state_fptr pfnStateCb)

@@ -36,17 +36,17 @@ def main():
             process_name, window_title = get_active_window_info()
 
             # Filter out selected processes 
-            if window_title and window_title != last_window_title:
-                for selected, cmd_frame in selected_titles.items():
-                    if selected.lower() in window_title.lower():
-                        print("YES, selected process : ", window_title)
-                        print("Command frame: ", cmd_frame)
-                        break
-                last_window_title = window_title
-            # Only print if the window has changed to avoid spamming
             #if window_title and window_title != last_window_title:
-            #    print(window_title)
-            #    last_window_title = window_title
+                #for selected, cmd_frame in selected_titles.items():
+                #    if selected.lower() in window_title.lower():
+                #        print("YES, selected process : ", window_title)
+                #        print("Command frame: ", cmd_frame)
+                #        break
+                #last_window_title = window_title
+            # Only print if the window has changed to avoid spamming
+            if window_title and window_title != last_window_title:
+                print(window_title)
+                last_window_title = window_title
 
             # Sleep briefly to reduce CPU usage
             time.sleep(0.5)

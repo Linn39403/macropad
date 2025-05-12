@@ -5,6 +5,7 @@
 #include QMK_KEYBOARD_H
 #include "config.h"
 #include "print.h"
+#include "lvgl/keypad_screen.h"
 
 bool is_locked = false;
 
@@ -288,6 +289,7 @@ bool encoder_update_user(uint8_t index, bool clockwise)
 #include "raw_hid.h"
 void raw_hid_receive(uint8_t *u8pData, uint8_t u8Length)
 {
+    extern int8_t KPAD_i8SoundVolume;
     //uint8_t response[length];
     //memset(response, 0, length);
     //response[0] = 'B';
@@ -307,6 +309,17 @@ void raw_hid_receive(uint8_t *u8pData, uint8_t u8Length)
         //int cpu_res_in_percent = (u8pData[2] - '0') * 100 + (u8pData[3] - '0') * 10 + (u8pData[4] - '0');
         //cpu_resource_set_value(cpu_res_in_percent);
     }
+    if(u8pData[0] == 'v' && u8pData[1] == 'o' && u8pData[2] == 'l' && u8pData[3] == '_')
+    {
+        /* speaker volume update to LVGL Arc */
+        KPAD_i8SoundVolume = (u8pData[4] - '0') * 100 +
+                             (u8pData[5] - '0') * 10  +
+                             (u8pData[6] - '0');
+        //uprintf("Volume %d\n", KPAD_i8SoundVolume);
+        lv_label_set_text_fmt(KPAD_spVolumeLbl, "%03d", KPAD_i8SoundVolume);
+        lv_arc_set_value(KPAD_spVolumeObj, KPAD_i8SoundVolume);
+        //SCREEN_vChangeLayer(NUMPAD_LAYER);
+    }
     if(u8pData[0] == 'a' && u8pData[1] == 'p' && u8pData[2] == 'p' && u8pData[3] == '_')
     {
         uint8_t * app_name = &u8pData[4];
@@ -318,7 +331,7 @@ void raw_hid_receive(uint8_t *u8pData, uint8_t u8Length)
         }
         else if(app_name[0] == 'c' && app_name[1] == 'a' && app_name[2] == 'l')
         {
-#ifdef ENABLE_CPP_LAYER
+#ifdef ENABLE_NUMPAD_LAYER
             SCREEN_vChangeLayer(NUMPAD_LAYER);
 #endif
         }

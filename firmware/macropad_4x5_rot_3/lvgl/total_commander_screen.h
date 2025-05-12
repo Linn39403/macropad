@@ -38,7 +38,7 @@ struct TC_stBtnInfo
 
 static struct TC_stBtnInfo TC_staBtnInfo [TC_BUTTON_COUNT] =
 {
-    {NULL, "RNme"},
+    {NULL, "Rename"},
     {NULL, "Prop"},
     {NULL, "NewTxt"},
     {NULL, "Root"},

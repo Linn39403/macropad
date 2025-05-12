@@ -1,6 +1,11 @@
 #define __KEYPAD_SCREEN_C
 #include "keypad_screen.h"
 
+int8_t KPAD_i8SoundVolume = -1;
+
+#define KPAD__nButtonColor lv_palette_darken(LV_PALETTE_AMBER, 3)
+#define KPAD__nArcColor  lv_palette_darken(LV_PALETTE_AMBER, 3)
+
 static lv_obj_t * KPAD__spButtonCreate(lv_obj_t* spParentScreen, const char * text, GUI_tsBtnLocation * stBtnLoc )
 {
     lv_obj_t *btn = lv_btn_create(spParentScreen);
@@ -8,7 +13,7 @@ static lv_obj_t * KPAD__spButtonCreate(lv_obj_t* spParentScreen, const char * te
     lv_obj_align(btn, BUTTON_ALIGN_STYLE, stBtnLoc->m_u8BtnLocX, stBtnLoc->m_u8BtnLocY);
 
     /* Keypad Button Color */
-    lv_obj_set_style_bg_color(btn, lv_color_hex(0x3498db), 0);
+    lv_obj_set_style_bg_color(btn, KPAD__nButtonColor, 0);
 
     lv_obj_t* label_btn = lv_label_create(btn);
     lv_label_set_text(label_btn, text);
@@ -17,6 +22,25 @@ static lv_obj_t * KPAD__spButtonCreate(lv_obj_t* spParentScreen, const char * te
     /* Keypad Text Color */
     lv_obj_set_style_text_color(label_btn, lv_color_hex(0xffffff), 0);
     return btn;
+}
+
+static void KPAD__vArcCreate(lv_obj_t * spParentScreen, uint8_t u8Size, uint8_t u8LocX, uint8_t u8LocY)
+{
+    KPAD_spVolumeObj = lv_arc_create(spParentScreen);
+    lv_obj_set_size(KPAD_spVolumeObj, u8Size, u8Size);
+    lv_obj_align(KPAD_spVolumeObj, LV_ALIGN_DEFAULT, u8LocX, u8LocY);
+    lv_obj_set_style_arc_color(KPAD_spVolumeObj, KPAD__nArcColor, LV_PART_INDICATOR | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(KPAD_spVolumeObj, KPAD__nArcColor, LV_PART_KNOB | LV_STATE_DEFAULT);
+    lv_obj_set_style_arc_width(KPAD_spVolumeObj, 10, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_arc_width(KPAD_spVolumeObj, 10, LV_PART_INDICATOR | LV_STATE_DEFAULT);
+    lv_arc_set_value(KPAD_spVolumeObj, KPAD_i8SoundVolume);
+
+
+    /* Volume Label */
+    KPAD_spVolumeLbl = lv_label_create(spParentScreen);
+    lv_label_set_text(KPAD_spVolumeLbl, "00");
+    lv_obj_set_style_text_font(KPAD_spVolumeLbl, &lv_font_montserrat_24, LV_PART_MAIN);
+    lv_obj_align(KPAD_spVolumeLbl,LV_ALIGN_DEFAULT, u8LocX + 30, u8LocY + 40);
 }
 
 void KPAD_vScreenCreate(lv_obj_t *spParentScreen)
@@ -123,6 +147,9 @@ void KPAD_vScreenCreate(lv_obj_t *spParentScreen)
     stBtnLoc.m_u8BtnLocX = (NUM_PAD_X_OFFSET_FROM_LEFT + NUM_PAD_BUTTON_SPACE_X * 2+ NUM_PAD_BUTTON_SIZE_X * 2);
     stBtnLoc.m_u8BtnLocY = (NUM_PAD_Y_OFFSET_FROM_TOP + NUM_PAD_BUTTON_SPACE_Y * 4 + NUM_PAD_BUTTON_SIZE_Y * 4);
     btn_dot = KPAD__spButtonCreate(spParentScreen, ".", &stBtnLoc);
+
+    /*************** LVGL Arc GUI *******************/
+    KPAD__vArcCreate(spParentScreen, 110, 200, 30);
 }
 
 static void KPAD__vLayerGUIStateChange(uint16_t u16KeyCode, lv_obj_state_fptr pfnStateCb)

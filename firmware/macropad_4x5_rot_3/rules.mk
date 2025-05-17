@@ -9,9 +9,10 @@ CONSOLE_ENABLE = yes
 SRC += display.c \
 	   ringbuffer.c \
 	   office_keymap.c \
-	   cpp_keymap.c \
 	   lvgl/screens.c \
+	   lvgl/GUI_helper.c \
 	   lvgl/keypad_screen.c \
 	   lvgl/resource_screen.c \
 	   lvgl/total_commander_screen.c \
+	   lvgl/vsc_screen.c \
 

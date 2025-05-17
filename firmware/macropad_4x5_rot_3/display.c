@@ -20,7 +20,7 @@ enum DISP__enSoundVolumeAniState
 };
 
 enum DISP__enSoundVolumeAniState DISP__enSoundVolumeAniState;
-#define DISP_nAnimationUpdateFreq  8 //ms
+#define DISP_nAnimationUpdateFreq  5 //ms
 uint16_t DISP__u16AniTimerValue = 0;
 
 static void DISP__vVarInit(void)
@@ -73,18 +73,34 @@ void housekeeping_task_user(void)
             if(timer_elapsed(DISP__u16AniTimerValue) > DISP_nAnimationUpdateFreq)
             {
                 //Positive or Negative?
-                uprintf("Timer Elapsed\n");
+                uint8_t u8DeltaTimeCntPerFreq = timer_elapsed(DISP__u16AniTimerValue);
+                u8DeltaTimeCntPerFreq /= DISP_nAnimationUpdateFreq;
+
                 if(DISP_stSoundVolumeCurr > DISP__stSoundVolumeFromFifo)
                 {
                     /* Current Showing Value is Greater than update value */
-                    DISP_stSoundVolumeCurr--;
+                    if(DISP_stSoundVolumeCurr - u8DeltaTimeCntPerFreq >= DISP__stSoundVolumeFromFifo)
+                    {
+                        DISP_stSoundVolumeCurr -= u8DeltaTimeCntPerFreq;
+                    }
+                    else
+                    {
+                        DISP_stSoundVolumeCurr--;
+                    }
                     lv_label_set_text_fmt(KPAD_spVolumeLbl, "%03d", DISP_stSoundVolumeCurr);
                     lv_arc_set_value(KPAD_spVolumeObj, DISP_stSoundVolumeCurr);
                 }
                 else if(DISP_stSoundVolumeCurr < DISP__stSoundVolumeFromFifo)
                 {
                     /* Currnet Showing Value is Smaller than update value */
-                    DISP_stSoundVolumeCurr++;
+                    if(DISP_stSoundVolumeCurr + u8DeltaTimeCntPerFreq <= DISP__stSoundVolumeFromFifo)
+                    {
+                        DISP_stSoundVolumeCurr += u8DeltaTimeCntPerFreq;
+                    }
+                    else
+                    {
+                        DISP_stSoundVolumeCurr++;
+                    }
                     lv_label_set_text_fmt(KPAD_spVolumeLbl, "%03d", DISP_stSoundVolumeCurr);
                     lv_arc_set_value(KPAD_spVolumeObj, DISP_stSoundVolumeCurr);
                 }

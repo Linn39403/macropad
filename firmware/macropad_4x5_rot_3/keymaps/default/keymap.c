@@ -1,6 +1,3 @@
-// Copyright 2023 QMK
-// SPDX-License-Identifier: GPL-2.0-or-later
-
 #include "keymap.h"
 #include QMK_KEYBOARD_H
 #include "config.h"
@@ -26,7 +23,6 @@ tap_dance_action_t tap_dance_actions[] =
 #endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* Office Keys Layer Layout */
 #ifdef ENABLE_HOME_SCREEN_LAYER
     [HOME_SCREEN_LAYER] = LAYOUT(
     UIE, OFFICE_PASSWORD, OFC_KEY_3, OFC_KEY_4,
@@ -37,20 +33,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #endif
 
 #ifdef ENABLE_TOTAL_COMMANDER_LAYER
-    /* Total Commander Layer Layout */
     [TOTAL_COMMANDER_LAYER] = LAYOUT(
-//  rename , properties, new text file, jump to root
-    S(KC_F6), S(KC_F10), S(KC_F4), LCTL(KC_BSLS),
-//  new tab    , close tab , tab change  , switch tab
-    LCTL(KC_UP), LCTL(KC_W), LCTL(KC_TAB), KC_TAB,
-//  Sort Name, Sort Ext, Sort Time, Sort Size
-    LCTL(KC_F3), LCTL(KC_F4), LCTL(KC_F5), LCTL(KC_F6),
-    KC_NO, KC_NO, KC_NO, KC_BACKSPACE,
-    KC_NO, KC_NO, KC_NO, KC_NO),
+    TTCMD_KEY_0,  TTCMD_KEY_1,  TTCMD_KEY_2,  TTCMD_KEY_3,
+    TTCMD_KEY_4,  TTCMD_KEY_5,  TTCMD_KEY_6,  TTCMD_KEY_7,
+    TTCMD_KEY_8,  TTCMD_KEY_9,  TTCMD_KEY_10, TTCMD_KEY_11,
+    TTCMD_KEY_12, TTCMD_KEY_13, TTCMD_KEY_14, TTCMD_KEY_15,
+    TTCMD_KEY_16, TTCMD_KEY_17, TTCMD_KEY_18, TTCMD_KEY_19),
 #endif
 
 #ifdef ENABLE_NUMPAD_LAYER
-    /*NUMPAD Layer Layout */
     [NUMPAD_LAYER] = LAYOUT(
     KC_BACKSPACE, KC_KP_SLASH, KC_KP_ASTERISK, KC_KP_MINUS,
 	TD(NUM_KEY_7_AND_A), TD(NUM_KEY_8_AND_B), TD(NUM_KEY_9_AND_C), KC_KP_PLUS ,
@@ -58,14 +49,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_ENTER,
 	KC_KP_0, KC_KP_0, KC_KP_DOT, KC_KP_ENTER),
 #endif
-#ifdef ENABLE_CPP_LAYER
-    /* cpp Layer Layout */
-    [CPP_LAYER] = LAYOUT (
-    CPP_KEY_for_loop, CPP_KEY_while_loop, CPP_KEY_struct, CPP_KEY_class,
-    CPP_KEY_switch, CPP_KEY_D, CPP_KEY_E, CPP_KEY_F,
-    CPP_KEY_cout, CPP_KEY_9, CPP_KEY_A, CPP_KEY_B,
-    CPP_KEY_4, CPP_KEY_5, CPP_KEY_6, CPP_KEY_7,
-    CPP_KEY_0, CPP_KEY_1, CPP_KEY_2, CPP_KEY_3
+#ifdef ENABLE_VSC_LAYER
+    [VSC_LAYER] = LAYOUT (
+    C(S(KC_F)), LCTL(KC_F4), KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, C(S(KC_PGUP)), C(S(KC_PGDN)),
+    KC_NO, KC_NO, KC_NO, KC_NO
     ),
 #endif
 
@@ -116,15 +106,13 @@ bool process_record_user(uint16_t u16KeyCode, keyrecord_t * spRecord) {
 
 #ifdef ENABLE_NUMPAD_LAYER
             case NUMPAD_LAYER:
-                //uprintf("numpad P:Key = %d\n", keycode);
                 KPAD_vKeyPressedCallBackFunction(u16KeyCode);
                 return true;
 #endif
 
-#ifdef ENABLE_CPP_LAYER
-            case CPP_LAYER:
-                cpplayer_function_key_pressed(u16KeyCode);
-                return false;
+#ifdef ENABLE_VSC_LAYER
+            case VSC_LAYER:
+                return VSC_boKeyPressedCallBackFunction(u16KeyCode);
 #endif
         }/*end switch (u8CurrentLayer)*/
     }/*end if(spRecord->event.pressed)*/
@@ -151,9 +139,9 @@ bool process_record_user(uint16_t u16KeyCode, keyrecord_t * spRecord) {
                 return true;
 #endif
 
-#ifdef ENABLE_CPP_LAYER
-            case CPP_LAYER:
-                break;
+#ifdef ENABLE_VSC_LAYER
+            case VSC_LAYER:
+                return VSC_boKeyReleasedCallBackFunction(u16KeyCode);
 #endif
         }/*end switch(u8CurrentLayer)*/
         return false;
@@ -274,12 +262,19 @@ bool encoder_update_user(uint8_t index, bool clockwise)
                     {
                         tap_code(KC_VOLD);
                     }
-                    //RingBuffer_Write(&DISP__stRbufSoundVolume, (uint8_t *)&KPAD_i8SoundVolume, 1);
                 break;
 #endif
 
-#ifdef ENABLE_CPP_LAYER
-                case CPP_LAYER:
+#ifdef ENABLE_VSC_LAYER
+                case VSC_LAYER:
+                    if(clockwise)
+                    {
+                        tap_code(KC_UP);
+                    }
+                    else
+                    {
+                        tap_code(KC_DOWN);
+                    }
                 break;
 #endif
             }
@@ -342,7 +337,9 @@ void raw_hid_receive(uint8_t *u8pData, uint8_t u8Length)
         }
         else if(app_name[0] == 'v' && app_name[1] == 's' && app_name[2] == 'c')
         {
-
+#ifdef ENABLE_VSC_LAYER
+            SCREEN_vChangeLayer(VSC_LAYER);
+#endif
         }
     }/* end if(u8pData[0] == 'a' && u8pData[1] == 'p' && u8pData[2] == 'p' && u8pData[3] == '_') */
 }

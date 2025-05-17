@@ -46,7 +46,7 @@
 #define ENABLE_NUMPAD_LAYER
 //#define ENABLE_HOME_SCREEN_LAYER
 #define ENABLE_TOTAL_COMMANDER_LAYER
-//#define ENABLE_CPP_LAYER
+#define ENABLE_VSC_LAYER
 //#define ENABLE_RESOURCE_LAYER
 /**********************************************************************/
 /**********************************************************************/

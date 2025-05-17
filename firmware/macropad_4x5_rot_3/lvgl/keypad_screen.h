@@ -1,8 +1,6 @@
-#include <string.h>
-#include <string.h>
 #include "keymap.h"
 #include QMK_KEYBOARD_H
-#include "GUI_include.h"
+#include "GUI_helper.h"
 
 #ifndef __KEPAD_SCREEN_C
     #define KEYPAD_SCREEN_EXTERN

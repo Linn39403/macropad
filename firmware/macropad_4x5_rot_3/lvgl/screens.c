@@ -3,6 +3,7 @@
 #include "resource_screen.h"
 #include "keypad_screen.h"
 #include "total_commander_screen.h"
+#include "vsc_screen.h"
 #include "config.h"
 
 static uint8_t u8SCREEN__CurrentActiveLayer = 0;
@@ -25,10 +26,11 @@ struct kb_layer_type kb_layers[LAYER_COUNT] =
      .m_pfnScreenInit = &KPAD_vScreenCreate,
      .m_u8ScreenLayerId = NUMPAD_LAYER},
 #endif
-#ifdef ENABLE_CPP_LAYER
+#ifdef ENABLE_VSC_LAYER
     {
      .m_spScreenObj = NULL,
-     .m_u8ScreenLayerId = CPP_LAYER},
+     .m_pfnScreenInit = &VSC_vScreenCreate,
+     .m_u8ScreenLayerId = VSC_LAYER},
 #endif
 #ifdef ENABLE_RESOURCE_LAYER
     {

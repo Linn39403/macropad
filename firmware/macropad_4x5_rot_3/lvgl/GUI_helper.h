@@ -17,7 +17,7 @@ typedef struct GUI_tsBtnLocation
 #define GUI_SCREEN_CREATE(PREFIX, spParentScreen)                \
     do {                                                             \
         uint8_t u8RowCnt = 4;                                          \
-        uint8_t u8ColCnt = PREFIX##_BUTTON_COUNT / u8RowCnt;           \
+        uint8_t u8ColCnt = 5;           \
                                                                        \
         GUI_tsBtnLocation stBtnLoc;                                    \
         stBtnLoc.m_u8BtnSizeX = PREFIX##_BUTTON_SIZE_X;                \

@@ -44,3 +44,5 @@ typedef void (*lv_obj_state_fptr)(lv_obj_t *);
 #endif /* end #ifdef __KEYPAD_SCREEN_C */
 
 void KPAD_vScreenCreate(lv_obj_t *parent_screen);
+void KPAD_vKeyPressedCallBackFunction(uint16_t );
+void KPAD_vKeyReleasedCallBackFunction(uint16_t );

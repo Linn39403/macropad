@@ -15,35 +15,47 @@ void VSC_vScreenCreate(lv_obj_t * spParentScreen)
     GUI_SCREEN_CREATE(VSC, spParentScreen);
 }
 
-static bool VSC__boLayerGUIStateChange(uint16_t u16KeyCode, VSC_tpfnvGuiStateFunc pfnStateCb)
+static void VSC__executeKeys(uint16_t u16Index, bool boKeyPressed)
 {
-    switch(u16KeyCode)
+    for(uint8_t u8Cnt = 0; u8Cnt < VSC_KEYCOMBINATION_COUNT; u8Cnt++)
     {
-        case S(S(KC_F)):
-            return(VSC_staBtnInfo[VSC_BUTTON_FIND_IN_FILES].m_boQMKKeyHandle);
-        case LCTL(KC_F4):
-            return(VSC_staBtnInfo[VSC_BUTTON_CLOSE_FILE].m_boQMKKeyHandle);
-        case C(S(KC_PGUP)):
-            return(VSC_staBtnInfo[VSC_BUTTON_LEFT].m_boQMKKeyHandle);
-        case C(S(KC_PGDN)):
-            return(VSC_staBtnInfo[VSC_BUTTON_RIGHT].m_boQMKKeyHandle);
-        default:
-            /* default: Custom Key Handling */
-            return false;
+        if(boKeyPressed && (VSC_staBtnInfo[u16Index].m_stKey[u8Cnt].m_boPress == true))
+        {
+            register_code(VSC_staBtnInfo[u16Index].m_stKey[u8Cnt].m_u16KeyCode);
+        }
+        else
+        {
+            unregister_code(VSC_staBtnInfo[u16Index].m_stKey[u8Cnt].m_u16KeyCode);
+        }
+    }
+}
+
+static bool VSC__boLayerGUIStateChange(uint16_t u16KeyCode, bool boKeyPressed, VSC_tpfnvGuiStateFunc pfnStateCb)
+{
+    //want to optimize this function
+    uint8_t u8Index = u16KeyCode - SAFE_RANGE;
+    if(u16KeyCode >= enVSC_Btn_FIND_IN_FILES && u16KeyCode <= enVSC_Btn_COUNT)
+    {
+        VSC__executeKeys(u8Index, boKeyPressed);
+        pfnStateCb(VSC_staBtnInfo[u8Index].m_spBtn);
+        return false;
     }
 
+    /* Return True -> Let QMK Handle Key Event */
+    /* Return False -> User Handle Key Event */
+    return true;
 }
 
 /* to change the button pressed animation for the keypad screen */
 bool VSC_boKeyPressedCallBackFunction(uint16_t u16KeyCode)
 {
-    return VSC__boLayerGUIStateChange(u16KeyCode, GUI_vButtonPress);
+    return VSC__boLayerGUIStateChange(u16KeyCode, true, GUI_vButtonPress);
 }
 
 /* to change the button released animation for the keypad screen */
 bool VSC_boKeyReleasedCallBackFunction(uint16_t u16KeyCode)
 {
-    return VSC__boLayerGUIStateChange(u16KeyCode, GUI_vButtonRelease);
+    return VSC__boLayerGUIStateChange(u16KeyCode, false, GUI_vButtonRelease);
 }
 
 

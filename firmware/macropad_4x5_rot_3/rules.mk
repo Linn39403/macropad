@@ -16,3 +16,4 @@ SRC += display.c \
 	   lvgl/total_commander_screen.c \
 	   lvgl/vsc_screen.c \
 
+

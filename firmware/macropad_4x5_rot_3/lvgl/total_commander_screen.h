@@ -2,30 +2,6 @@
 #include "GUI_helper.h"
 #include QMK_KEYBOARD_H
 
-enum TTCMD_BUTTONS_ENUM
-{
-    TTCMD_BUTTON_RENAME = 0,
-    TTCMD_BUTTON_PROPERTIES,
-    TTCMD_BUTTON_NEW_TXT_FILE,
-    TTCMD_BUTTON_JUMP_TO_ROOT,
-    TTCMD_BUTTON_NEW_TAB,
-    TTCMD_BUTTON_CLOSE_TAB,
-    TTCMD_BUTTON_TAB_CHANGE,
-    TTCMD_BUTTON_SWITCH_TAB,
-    TTCMD_BUTTON_SORT_BY_NAME,
-    TTCMD_BUTTON_SORT_BY_EXT,
-    TTCMD_BUTTON_SORT_BY_TIME,
-    TTCMD_BUTTON_SORT_BY_SIZE,
-    TTCMD_BUTTON_CANCEL,
-    TTCMD_BUTTON_UNUSED_2,
-    TTCMD_BUTTON_UNUSED_3,
-    TTCMD_BUTTON_BACK,
-    TTCMD_BUTTON_UNUSED_4,
-    TTCMD_BUTTON_UNUSED_5,
-    TTCMD_BUTTON_UNUSED_6,
-    TTCMD_BUTTON_UNUSED_7,
-    TTCMD_BUTTON_COUNT
-};
 
 #define TTCMD_KEY_0     S(KC_F6)        /* Rename Shortcut */
 #define TTCMD_KEY_1     S(KC_F10)       /* Properties Shortcut */
@@ -53,32 +29,34 @@ enum TTCMD_BUTTONS_ENUM
 struct TTCMD_stBtnInfo
 {
     lv_obj_t * m_spBtn;
+	const uint16_t m_u16KeyCode;
     const char * m_cpBtnName;
 };
 
-static struct TTCMD_stBtnInfo TTCMD_staBtnInfo [TTCMD_BUTTON_COUNT] =
+struct TTCMD_stBtnInfo TTCMD_staBtnInfo [20] =
 {
-    {NULL, "Rename"},
-    {NULL, "Prop"},
-    {NULL, "NewTxt"},
-    {NULL, "Root"},
-    {NULL, "NewTab"},
-    {NULL, "ClTab"},
-    {NULL, "CHngTb"},
-    {NULL, "Swch"},
-    {NULL, "SName"},
-    {NULL, "SExt"},
-    {NULL, "STim"},
-    {NULL, "SSiz"},
-    {NULL, "Esc"},
-    {NULL, "    "},
-    {NULL, "    "},
-    {NULL, LV_SYMBOL_BACKSPACE},
-    {NULL, "    "},
-    {NULL, "    "},
-    {NULL, "    "},
-    {NULL, "    "},
+    { NULL, TTCMD_KEY_0  , "Rename"},
+    { NULL, TTCMD_KEY_1  , "Prop"},
+    { NULL, TTCMD_KEY_2  , "NewTxt"},
+    { NULL, TTCMD_KEY_3  , "Root"},
+    { NULL, TTCMD_KEY_4  , "NewTab"},
+    { NULL, TTCMD_KEY_5  , "ClseTab"},
+    { NULL, TTCMD_KEY_6  , "ChngTab"},
+    { NULL, TTCMD_KEY_7  , "Switch"},
+    { NULL, TTCMD_KEY_8  , "SName"},
+    { NULL, TTCMD_KEY_9  , "SExtion"},
+    { NULL, TTCMD_KEY_10 , "STime"},
+    { NULL, TTCMD_KEY_11 , "SSize"},
+    { NULL, TTCMD_KEY_12 , "Esc"},
+    { NULL, TTCMD_KEY_13 , "    "},
+    { NULL, TTCMD_KEY_14 , "    "},
+    { NULL, TTCMD_KEY_15 , LV_SYMBOL_BACKSPACE},
+    { NULL, TTCMD_KEY_16 , "    "},
+    { NULL, TTCMD_KEY_17 , "    "},
+    { NULL, TTCMD_KEY_18 , "    "},
+    { NULL, TTCMD_KEY_19 , "    "},
 };
+
 
 
 #define TTCMD_BUTTON_SIZE_X 60
@@ -93,3 +71,5 @@ typedef void (*TTCMD_tpfnvGuiStateFunc)(lv_obj_t *);
 #endif /* end #ifdef __TOTAL_COMMANDER_SCREEN_C */
 
 void TTCMD_vScreenCreate(lv_obj_t *);
+void TTCMD_vKeyPressedCallBackFunction(uint16_t );
+void TTCMD_vKeyReleasedCallBackFunction(uint16_t );

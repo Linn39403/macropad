@@ -51,11 +51,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #endif
 #ifdef ENABLE_VSC_LAYER
     [VSC_LAYER] = LAYOUT (
-    C(S(KC_F)), LCTL(KC_F4), KC_NO, KC_NO,
-    KC_NO, KC_NO, KC_NO, KC_NO,
-    KC_NO, KC_NO, KC_NO, KC_NO,
-    KC_NO, KC_NO, C(S(KC_PGUP)), C(S(KC_PGDN)),
-    KC_NO, KC_NO, KC_NO, KC_NO
+    enVSC_Btn_FIND_IN_FILES , enVSC_Btn_CLOSE_FILE, enVSC_Btn_NEW_TXT_FILE, enVSC_Btn_JUMP_TO_ROOT,
+    enVSC_Btn_NEW_TAB , enVSC_Btn_CLOSE_TAB, enVSC_Btn_TAB_CHANGE, enVSC_Btn_SWIVSCH_TAB,
+    enVSC_Btn_SORT_BY_NAME, enVSC_Btn_SORT_BY_EXT, enVSC_Btn_SORT_BY_TIME, enVSC_Btn_SORT_BY_SIZE,
+    enVSC_Btn_UNUSED_1, enVSC_Btn_UNUSED_2, enVSC_Btn_LEFT, enVSC_Btn_RIGHT,
+    enVSC_Btn_UNUSED_4, enVSC_Btn_UNUSED_5, enVSC_Btn_UNUSED_6, enVSC_Btn_UNUSED_7
     ),
 #endif
 

@@ -4,6 +4,7 @@
 #include "quantum_keycodes.h"
 #include "lvgl/total_commander_screen.h"
 #include "lvgl/keypad_screen.h"
+#include "lvgl/vsc_screen.h"
 
 enum keyboard_layers_enum{
 #ifdef ENABLE_HOME_SCREEN_LAYER
@@ -46,29 +47,6 @@ enum office_Keys {
 };
 #endif
 
-//Really NEED?
-#ifdef ENABLE_TOTAL_COMMANDER_LAYER
-enum totalCommander_Keys{
-    PER_KEY0 = (SAFE_RANGE + 20), PER_KEY1, PER_KEY2, PER_KEY3,
-    PER_KEY4, PER_KEY5, PER_KEY6, PER_KEY7,
-    PER_KEY8, PER_KEY9, PER_KEY10, PER_KEY11,
-    PER_KEY12, PER_KEY13, PER_KEY14, PER_KEY15,
-    PER_KEY16, PER_KEY17, PER_KEY18, PER_KEY19,
-    END_TOTAL_COMMANDER_KEYS
-};
-#endif
-
-#ifdef ENABLE_VSC_LAYER
-enum visualStudioCode_Keys{
-    CPP_KEY_for_loop = (SAFE_RANGE + 40), CPP_KEY_while_loop, CPP_KEY_struct, CPP_KEY_class,
-    CPP_KEY_switch, CPP_KEY_D, CPP_KEY_E, CPP_KEY_F,
-    CPP_KEY_cout, CPP_KEY_9, CPP_KEY_A, CPP_KEY_B,
-    CPP_KEY_4, CPP_KEY_5, CPP_KEY_6, CPP_KEY_7,
-    CPP_KEY_0, CPP_KEY_1, CPP_KEY_2, CPP_KEY_3,
-    END_CPP_KEYS
-};
-#endif
-
 #ifdef ENABLE_NUMPAD_LAYER
 enum numpad_Keys{
     NUM_KEY_7_AND_A, NUM_KEY_8_AND_B, NUM_KEY_9_AND_C,
@@ -79,9 +57,3 @@ enum numpad_Keys{
 bool officelayer_function_key_pressed(uint16_t keycode);
 bool officelayer_function_key_released(uint16_t keycode);
 
-void TTCMD_vKeyPressedCallBackFunction(uint16_t keycode);
-void TTCMD_vKeyReleasedCallBackFunction(uint16_t keycode);
-void KPAD_vKeyPressedCallBackFunction(uint16_t keycode);
-void KPAD_vKeyReleasedCallBackFunction(uint16_t keycode);
-bool VSC_boKeyPressedCallBackFunction(uint16_t keycode);
-bool VSC_boKeyReleasedCallBackFunction(uint16_t keycode);

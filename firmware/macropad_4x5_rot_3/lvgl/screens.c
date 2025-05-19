@@ -58,7 +58,7 @@ void SCREEN_vInit(void)
     for(uint8_t u8Layer = 0; u8Layer < LAYER_COUNT; u8Layer ++ )
     {
         /* set as active screen for the first layer */
-        if(u8Layer == 0 )
+        if(0 == u8Layer)
         {
             kb_layers[u8Layer].m_spScreenObj = lv_scr_act();
         }

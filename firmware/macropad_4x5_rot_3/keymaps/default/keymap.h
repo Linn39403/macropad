@@ -47,12 +47,7 @@ enum office_Keys {
 };
 #endif
 
-#ifdef ENABLE_NUMPAD_LAYER
-enum numpad_Keys{
-    NUM_KEY_7_AND_A, NUM_KEY_8_AND_B, NUM_KEY_9_AND_C,
-    NUM_KEY_4_AND_D, NUM_KEY_5_AND_E, NUM_KEY_6_AND_F,
-};
-#endif
+
 
 bool officelayer_function_key_pressed(uint16_t keycode);
 bool officelayer_function_key_released(uint16_t keycode);

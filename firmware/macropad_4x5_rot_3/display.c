@@ -20,7 +20,7 @@ enum DISP__enSoundVolumeAniState
 };
 
 enum DISP__enSoundVolumeAniState DISP__enSoundVolumeAniState;
-#define DISP_nAnimationUpdateFreq  5 //ms
+#define DISP_nAnimationUpdateFreq  2 //ms
 uint16_t DISP__u16AniTimerValue = 0;
 
 static void DISP__vVarInit(void)

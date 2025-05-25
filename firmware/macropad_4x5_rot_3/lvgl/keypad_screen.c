@@ -34,6 +34,7 @@ static void KPAD__vArcCreate(lv_obj_t * spParentScreen, uint8_t u8Size, uint8_t 
     lv_obj_set_style_arc_width(KPAD_spVolumeObj, 10, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_arc_width(KPAD_spVolumeObj, 10, LV_PART_INDICATOR | LV_STATE_DEFAULT);
     lv_arc_set_value(KPAD_spVolumeObj, KPAD_i8SoundVolume);
+    lv_arc_set_range(KPAD_spVolumeObj, 0, 100);
 
     /* Volume Value Label */
     KPAD_spVolumeLbl = lv_label_create(spParentScreen);

@@ -7,7 +7,8 @@
 #include "lvgl/keypad_screen.h"
 #include "ringbuffer.h"
 
-
+//#define LCD_1_9_INCH
+#define LCD_2_INCH
 /* home screen content */
 static painter_device_t DISP__stDisplay;
 RingBuffer DISP__stRbufSoundVolume;
@@ -20,7 +21,7 @@ enum DISP__enSoundVolumeAniState
 };
 
 enum DISP__enSoundVolumeAniState DISP__enSoundVolumeAniState;
-#define DISP_nAnimationUpdateFreq  2 //ms
+#define DISP_nAnimationUpdateFreq  1 //ms
 uint16_t DISP__u16AniTimerValue = 0;
 
 static void DISP__vVarInit(void)
@@ -38,9 +39,17 @@ bool display_init_user(void)
 
 void keyboard_post_init_kb(void)
 {
+    #ifdef LCD_1_9_INCH
     DISP__stDisplay = qp_st7789_make_spi_device(170, 320, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, 4, 3);
+    #elif defined(LCD_2_INCH)
+    DISP__stDisplay = qp_st7789_make_spi_device(240, 320, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, 4, 3);
+    #endif
     qp_init(DISP__stDisplay, QP_ROTATION_90);
+    #ifdef LCD_1_9_INCH
     qp_set_viewport_offsets(DISP__stDisplay, 0, 35);
+    #elif defined(LCD_2_INCH)
+    qp_set_viewport_offsets(DISP__stDisplay, 0, 0);
+    #endif
     qp_power(DISP__stDisplay, 1);
 
     qp_lvgl_attach(DISP__stDisplay);

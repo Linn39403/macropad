@@ -14,6 +14,12 @@ static lv_obj_t * TTCMD__spButtonCreate(lv_obj_t* spParentScreen, const char * p
 void TTCMD_vScreenCreate(lv_obj_t * spParentScreen)
 {
     GUI_SCREEN_CREATE(TTCMD, spParentScreen);
+
+    /* Total Commander Label */
+    lv_obj_t* TTCMD_spVolumeTxt = lv_label_create(spParentScreen);
+    lv_label_set_text(TTCMD_spVolumeTxt , "Total Commander");
+    lv_obj_set_style_text_font(TTCMD_spVolumeTxt , &lv_font_montserrat_24, LV_PART_MAIN);
+    lv_obj_align(TTCMD_spVolumeTxt ,LV_ALIGN_DEFAULT, 40, 200);
 }
 
 static void TTCMD__vLayerGUIStateChange(uint16_t u16KeyCode, TTCMD_tpfnvGuiStateFunc pfnStateCb)

@@ -213,7 +213,6 @@ void matrix_scan_user(void)
 bool encoder_update_user(uint8_t index, bool clockwise)
 {
     uint8_t u8ActiveLayer = SCREEN_u8GetActiveLayer();
-    int16_t i16_SoundVolumeCurr;
     switch (index) {
         case 0: /* left */
             break;
@@ -238,26 +237,20 @@ bool encoder_update_user(uint8_t index, bool clockwise)
                     else
                     {
                         tap_code(KC_DOWN);
-
+                    }
                 break;
 #endif
 
 #ifdef ENABLE_NUMPAD_LAYER
                 case NUMPAD_LAYER:
-                    i16_SoundVolumeCurr = lv_arc_get_value(KPAD_spVolumeObj);
                     if(clockwise)
                     {
-                        i16_SoundVolumeCurr +=2;
-                        if(i16_SoundVolumeCurr > 100) i16_SoundVolumeCurr = 100;
                         tap_code(KC_VOLU);
                     }
                     else
                     {
-                        i16_SoundVolumeCurr -=2;
-                        if(i16_SoundVolumeCurr < 0) i16_SoundVolumeCurr = 0;
                         tap_code(KC_VOLD);
                     }
-                    RingBuffer_Write(&DISP__stRbufSoundVolume, (uint8_t *)&i16_SoundVolumeCurr, 1);
                 break;
 #endif
 

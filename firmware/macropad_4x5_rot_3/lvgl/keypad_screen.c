@@ -71,6 +71,12 @@ void KPAD_vScreenCreate(lv_obj_t *spParentScreen)
     }
     /*************** LVGL Arc GUI *******************/
     KPAD__vArcCreate(spParentScreen, 110, 200, 20);
+
+    /* Numpad Label */
+    lv_obj_t* KPAD_spVolumeTxt = lv_label_create(spParentScreen);
+    lv_label_set_text(KPAD_spVolumeTxt , "Numpad");
+    lv_obj_set_style_text_font(KPAD_spVolumeTxt , &lv_font_montserrat_24, LV_PART_MAIN);
+    lv_obj_align(KPAD_spVolumeTxt ,LV_ALIGN_DEFAULT, 60, 200);
 }
 
 static void KPAD__vLayerGUIStateChange(uint16_t u16KeyCode, lv_obj_state_fptr pfnStateCb)

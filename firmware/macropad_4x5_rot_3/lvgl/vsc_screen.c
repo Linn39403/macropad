@@ -13,6 +13,12 @@ static lv_obj_t * VSC__spButtonCreate(lv_obj_t* spParentScreen, const char * pcT
 void VSC_vScreenCreate(lv_obj_t * spParentScreen)
 {
     GUI_SCREEN_CREATE(VSC, spParentScreen);
+
+    /* Visual Studio Code Label */
+    lv_obj_t* VSC_spVolumeTxt = lv_label_create(spParentScreen);
+    lv_label_set_text(VSC_spVolumeTxt , "Visual Studio Code");
+    lv_obj_set_style_text_font(VSC_spVolumeTxt , &lv_font_montserrat_24, LV_PART_MAIN);
+    lv_obj_align(VSC_spVolumeTxt ,LV_ALIGN_DEFAULT, 30, 200);
 }
 
 static void VSC__executeKeys(uint16_t u16Index, bool boKeyPressed)

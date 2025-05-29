@@ -39,6 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KPAD_KEY_12, KPAD_KEY_13, KPAD_KEY_14, KPAD_KEY_15,
     KPAD_KEY_16, KPAD_KEY_17, KPAD_KEY_18, KPAD_KEY_19),
 #endif
+
 #ifdef ENABLE_VSC_LAYER
     [VSC_LAYER] = LAYOUT (
     enVSC_Btn_FIND_IN_FILES , enVSC_Btn_CLOSE_FILE, enVSC_Btn_NEW_TXT_FILE, enVSC_Btn_JUMP_TO_ROOT,
@@ -47,6 +48,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     enVSC_Btn_UNUSED_1, enVSC_Btn_UNUSED_2, enVSC_Btn_LEFT, enVSC_Btn_RIGHT,
     enVSC_Btn_UNUSED_4, enVSC_Btn_UNUSED_5, enVSC_Btn_UNUSED_6, enVSC_Btn_UNUSED_7
     ),
+#endif
+
+#ifdef ENABLE_BROWSER_LAYER
+    [BROWSER_LAYER] = LAYOUT(
+    BWSER_KEY_0,  BWSER_KEY_1,  BWSER_KEY_2,  BWSER_KEY_3,
+    BWSER_KEY_4,  BWSER_KEY_5,  BWSER_KEY_6,  BWSER_KEY_7,
+    BWSER_KEY_8,  BWSER_KEY_9,  BWSER_KEY_10, BWSER_KEY_11,
+    BWSER_KEY_12, BWSER_KEY_13, BWSER_KEY_14, BWSER_KEY_15,
+    BWSER_KEY_16, BWSER_KEY_17, BWSER_KEY_18, BWSER_KEY_19),
 #endif
 
 #ifdef ENABLE_RESOURCE_LAYER
@@ -328,6 +338,12 @@ void raw_hid_receive(uint8_t *u8pData, uint8_t u8Length)
         {
 #ifdef ENABLE_VSC_LAYER
             SCREEN_vChangeLayer(VSC_LAYER);
+#endif
+        }
+        else if(app_name[0] == 'b' && app_name[1] == 'w' && app_name[2] == 'r')
+        {
+#ifdef ENABLE_BROWSER_LAYER
+            SCREEN_vChangeLayer(BROWSER_LAYER);
 #endif
         }
     }/* end if(u8pData[0] == 'a' && u8pData[1] == 'p' && u8pData[2] == 'p' && u8pData[3] == '_') */

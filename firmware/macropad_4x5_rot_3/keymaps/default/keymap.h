@@ -5,6 +5,7 @@
 #include "lvgl/total_commander_screen.h"
 #include "lvgl/keypad_screen.h"
 #include "lvgl/vsc_screen.h"
+#include "lvgl/browser_screen.h"
 
 enum keyboard_layers_enum{
 #ifdef ENABLE_HOME_SCREEN_LAYER
@@ -21,6 +22,10 @@ enum keyboard_layers_enum{
 
 #ifdef ENABLE_VSC_LAYER
     VSC_LAYER ,
+#endif
+
+#ifdef ENABLE_BROWSER_LAYER
+    BROWSER_LAYER ,
 #endif
 
 #ifdef ENABLE_RESOURCE_LAYER

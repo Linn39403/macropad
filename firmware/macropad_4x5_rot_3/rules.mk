@@ -15,5 +15,6 @@ SRC += display.c \
 	   lvgl/resource_screen.c \
 	   lvgl/total_commander_screen.c \
 	   lvgl/vsc_screen.c \
+	   lvgl/browser_screen.c \
 
 

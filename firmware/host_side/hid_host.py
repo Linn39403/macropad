@@ -20,7 +20,9 @@ window_volume = 0
 window_volume_prev = 0
 selected_applications = {'Total Commander': 'app_ttc', 
                          'Calculator': 'app_cal',
-                         'Visual Studio Code' : 'app_vsc'}
+                         'Visual Studio Code' : 'app_vsc',
+                         'Edge' : 'app_bwr',
+                         'Brave' : 'app_bwr'}
 
 # Initialize COM once at the start
 def initialize_com():

@@ -32,6 +32,12 @@ struct kb_layer_type kb_layers[LAYER_COUNT] =
      .m_pfnScreenInit = &VSC_vScreenCreate,
      .m_u8ScreenLayerId = VSC_LAYER},
 #endif
+#ifdef ENABLE_BROWSER_LAYER
+    {
+     .m_spScreenObj = NULL,
+     .m_pfnScreenInit = &BWSER_vScreenCreate,
+     .m_u8ScreenLayerId = BROWSER_LAYER},
+#endif
 #ifdef ENABLE_RESOURCE_LAYER
     {
      .m_spScreenObj = NULL,

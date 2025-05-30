@@ -2,8 +2,8 @@
 #include "browser_screen.h"
 #include "print.h"
 
-lv_obj_t* BWSER_spVolumeTxt;
-static lv_obj_t * BWSER__spButtonCreate(lv_obj_t* spParentScreen, const char * pcText, GUI_tsBtnLocation * spBtnInfo )
+lv_obj_t* BROWSER_spVolumeTxt;
+static lv_obj_t * BROWSER__spButtonCreate(lv_obj_t* spParentScreen, const char * pcText, GUI_tsBtnLocation * spBtnInfo )
 {
     return GUI_spButtonCreate(spParentScreen,
                               pcText,
@@ -12,25 +12,25 @@ static lv_obj_t * BWSER__spButtonCreate(lv_obj_t* spParentScreen, const char * p
                               spBtnInfo);
 }
 
-void BWSER_vScreenCreate(lv_obj_t * spParentScreen)
+void BROWSER_vScreenCreate(lv_obj_t * spParentScreen)
 {
-    GUI_SCREEN_CREATE(BWSER, spParentScreen);
+    GUI_SCREEN_CREATE(BROWSER, spParentScreen);
 
     /* Browser Label */
-    lv_obj_t* BWSER_spVolumeTxt = lv_label_create(spParentScreen);
-    lv_label_set_text(BWSER_spVolumeTxt , "Edge Browser");
-    lv_obj_set_style_text_font(BWSER_spVolumeTxt , &lv_font_montserrat_24, LV_PART_MAIN);
-    lv_obj_align(BWSER_spVolumeTxt ,LV_ALIGN_DEFAULT, 40, 200);
+    lv_obj_t* BROWSER_spVolumeTxt = lv_label_create(spParentScreen);
+    lv_label_set_text(BROWSER_spVolumeTxt , "Edge Browser");
+    lv_obj_set_style_text_font(BROWSER_spVolumeTxt , &lv_font_montserrat_24, LV_PART_MAIN);
+    lv_obj_align(BROWSER_spVolumeTxt ,LV_ALIGN_DEFAULT, 40, 200);
 }
 
-static void BWSER__vLayerGUIStateChange(uint16_t u16KeyCode, BWSER_tpfnvGuiStateFunc pfnStateCb)
+static void BROWSER__vLayerGUIStateChange(uint16_t u16KeyCode, BROWSER_tpfnvGuiStateFunc pfnStateCb)
 {
     for(uint8_t u8Idx = 0; u8Idx < 20; u8Idx++)
     {
         /* Do not call for the KC_NO buttons */
-        if((KC_NO != u16KeyCode) && (BWSER_staBtnInfo[u8Idx].m_u16KeyCode == u16KeyCode))
+        if((KC_NO != u16KeyCode) && (BROWSER_staBtnInfo[u8Idx].m_u16KeyCode == u16KeyCode))
         {
-            pfnStateCb(BWSER_staBtnInfo[u8Idx].m_spBtn);
+            pfnStateCb(BROWSER_staBtnInfo[u8Idx].m_spBtn);
         }
     }
 }
@@ -38,15 +38,15 @@ static void BWSER__vLayerGUIStateChange(uint16_t u16KeyCode, BWSER_tpfnvGuiState
 /* to change the button pressed animation */
 bool BROWSER_boKeyPressedCallBackFunction(uint16_t u16KeyCode)
 {
-    BWSER__vLayerGUIStateChange(u16KeyCode, GUI_vButtonPress);
-    return BWSER_LET_QMK_HANDLE_KEYBOARD_EVENT;
+    BROWSER__vLayerGUIStateChange(u16KeyCode, GUI_vButtonPress);
+    return BROWSER_LET_QMK_HANDLE_KEYBOARD_EVENT;
 }
 
 /* to change the button released animation */
 bool BROWSER_boKeyReleasedCallBackFunction(uint16_t u16KeyCode)
 {
-    BWSER__vLayerGUIStateChange(u16KeyCode, GUI_vButtonRelease);
-    return BWSER_LET_QMK_HANDLE_KEYBOARD_EVENT;
+    BROWSER__vLayerGUIStateChange(u16KeyCode, GUI_vButtonRelease);
+    return BROWSER_LET_QMK_HANDLE_KEYBOARD_EVENT;
 }
 
 

@@ -2,7 +2,7 @@
 #include QMK_KEYBOARD_H
 #include "config.h"
 #include "print.h"
-#include "lvgl/keypad_screen.h"
+#include "lvgl/numpad_screen.h"
 #include "ringbuffer.h"
 
 bool is_locked = false;
@@ -11,33 +11,23 @@ extern struct kb_layer_type kb_layers[LAYER_COUNT];
 uint8_t SCREEN_u8GetActiveLayer(void);
 void SCREEN_vChangeLayer(uint16_t kb_layer_index);
 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-#ifdef ENABLE_HOME_SCREEN_LAYER
-    [HOME_SCREEN_LAYER] = LAYOUT(
-    UIE, OFFICE_PASSWORD, OFC_KEY_3, OFC_KEY_4,
-    OFC_KEY_5, OFC_KEY_6, OFC_KEY_7, OFC_KEY_8,
-    OFC_KEY_9, OFC_KEY_10, OFC_KEY_11, OFC_KEY_12,
-    OFC_KEY_13, OFC_KEY_14, OFC_KEY_15, OFC_KEY_16,
-    RESET_KEY1, RESET_KEY2, OFC_KEY_19, OFC_RELAY_CTRL),
-#endif
-
 #ifdef ENABLE_TOTAL_COMMANDER_LAYER
     [TOTAL_COMMANDER_LAYER] = LAYOUT(
-    TTCMD_KEY_0,  TTCMD_KEY_1,  TTCMD_KEY_2,  TTCMD_KEY_3,
-    TTCMD_KEY_4,  TTCMD_KEY_5,  TTCMD_KEY_6,  TTCMD_KEY_7,
-    TTCMD_KEY_8,  TTCMD_KEY_9,  TTCMD_KEY_10, TTCMD_KEY_11,
-    TTCMD_KEY_12, TTCMD_KEY_13, TTCMD_KEY_14, TTCMD_KEY_15,
-    TTCMD_KEY_16, TTCMD_KEY_17, TTCMD_KEY_18, TTCMD_KEY_19),
+    TOTAL_COMMANDER_KEY_0,  TOTAL_COMMANDER_KEY_1,  TOTAL_COMMANDER_KEY_2,  TOTAL_COMMANDER_KEY_3,
+    TOTAL_COMMANDER_KEY_4,  TOTAL_COMMANDER_KEY_5,  TOTAL_COMMANDER_KEY_6,  TOTAL_COMMANDER_KEY_7,
+    TOTAL_COMMANDER_KEY_8,  TOTAL_COMMANDER_KEY_9,  TOTAL_COMMANDER_KEY_10, TOTAL_COMMANDER_KEY_11,
+    TOTAL_COMMANDER_KEY_12, TOTAL_COMMANDER_KEY_13, TOTAL_COMMANDER_KEY_14, TOTAL_COMMANDER_KEY_15,
+    TOTAL_COMMANDER_KEY_16, TOTAL_COMMANDER_KEY_17, TOTAL_COMMANDER_KEY_18, TOTAL_COMMANDER_KEY_19),
 #endif
 
 #ifdef ENABLE_NUMPAD_LAYER
     [NUMPAD_LAYER] = LAYOUT(
-    KPAD_KEY_0, KPAD_KEY_1, KPAD_KEY_2, KPAD_KEY_3,
-    KPAD_KEY_4, KPAD_KEY_5, KPAD_KEY_6, KPAD_KEY_7,
-    KPAD_KEY_8, KPAD_KEY_9, KPAD_KEY_10, KPAD_KEY_11,
-    KPAD_KEY_12, KPAD_KEY_13, KPAD_KEY_14, KPAD_KEY_15,
-    KPAD_KEY_16, KPAD_KEY_17, KPAD_KEY_18, KPAD_KEY_19),
+    NUMPAD_KEY_0, NUMPAD_KEY_1, NUMPAD_KEY_2, NUMPAD_KEY_3,
+    NUMPAD_KEY_4, NUMPAD_KEY_5, NUMPAD_KEY_6, NUMPAD_KEY_7,
+    NUMPAD_KEY_8, NUMPAD_KEY_9, NUMPAD_KEY_10, NUMPAD_KEY_11,
+    NUMPAD_KEY_12, NUMPAD_KEY_13, NUMPAD_KEY_14, NUMPAD_KEY_15,
+    NUMPAD_KEY_16, NUMPAD_KEY_17, NUMPAD_KEY_18, NUMPAD_KEY_19),
 #endif
 
 #ifdef ENABLE_VSC_LAYER
@@ -52,11 +42,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef ENABLE_BROWSER_LAYER
     [BROWSER_LAYER] = LAYOUT(
-    BWSER_KEY_0,  BWSER_KEY_1,  BWSER_KEY_2,  BWSER_KEY_3,
-    BWSER_KEY_4,  BWSER_KEY_5,  BWSER_KEY_6,  BWSER_KEY_7,
-    BWSER_KEY_8,  BWSER_KEY_9,  BWSER_KEY_10, BWSER_KEY_11,
-    BWSER_KEY_12, BWSER_KEY_13, BWSER_KEY_14, BWSER_KEY_15,
-    BWSER_KEY_16, BWSER_KEY_17, BWSER_KEY_18, BWSER_KEY_19),
+    BROWSER_KEY_0,  BROWSER_KEY_1,  BROWSER_KEY_2,  BROWSER_KEY_3,
+    BROWSER_KEY_4,  BROWSER_KEY_5,  BROWSER_KEY_6,  BROWSER_KEY_7,
+    BROWSER_KEY_8,  BROWSER_KEY_9,  BROWSER_KEY_10, BROWSER_KEY_11,
+    BROWSER_KEY_12, BROWSER_KEY_13, BROWSER_KEY_14, BROWSER_KEY_15,
+    BROWSER_KEY_16, BROWSER_KEY_17, BROWSER_KEY_18, BROWSER_KEY_19),
 #endif
 
 #ifdef ENABLE_RESOURCE_LAYER
@@ -254,7 +244,7 @@ bool encoder_update_user(uint8_t index, bool clockwise)
 #include "raw_hid.h"
 void raw_hid_receive(uint8_t *u8pData, uint8_t u8Length)
 {
-    extern int8_t KPAD_i8SoundVolume;
+    extern int8_t NUMPAD_i8SoundVolume;
     //uint8_t response[length];
     //memset(response, 0, length);
     //response[0] = 'B';
@@ -277,10 +267,10 @@ void raw_hid_receive(uint8_t *u8pData, uint8_t u8Length)
     if(u8pData[0] == 'v' && u8pData[1] == 'o' && u8pData[2] == 'l' && u8pData[3] == '_')
     {
         /* speaker volume update to LVGL Arc */
-        KPAD_i8SoundVolume = (u8pData[4] - '0') * 100 +
+        NUMPAD_i8SoundVolume = (u8pData[4] - '0') * 100 +
                              (u8pData[5] - '0') * 10  +
                              (u8pData[6] - '0');
-        RingBuffer_Write(&DISP__stRbufSoundVolume, (uint8_t *)&KPAD_i8SoundVolume, 1);
+        RingBuffer_Write(&DISP__stRbufSoundVolume, (uint8_t *)&NUMPAD_i8SoundVolume, 1);
     }
     if(u8pData[0] == 'a' && u8pData[1] == 'p' && u8pData[2] == 'p' && u8pData[3] == '_')
     {

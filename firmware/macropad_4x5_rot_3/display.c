@@ -4,7 +4,7 @@
 #include "color.h"
 #include "keymap.h"
 #include "print.h"
-#include "lvgl/keypad_screen.h"
+#include "lvgl/numpad_screen.h"
 #include "ringbuffer.h"
 
 //#define LCD_1_9_INCH
@@ -64,7 +64,7 @@ void keyboard_post_init_kb(void)
 void housekeeping_task_user(void)
 {
     static uint8_t DISP__stSoundVolumeFromFifo;
-    uint8_t DISP_stSoundVolumeCurr = lv_arc_get_value(KPAD_spVolumeObj);
+    uint8_t DISP_stSoundVolumeCurr = lv_arc_get_value(NUMPAD_spVolumeObj);
 
     switch(DISP__enSoundVolumeAniState)
     {
@@ -96,8 +96,8 @@ void housekeeping_task_user(void)
                     {
                         DISP_stSoundVolumeCurr--;
                     }
-                    lv_label_set_text_fmt(KPAD_spVolumeLbl, "%03d", DISP_stSoundVolumeCurr);
-                    lv_arc_set_value(KPAD_spVolumeObj, DISP_stSoundVolumeCurr);
+                    lv_label_set_text_fmt(NUMPAD_spVolumeLbl, "%03d", DISP_stSoundVolumeCurr);
+                    lv_arc_set_value(NUMPAD_spVolumeObj, DISP_stSoundVolumeCurr);
                 }
                 else if(DISP_stSoundVolumeCurr < DISP__stSoundVolumeFromFifo)
                 {
@@ -110,8 +110,8 @@ void housekeeping_task_user(void)
                     {
                         DISP_stSoundVolumeCurr++;
                     }
-                    lv_label_set_text_fmt(KPAD_spVolumeLbl, "%03d", DISP_stSoundVolumeCurr);
-                    lv_arc_set_value(KPAD_spVolumeObj, DISP_stSoundVolumeCurr);
+                    lv_label_set_text_fmt(NUMPAD_spVolumeLbl, "%03d", DISP_stSoundVolumeCurr);
+                    lv_arc_set_value(NUMPAD_spVolumeObj, DISP_stSoundVolumeCurr);
                 }
                 else
                 {

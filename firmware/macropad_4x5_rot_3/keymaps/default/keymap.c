@@ -92,28 +92,9 @@ bool process_record_user(uint16_t u16KeyCode, keyrecord_t * spRecord) {
     {
         switch (u8CurrentLayer)
         {
-#ifdef ENABLE_HOME_SCREEN_LAYER
-            case HOME_SCREEN_LAYER:
-                officelayer_function_key_pressed(u16KeyCode);
-                return false;
-#endif
-
-#ifdef ENABLE_TOTAL_COMMANDER_LAYER
-            case TOTAL_COMMANDER_LAYER:
-                TTCMD_vKeyPressedCallBackFunction(u16KeyCode);
-                return true;
-#endif
-
-#ifdef ENABLE_NUMPAD_LAYER
-            case NUMPAD_LAYER:
-                KPAD_vKeyPressedCallBackFunction(u16KeyCode);
-                return true;
-#endif
-
-#ifdef ENABLE_VSC_LAYER
-            case VSC_LAYER:
-                return VSC_boKeyPressedCallBackFunction(u16KeyCode);
-#endif
+            #define X X_PRESSED
+            LAYER_LIST
+            #undef X
         }/*end switch (u8CurrentLayer)*/
     }/*end if(spRecord->event.pressed)*/
 
@@ -122,27 +103,9 @@ bool process_record_user(uint16_t u16KeyCode, keyrecord_t * spRecord) {
     {
         switch(u8CurrentLayer)
         {
-#ifdef ENABLE_HOME_SCREEN_LAYER
-            case HOME_SCREEN_LAYER:
-                break;
-#endif
-
-#ifdef ENABLE_TOTAL_COMMANDER_LAYER
-            case TOTAL_COMMANDER_LAYER:
-                TTCMD_vKeyReleasedCallBackFunction(u16KeyCode);
-                return true;
-#endif
-
-#ifdef ENABLE_NUMPAD_LAYER
-            case NUMPAD_LAYER:
-                KPAD_vKeyReleasedCallBackFunction(u16KeyCode);
-                return true;
-#endif
-
-#ifdef ENABLE_VSC_LAYER
-            case VSC_LAYER:
-                return VSC_boKeyReleasedCallBackFunction(u16KeyCode);
-#endif
+            #define X X_RELEASED
+            LAYER_LIST
+            #undef X
         }/*end switch(u8CurrentLayer)*/
         return false;
     }/*end if (!spRecord->event.pressed)*/

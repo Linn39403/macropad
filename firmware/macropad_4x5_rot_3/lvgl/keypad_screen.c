@@ -91,13 +91,15 @@ static void KPAD__vLayerGUIStateChange(uint16_t u16KeyCode, lv_obj_state_fptr pf
 }
 
 /* to change the button pressed animation for the keypad screen */
-void KPAD_vKeyPressedCallBackFunction(uint16_t u16KeyCode)
+bool NUMPAD_boKeyPressedCallBackFunction(uint16_t u16KeyCode)
 {
     KPAD__vLayerGUIStateChange(u16KeyCode, GUI_vButtonPress);
+    return KPAD_LET_QMK_HANDLE_KEYBOARD_EVENT;
 }
 
 /* to change the button released animation for the keypad screen */
-void KPAD_vKeyReleasedCallBackFunction(uint16_t u16KeyCode)
+bool NUMPAD_boKeyReleasedCallBackFunction(uint16_t u16KeyCode)
 {
     KPAD__vLayerGUIStateChange(u16KeyCode, GUI_vButtonRelease);
+    return KPAD_LET_QMK_HANDLE_KEYBOARD_EVENT;
 }

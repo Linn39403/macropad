@@ -19,6 +19,13 @@ enum numpad_Keys{
 };
 
 #ifdef __KEYPAD_SCREEN_C
+
+/* This macro is private macro for keypad_screen.c only.
+ * true -> QMK will handle the key event.
+ * false -> QMK will not handle the key event.
+*/
+#define KPAD_LET_QMK_HANDLE_KEYBOARD_EVENT  true
+
 tap_dance_action_t tap_dance_actions[6] =
 {
     [NUM_KEY_7_AND_A] = ACTION_TAP_DANCE_DOUBLE(KC_KP_7, KC_A),
@@ -108,5 +115,5 @@ typedef void (*lv_obj_state_fptr)(lv_obj_t *);
 #endif /* end #ifdef __KEYPAD_SCREEN_C */
 
 void KPAD_vScreenCreate(lv_obj_t *parent_screen);
-void KPAD_vKeyPressedCallBackFunction(uint16_t );
-void KPAD_vKeyReleasedCallBackFunction(uint16_t );
+bool NUMPAD_boKeyPressedCallBackFunction(uint16_t );
+bool NUMPAD_boKeyReleasedCallBackFunction(uint16_t );

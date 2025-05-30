@@ -35,15 +35,17 @@ static void TTCMD__vLayerGUIStateChange(uint16_t u16KeyCode, TTCMD_tpfnvGuiState
 }
 
 /* to change the button pressed animation */
-void TTCMD_vKeyPressedCallBackFunction(uint16_t u16KeyCode)
+bool TOTAL_COMMANDER_boKeyPressedCallBackFunction(uint16_t u16KeyCode)
 {
     TTCMD__vLayerGUIStateChange(u16KeyCode, GUI_vButtonPress);
+    return true;
 }
 
 /* to change the button released animation */
-void TTCMD_vKeyReleasedCallBackFunction(uint16_t u16KeyCode)
+bool TOTAL_COMMANDER_boKeyReleasedCallBackFunction(uint16_t u16KeyCode)
 {
     TTCMD__vLayerGUIStateChange(u16KeyCode, GUI_vButtonRelease);
+    return true;
 }
 
 

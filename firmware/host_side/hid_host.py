@@ -63,8 +63,8 @@ def get_raw_hid_interface():
         return None
 
     interface = hid.Device(path=raw_hid_interfaces[0]['path'])
-    print(f"Manufacturer: {interface.manufacturer}")
-    print(f"Product: {interface.product}")
+    #print(f"Manufacturer: {interface.manufacturer}")
+    #print(f"Product: {interface.product}")
     return interface
 
 def send_raw_report(data):

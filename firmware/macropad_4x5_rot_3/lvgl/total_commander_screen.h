@@ -71,5 +71,5 @@ typedef void (*TTCMD_tpfnvGuiStateFunc)(lv_obj_t *);
 #endif /* end #ifdef __TOTAL_COMMANDER_SCREEN_C */
 
 void TTCMD_vScreenCreate(lv_obj_t *);
-void TTCMD_vKeyPressedCallBackFunction(uint16_t );
-void TTCMD_vKeyReleasedCallBackFunction(uint16_t );
+bool TOTAL_COMMANDER_boKeyPressedCallBackFunction(uint16_t );
+bool TOTAL_COMMANDER_boKeyReleasedCallBackFunction(uint16_t );

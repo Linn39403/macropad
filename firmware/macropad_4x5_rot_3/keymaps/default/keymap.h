@@ -35,6 +35,22 @@ enum keyboard_layers_enum{
     LAYER_COUNT
 };
 
+
+/* X MACRO */
+#define LAYER_LIST\
+    X(TOTAL_COMMANDER)\
+    X(NUMPAD)\
+    X(VSC)\
+    X(BROWSER)
+
+#define X_PRESSED(layer)\
+    case layer##_LAYER:\
+        return layer##_boKeyPressedCallBackFunction(u16KeyCode);
+
+#define X_RELEASED(layer)\
+    case layer##_LAYER:\
+        return layer##_boKeyReleasedCallBackFunction(u16KeyCode);
+
 struct kb_layer_type{
     lv_obj_t * m_spScreenObj;
     const uint8_t m_u8ScreenLayerId;

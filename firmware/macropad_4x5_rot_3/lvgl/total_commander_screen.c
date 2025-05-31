@@ -48,4 +48,14 @@ bool TOTAL_COMMANDER_boKeyReleasedCallBackFunction(uint16_t u16KeyCode)
     return true;
 }
 
-
+void TOTAL_COMMANDER_vRotaryCallBackFunction(bool boClockwise)
+{
+    if(boClockwise == true)
+    {
+        tap_code(KC_UP);
+    }
+    else
+    {
+        tap_code(KC_DOWN);
+    }
+}

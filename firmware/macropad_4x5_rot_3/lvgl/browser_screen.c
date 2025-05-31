@@ -49,4 +49,14 @@ bool BROWSER_boKeyReleasedCallBackFunction(uint16_t u16KeyCode)
     return BROWSER_LET_QMK_HANDLE_KEYBOARD_EVENT;
 }
 
-
+void BROWSER_vRotaryCallBackFunction(bool boClockwise)
+{
+    if(boClockwise == true)
+    {
+        tap_code(KC_VOLU);
+    }
+    else
+    {
+        tap_code(KC_VOLD);
+    }
+}

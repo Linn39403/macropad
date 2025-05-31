@@ -73,3 +73,4 @@ typedef void (*TOTAL_COMMANDER_tpfnvGuiStateFunc)(lv_obj_t *);
 void TOTAL_COMMANDER_vScreenCreate(lv_obj_t *);
 bool TOTAL_COMMANDER_boKeyPressedCallBackFunction(uint16_t );
 bool TOTAL_COMMANDER_boKeyReleasedCallBackFunction(uint16_t );
+void TOTAL_COMMANDER_vRotaryCallBackFunction(bool boClockwise);

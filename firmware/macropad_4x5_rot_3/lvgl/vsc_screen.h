@@ -4,6 +4,7 @@
 
 #define VSC_BUTTON_COUNT 20
 #define VSC_KEYCOMBINATION_COUNT 6
+#if 0
 enum VSC__enButtons
 {
     enVSC_Btn_FIND_IN_FILES = SAFE_RANGE,
@@ -28,6 +29,29 @@ enum VSC__enButtons
     enVSC_Btn_UNUSED_7,
     enVSC_Btn_COUNT
 };
+#endif
+
+#define VSC_KEY_0   SAFE_RANGE
+#define VSC_KEY_1   SAFE_RANGE + 1
+#define VSC_KEY_2   SAFE_RANGE + 2
+#define VSC_KEY_3   SAFE_RANGE + 3
+#define VSC_KEY_4   SAFE_RANGE + 4
+#define VSC_KEY_5   SAFE_RANGE + 5
+#define VSC_KEY_6   SAFE_RANGE + 6
+#define VSC_KEY_7   SAFE_RANGE + 7
+#define VSC_KEY_8   SAFE_RANGE + 8
+#define VSC_KEY_9   SAFE_RANGE + 9
+#define VSC_KEY_10  SAFE_RANGE + 10
+#define VSC_KEY_11  SAFE_RANGE + 11
+#define VSC_KEY_12  SAFE_RANGE + 12
+#define VSC_KEY_13  SAFE_RANGE + 13
+#define VSC_KEY_14  SAFE_RANGE + 14
+#define VSC_KEY_15  SAFE_RANGE + 15
+#define VSC_KEY_16  SAFE_RANGE + 16
+#define VSC_KEY_17  SAFE_RANGE + 17
+#define VSC_KEY_18  SAFE_RANGE + 18
+#define VSC_KEY_19  SAFE_RANGE + 19
+
 #ifdef __VISUAL_STUDIO_CODE_SCREEN_C
 
 struct VSC__stKeyCombination
@@ -241,3 +265,4 @@ typedef void (*VSC_tpfnvGuiStateFunc)(lv_obj_t *);
 void VSC_vScreenCreate(lv_obj_t *);
 bool VSC_boKeyPressedCallBackFunction(uint16_t );
 bool VSC_boKeyReleasedCallBackFunction(uint16_t );
+void VSC_vRotaryCallBackFunction(bool boClockwise);

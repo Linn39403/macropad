@@ -40,7 +40,7 @@ static bool VSC__boLayerGUIStateChange(uint16_t u16KeyCode, bool boKeyPressed, V
 {
     //want to optimize this function
     uint8_t u8Index = u16KeyCode - SAFE_RANGE;
-    if(u16KeyCode >= enVSC_Btn_FIND_IN_FILES && u16KeyCode <= enVSC_Btn_COUNT)
+    if(u16KeyCode >= VSC_KEY_0 && u16KeyCode <= VSC_KEY_19)
     {
         VSC__executeKeys(u8Index, boKeyPressed);
         pfnStateCb(VSC_staBtnInfo[u8Index].m_spBtn);
@@ -64,4 +64,14 @@ bool VSC_boKeyReleasedCallBackFunction(uint16_t u16KeyCode)
     return VSC__boLayerGUIStateChange(u16KeyCode, false, GUI_vButtonRelease);
 }
 
-
+void VSC_vRotaryCallBackFunction(bool boClockwise)
+{
+    if(boClockwise == true)
+    {
+        tap_code(KC_UP);
+    }
+    else
+    {
+        tap_code(KC_DOWN);
+    }
+}

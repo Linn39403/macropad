@@ -29,12 +29,25 @@ enum keyboard_layers_enum{
     case layer##_LAYER:\
         return layer##_boKeyReleasedCallBackFunction(u16KeyCode);
 
+#define X_ROTARY(layer)\
+    case layer##_LAYER:\
+        layer##_vRotaryCallBackFunction(clockwise);\
+        break;
+
 #define X_SCREEN_LAYER(layer)\
     {\
         .m_spScreenObj = NULL,\
         .m_pfnScreenInit = &layer##_vScreenCreate,\
         .m_u8ScreenLayerId = layer##_LAYER\
     },
+
+#define X_QMK_KEYS_LAYER(layer)\
+    [layer##_LAYER] = LAYOUT(\
+    layer##_KEY_0,  layer##_KEY_1,  layer##_KEY_2,  layer##_KEY_3,\
+    layer##_KEY_4,  layer##_KEY_5,  layer##_KEY_6,  layer##_KEY_7,\
+    layer##_KEY_8,  layer##_KEY_9,  layer##_KEY_10, layer##_KEY_11,\
+    layer##_KEY_12, layer##_KEY_13, layer##_KEY_14, layer##_KEY_15,\
+    layer##_KEY_16, layer##_KEY_17, layer##_KEY_18, layer##_KEY_19),
 
 struct kb_layer_type{
     lv_obj_t * m_spScreenObj;

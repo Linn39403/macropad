@@ -78,3 +78,4 @@ typedef void (*BROWSER_tpfnvGuiStateFunc)(lv_obj_t *);
 void BROWSER_vScreenCreate(lv_obj_t *);
 bool BROWSER_boKeyPressedCallBackFunction(uint16_t );
 bool BROWSER_boKeyReleasedCallBackFunction(uint16_t );
+void BROWSER_vRotaryCallBackFunction(bool boClockwise);

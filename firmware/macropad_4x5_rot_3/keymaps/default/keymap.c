@@ -12,56 +12,10 @@ uint8_t SCREEN_u8GetActiveLayer(void);
 void SCREEN_vChangeLayer(uint16_t kb_layer_index);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-#ifdef ENABLE_TOTAL_COMMANDER_LAYER
-    [TOTAL_COMMANDER_LAYER] = LAYOUT(
-    TOTAL_COMMANDER_KEY_0,  TOTAL_COMMANDER_KEY_1,  TOTAL_COMMANDER_KEY_2,  TOTAL_COMMANDER_KEY_3,
-    TOTAL_COMMANDER_KEY_4,  TOTAL_COMMANDER_KEY_5,  TOTAL_COMMANDER_KEY_6,  TOTAL_COMMANDER_KEY_7,
-    TOTAL_COMMANDER_KEY_8,  TOTAL_COMMANDER_KEY_9,  TOTAL_COMMANDER_KEY_10, TOTAL_COMMANDER_KEY_11,
-    TOTAL_COMMANDER_KEY_12, TOTAL_COMMANDER_KEY_13, TOTAL_COMMANDER_KEY_14, TOTAL_COMMANDER_KEY_15,
-    TOTAL_COMMANDER_KEY_16, TOTAL_COMMANDER_KEY_17, TOTAL_COMMANDER_KEY_18, TOTAL_COMMANDER_KEY_19),
-#endif
-
-#ifdef ENABLE_NUMPAD_LAYER
-    [NUMPAD_LAYER] = LAYOUT(
-    NUMPAD_KEY_0, NUMPAD_KEY_1, NUMPAD_KEY_2, NUMPAD_KEY_3,
-    NUMPAD_KEY_4, NUMPAD_KEY_5, NUMPAD_KEY_6, NUMPAD_KEY_7,
-    NUMPAD_KEY_8, NUMPAD_KEY_9, NUMPAD_KEY_10, NUMPAD_KEY_11,
-    NUMPAD_KEY_12, NUMPAD_KEY_13, NUMPAD_KEY_14, NUMPAD_KEY_15,
-    NUMPAD_KEY_16, NUMPAD_KEY_17, NUMPAD_KEY_18, NUMPAD_KEY_19),
-#endif
-
-#ifdef ENABLE_VSC_LAYER
-    [VSC_LAYER] = LAYOUT (
-    enVSC_Btn_FIND_IN_FILES , enVSC_Btn_CLOSE_FILE, enVSC_Btn_NEW_TXT_FILE, enVSC_Btn_JUMP_TO_ROOT,
-    enVSC_Btn_NEW_TAB , enVSC_Btn_CLOSE_TAB, enVSC_Btn_TAB_CHANGE, enVSC_Btn_SWIVSCH_TAB,
-    enVSC_Btn_SORT_BY_NAME, enVSC_Btn_SORT_BY_EXT, enVSC_Btn_SORT_BY_TIME, enVSC_Btn_SORT_BY_SIZE,
-    enVSC_Btn_UNUSED_1, enVSC_Btn_UNUSED_2, enVSC_Btn_LEFT, enVSC_Btn_RIGHT,
-    enVSC_Btn_UNUSED_4, enVSC_Btn_UNUSED_5, enVSC_Btn_UNUSED_6, enVSC_Btn_UNUSED_7
-    ),
-#endif
-
-#ifdef ENABLE_BROWSER_LAYER
-    [BROWSER_LAYER] = LAYOUT(
-    BROWSER_KEY_0,  BROWSER_KEY_1,  BROWSER_KEY_2,  BROWSER_KEY_3,
-    BROWSER_KEY_4,  BROWSER_KEY_5,  BROWSER_KEY_6,  BROWSER_KEY_7,
-    BROWSER_KEY_8,  BROWSER_KEY_9,  BROWSER_KEY_10, BROWSER_KEY_11,
-    BROWSER_KEY_12, BROWSER_KEY_13, BROWSER_KEY_14, BROWSER_KEY_15,
-    BROWSER_KEY_16, BROWSER_KEY_17, BROWSER_KEY_18, BROWSER_KEY_19),
-#endif
-
-#ifdef ENABLE_RESOURCE_LAYER
-    /* Resource Layer purely GUI */
-    [RESOURCE_LAYER] = LAYOUT(
-    KC_NO, KC_NO, KC_NO, KC_NO,
-    KC_NO, KC_NO, KC_NO, KC_NO,
-    KC_NO, KC_NO, KC_NO, KC_NO,
-    KC_NO, KC_NO, KC_NO, KC_NO,
-    KC_NO, KC_NO, KC_NO, KC_NO
-    ),
-#endif
-
-    };
-
+    #define X X_QMK_KEYS_LAYER
+        LAYER_LIST
+    #undef X
+};
 
 void keyboard_pre_init_user(void)
 {
@@ -97,7 +51,6 @@ bool process_record_user(uint16_t u16KeyCode, keyrecord_t * spRecord) {
             LAYER_LIST
             #undef X
         }/*end switch(u8CurrentLayer)*/
-        return false;
     }/*end if (!spRecord->event.pressed)*/
     return false;
 }
@@ -184,51 +137,9 @@ bool encoder_update_user(uint8_t index, bool clockwise)
             /* Encoder can be use for other operations depending on different layer */
             switch(u8ActiveLayer)
             {
-#ifdef ENABLE_HOME_SCREEN_LAYER
-                case HOME_SCREEN_LAYER:
-                    if(clockwise) tap_code(KC_VOLU);
-                    else tap_code(KC_VOLD);
-                break;
-#endif
-
-#ifdef ENABLE_TOTAL_COMMANDER_LAYER
-                case TOTAL_COMMANDER_LAYER:
-                    if(clockwise)
-                    {
-                        tap_code(KC_UP);
-                    }
-                    else
-                    {
-                        tap_code(KC_DOWN);
-                    }
-                break;
-#endif
-
-#ifdef ENABLE_NUMPAD_LAYER
-                case NUMPAD_LAYER:
-                    if(clockwise)
-                    {
-                        tap_code(KC_VOLU);
-                    }
-                    else
-                    {
-                        tap_code(KC_VOLD);
-                    }
-                break;
-#endif
-
-#ifdef ENABLE_VSC_LAYER
-                case VSC_LAYER:
-                    if(clockwise)
-                    {
-                        tap_code(KC_UP);
-                    }
-                    else
-                    {
-                        tap_code(KC_DOWN);
-                    }
-                break;
-#endif
+                #define X X_ROTARY
+                LAYER_LIST
+                #undef X
             }
             return false;
 

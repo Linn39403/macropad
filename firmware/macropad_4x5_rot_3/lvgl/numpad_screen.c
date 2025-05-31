@@ -103,3 +103,15 @@ bool NUMPAD_boKeyReleasedCallBackFunction(uint16_t u16KeyCode)
     NUMPAD__vLayerGUIStateChange(u16KeyCode, GUI_vButtonRelease);
     return NUMPAD_LET_QMK_HANDLE_KEYBOARD_EVENT;
 }
+
+void NUMPAD_vRotaryCallBackFunction(bool boClockwise)
+{
+    if(boClockwise == true)
+    {
+        tap_code(KC_VOLU);
+    }
+    else
+    {
+        tap_code(KC_VOLD);
+    }
+}

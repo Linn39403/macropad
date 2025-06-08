@@ -2,7 +2,7 @@
 #include QMK_KEYBOARD_H
 #include "config.h"
 #include "print.h"
-#include "lvgl/numpad_screen.h"
+#include "keymaps/default/numpad_screen.h"
 #include "ringbuffer.h"
 
 bool is_locked = false;

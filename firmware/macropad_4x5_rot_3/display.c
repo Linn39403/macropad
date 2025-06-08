@@ -4,7 +4,7 @@
 #include "color.h"
 #include "keymap.h"
 #include "print.h"
-#include "lvgl/numpad_screen.h"
+#include "keymaps/default/numpad_screen.h"
 #include "ringbuffer.h"
 
 //#define LCD_1_9_INCH

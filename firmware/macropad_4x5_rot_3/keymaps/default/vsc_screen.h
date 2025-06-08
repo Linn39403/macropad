@@ -83,44 +83,44 @@ static struct VSC_stBtnInfo VSC_staBtnInfo [VSC_BUTTON_COUNT] =
         NULL,
         "CloseF",
         {
-            {true,KC_LCTL},{true,KC_W},{true,KC_NO},
-            {false,KC_LCTL},{false,KC_W},{false,KC_NO}
+            {true,KC_LCTL},{true,KC_F4},{true,KC_NO},
+            {false,KC_LCTL},{false,KC_F4},{false,KC_NO}
         }
     },
     /*[2]*/
     {
         NULL,
-        "",
+        "TglSbar",
         {
-            {true,KC_NO},{true,KC_NO},{true,KC_NO},
-            {false,KC_NO},{false,KC_NO},{false,KC_NO},
+            {true,KC_LCTL},{true,KC_B},{true,KC_NO},
+            {false,KC_LCTL},{false,KC_B},{false,KC_NO},
         }
     },
     /*[3]*/
     {
         NULL,
-        "",
+        "Split",
         {
-            {true,KC_NO},{true,KC_NO},{true,KC_NO},
-            {false,KC_NO},{false,KC_NO},{false,KC_NO},
+            {true,KC_LCTL},{true,KC_BACKSLASH},{true,KC_NO},
+            {false,KC_LCTL},{false,KC_BACKSLASH},{false,KC_NO},
         }
     },
     /*[4]*/
     {
         NULL,
-        "",
+        "//",
         {
-            {true,KC_NO},{true,KC_NO},{true,KC_NO},
-            {false,KC_NO},{false,KC_NO},{false,KC_NO},
+            {true,KC_LCTL},{true,KC_SLASH},{true,KC_NO},
+            {false,KC_LCTL},{false,KC_SLASH},{false,KC_NO},
         }
     },
     /*[5]*/
     {
         NULL,
-        "",
+        "TglTermal",
         {
-            {true,KC_NO},{true,KC_NO},{true,KC_NO},
-            {false,KC_NO},{false,KC_NO},{false,KC_NO},
+            {true,KC_LCTL},{true,KC_GRAVE},{true,KC_NO},
+            {false,KC_LCTL},{false,KC_GRAVE},{false,KC_NO},
         }
     },
     /*[6]*/
@@ -216,19 +216,19 @@ static struct VSC_stBtnInfo VSC_staBtnInfo [VSC_BUTTON_COUNT] =
     /*[16]*/
     {
         NULL,
-        "    ",
+        LV_SYMBOL_UP,
         {
-            {true,KC_NO},{true,KC_NO},{true,KC_NO},
-            {false,KC_NO},{false,KC_NO},{false,KC_NO},
+            {true,KC_LEFT_ALT},{true,KC_UP},{true,KC_NO},
+            {false,KC_LEFT_ALT},{false,KC_UP},{false,KC_NO},
         }
     },
     /*[17]*/
     {
         NULL,
-        "    ",
+        LV_SYMBOL_DOWN,
         {
-            {true,KC_NO},{true,KC_NO},{true,KC_NO},
-            {false,KC_NO},{false,KC_NO},{false,KC_NO},
+            {true,KC_LEFT_ALT},{true,KC_DOWN},{true,KC_NO},
+            {false,KC_LEFT_ALT},{false,KC_DOWN},{false,KC_NO},
         }
     },
     /*[18]*/

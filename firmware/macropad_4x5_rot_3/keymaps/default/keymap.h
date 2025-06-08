@@ -2,10 +2,10 @@
 #include "config.h"
 #include "lv_obj.h"
 #include "quantum_keycodes.h"
-#include "lvgl/total_commander_screen.h"
-#include "lvgl/numpad_screen.h"
-#include "lvgl/vsc_screen.h"
-#include "lvgl/browser_screen.h"
+#include "keymaps/default/total_commander_screen.h"
+#include "keymaps/default/numpad_screen.h"
+#include "keymaps/default/vsc_screen.h"
+#include "keymaps/default/browser_screen.h"
 
 /* X MACRO */
 #define LAYER_LIST\

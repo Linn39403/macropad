@@ -9,12 +9,12 @@ CONSOLE_ENABLE = yes
 SRC += display.c \
 	   ringbuffer.c \
 	   office_keymap.c \
-	   lvgl/screens.c \
-	   lvgl/GUI_helper.c \
-	   lvgl/numpad_screen.c \
-	   lvgl/resource_screen.c \
-	   lvgl/total_commander_screen.c \
-	   lvgl/vsc_screen.c \
-	   lvgl/browser_screen.c \
+	   screens.c \
+	   keymaps/default/GUI_helper.c \
+	   keymaps/default/numpad_screen.c \
+	   keymaps/default/resource_screen.c \
+	   keymaps/default/total_commander_screen.c \
+	   keymaps/default/vsc_screen.c \
+	   keymaps/default/browser_screen.c \
 
 

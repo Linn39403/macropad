@@ -3,26 +3,26 @@
 #include QMK_KEYBOARD_H
 
 
-#define FUNKEYS_KEY_0     S(KC_F6)        /* Rename Shortcut */
-#define FUNKEYS_KEY_1     S(KC_F10)       /* Properties Shortcut */
-#define FUNKEYS_KEY_2     S(KC_F4)        /* New Text File Shortcut */
-#define FUNKEYS_KEY_3     LCTL(KC_BSLS)   /* Jump to Root Shortcut */
-#define FUNKEYS_KEY_4     LCTL(KC_UP)     /* New Tab Shortcut */
-#define FUNKEYS_KEY_5     LCTL(KC_W)      /* Close Tab Shortcut */
-#define FUNKEYS_KEY_6     LCTL(KC_TAB)    /* Tab Change Shortcut */
-#define FUNKEYS_KEY_7     KC_TAB          /* Switch Tab Shortcut */
-#define FUNKEYS_KEY_8     LCTL(KC_F3)     /* Sort by Name Shortcut */
-#define FUNKEYS_KEY_9     LCTL(KC_F4)     /* Sort by Ext Shortcut */
-#define FUNKEYS_KEY_10    LCTL(KC_F5)     /* Sort by Time Shortcut */
-#define FUNKEYS_KEY_11    LCTL(KC_F6)     /* Sort by Size Shortcut */
-#define FUNKEYS_KEY_12    KC_ESC          /* Cancel Shortcut */
-#define FUNKEYS_KEY_13    KC_NO           /* Unused */
-#define FUNKEYS_KEY_14    KC_NO           /* Unused */
-#define FUNKEYS_KEY_15    KC_BACKSPACE    /* Back Shortcut */
-#define FUNKEYS_KEY_16    KC_NO           /* Unused */
-#define FUNKEYS_KEY_17    KC_NO           /* Unused */
-#define FUNKEYS_KEY_18    KC_NO           /* Unused */
-#define FUNKEYS_KEY_19    KC_NO           /* Unused */
+#define FUNKEYS_KEY_0     KC_F13   /* */
+#define FUNKEYS_KEY_1     KC_F14   /* */
+#define FUNKEYS_KEY_2     KC_F15   /* */
+#define FUNKEYS_KEY_3     KC_F16   /* */
+#define FUNKEYS_KEY_4     KC_F17   /* */
+#define FUNKEYS_KEY_5     KC_F18   /* */
+#define FUNKEYS_KEY_6     KC_F19   /* */
+#define FUNKEYS_KEY_7     KC_F20   /* */
+#define FUNKEYS_KEY_8     KC_F21   /* */
+#define FUNKEYS_KEY_9     KC_F22   /* */
+#define FUNKEYS_KEY_10    KC_F23   /* */
+#define FUNKEYS_KEY_11    KC_F24   /* */
+#define FUNKEYS_KEY_12    KC_NO    /* */
+#define FUNKEYS_KEY_13    KC_NO    /* */
+#define FUNKEYS_KEY_14    KC_NO    /* */
+#define FUNKEYS_KEY_15    KC_NO    /* */
+#define FUNKEYS_KEY_16    KC_NO    /* */
+#define FUNKEYS_KEY_17    KC_NO    /* */
+#define FUNKEYS_KEY_18    KC_NO    /* */
+#define FUNKEYS_KEY_19    KC_NO    /* */
 
 #ifdef __FUNKEYS_SCREEN_C
 
@@ -35,22 +35,22 @@ struct FUNKEYS_stBtnInfo
 
 struct FUNKEYS_stBtnInfo FUNKEYS_staBtnInfo [20] =
 {
-    { NULL, FUNKEYS_KEY_0  , "Rename"},
-    { NULL, FUNKEYS_KEY_1  , "Prop"},
-    { NULL, FUNKEYS_KEY_2  , "NewTxt"},
-    { NULL, FUNKEYS_KEY_3  , "Root"},
-    { NULL, FUNKEYS_KEY_4  , "NewTab"},
-    { NULL, FUNKEYS_KEY_5  , "ClseTab"},
-    { NULL, FUNKEYS_KEY_6  , "ChngTab"},
-    { NULL, FUNKEYS_KEY_7  , "Switch"},
-    { NULL, FUNKEYS_KEY_8  , "SName"},
-    { NULL, FUNKEYS_KEY_9  , "SExtion"},
-    { NULL, FUNKEYS_KEY_10 , "STime"},
-    { NULL, FUNKEYS_KEY_11 , "SSize"},
-    { NULL, FUNKEYS_KEY_12 , "Esc"},
+    { NULL, FUNKEYS_KEY_0  , "FN13"},
+    { NULL, FUNKEYS_KEY_1  , "FN14"},
+    { NULL, FUNKEYS_KEY_2  , "FN15"},
+    { NULL, FUNKEYS_KEY_3  , "FN16"},
+    { NULL, FUNKEYS_KEY_4  , "FN17"},
+    { NULL, FUNKEYS_KEY_5  , "FN18"},
+    { NULL, FUNKEYS_KEY_6  , "FN19"},
+    { NULL, FUNKEYS_KEY_7  , "FN20"},
+    { NULL, FUNKEYS_KEY_8  , "FN21"},
+    { NULL, FUNKEYS_KEY_9  , "FN22"},
+    { NULL, FUNKEYS_KEY_10 , "FN23"},
+    { NULL, FUNKEYS_KEY_11 , "FN24"},
+    { NULL, FUNKEYS_KEY_12 , "    "},
     { NULL, FUNKEYS_KEY_13 , "    "},
     { NULL, FUNKEYS_KEY_14 , "    "},
-    { NULL, FUNKEYS_KEY_15 , LV_SYMBOL_BACKSPACE},
+    { NULL, FUNKEYS_KEY_15 , "    "},
     { NULL, FUNKEYS_KEY_16 , "    "},
     { NULL, FUNKEYS_KEY_17 , "    "},
     { NULL, FUNKEYS_KEY_18 , "    "},

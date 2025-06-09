@@ -6,8 +6,8 @@ static lv_obj_t * FUNKEYS__spButtonCreate(lv_obj_t* spParentScreen, const char *
 {
     return GUI_spButtonCreate(spParentScreen,
                               pcText,
-                              lv_color_hex(0x4CCF35),
-                              lv_color_hex(0x000000),
+                              lv_color_hex(0xbf15e6),
+                              lv_color_hex(0xFFFFFF),
                               spBtnInfo);
 }
 
@@ -17,7 +17,7 @@ void FUNKEYS_vScreenCreate(lv_obj_t * spParentScreen)
 
     /* Total Commander Label */
     lv_obj_t* FUNKEYS_spVolumeTxt = lv_label_create(spParentScreen);
-    lv_label_set_text(FUNKEYS_spVolumeTxt , "Total Commander");
+    lv_label_set_text(FUNKEYS_spVolumeTxt , "FUN Keys");
     lv_obj_set_style_text_font(FUNKEYS_spVolumeTxt , &lv_font_montserrat_24, LV_PART_MAIN);
     lv_obj_align(FUNKEYS_spVolumeTxt ,LV_ALIGN_DEFAULT, 40, 200);
 }

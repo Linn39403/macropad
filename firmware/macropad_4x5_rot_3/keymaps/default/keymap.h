@@ -6,13 +6,15 @@
 #include "keymaps/default/numpad_screen.h"
 #include "keymaps/default/vsc_screen.h"
 #include "keymaps/default/browser_screen.h"
+#include "keymaps/default/funkeys_screen.h"
 
 /* X MACRO */
 #define LAYER_LIST\
     X(TOTAL_COMMANDER)\
     X(NUMPAD)\
     X(VSC)\
-    X(BROWSER)
+    X(BROWSER)\
+    X(FUNKEYS)
 
 enum keyboard_layers_enum{
     #define X(layer) layer##_LAYER,

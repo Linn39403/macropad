@@ -16,5 +16,6 @@ SRC += display.c \
 	   keymaps/default/total_commander_screen.c \
 	   keymaps/default/vsc_screen.c \
 	   keymaps/default/browser_screen.c \
+	   keymaps/default/funkeys_screen.c \
 
 

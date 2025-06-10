@@ -18,7 +18,9 @@ void VSC_vScreenCreate(lv_obj_t * spParentScreen)
     lv_obj_t* VSC_spVolumeTxt = lv_label_create(spParentScreen);
     lv_label_set_text(VSC_spVolumeTxt , "Visual Studio Code");
     lv_obj_set_style_text_font(VSC_spVolumeTxt , &lv_font_montserrat_24, LV_PART_MAIN);
-    lv_obj_align(VSC_spVolumeTxt ,LV_ALIGN_DEFAULT, 30, 200);
+    lv_obj_align(VSC_spVolumeTxt ,LV_ALIGN_BOTTOM_MID, 0, -10);
+    lv_obj_set_style_text_align(VSC_spVolumeTxt ,LV_ALIGN_CENTER, 0);
+    lv_obj_update_layout(VSC_spVolumeTxt);
 }
 
 static void VSC__executeKeys(uint16_t u16Index, bool boKeyPressed)

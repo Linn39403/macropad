@@ -19,7 +19,9 @@ void TOTAL_COMMANDER_vScreenCreate(lv_obj_t * spParentScreen)
     lv_obj_t* TOTAL_COMMANDER_spVolumeTxt = lv_label_create(spParentScreen);
     lv_label_set_text(TOTAL_COMMANDER_spVolumeTxt , "Total Commander");
     lv_obj_set_style_text_font(TOTAL_COMMANDER_spVolumeTxt , &lv_font_montserrat_24, LV_PART_MAIN);
-    lv_obj_align(TOTAL_COMMANDER_spVolumeTxt ,LV_ALIGN_DEFAULT, 40, 200);
+    lv_obj_align(TOTAL_COMMANDER_spVolumeTxt ,LV_ALIGN_BOTTOM_MID, 0, -10);
+    lv_obj_set_style_text_align(TOTAL_COMMANDER_spVolumeTxt ,LV_ALIGN_CENTER, 0);
+    lv_obj_update_layout(TOTAL_COMMANDER_spVolumeTxt);
 }
 
 static void TOTAL_COMMANDER__vLayerGUIStateChange(uint16_t u16KeyCode, TOTAL_COMMANDER_tpfnvGuiStateFunc pfnStateCb)

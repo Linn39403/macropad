@@ -20,7 +20,9 @@ void BROWSER_vScreenCreate(lv_obj_t * spParentScreen)
     lv_obj_t* BROWSER_spVolumeTxt = lv_label_create(spParentScreen);
     lv_label_set_text(BROWSER_spVolumeTxt , "Edge Browser");
     lv_obj_set_style_text_font(BROWSER_spVolumeTxt , &lv_font_montserrat_24, LV_PART_MAIN);
-    lv_obj_align(BROWSER_spVolumeTxt ,LV_ALIGN_DEFAULT, 40, 200);
+    lv_obj_align(BROWSER_spVolumeTxt ,LV_ALIGN_BOTTOM_MID, 0, -10);
+    lv_obj_set_style_text_align(BROWSER_spVolumeTxt ,LV_ALIGN_CENTER, 0);
+    lv_obj_update_layout(BROWSER_spVolumeTxt);
 }
 
 static void BROWSER__vLayerGUIStateChange(uint16_t u16KeyCode, BROWSER_tpfnvGuiStateFunc pfnStateCb)

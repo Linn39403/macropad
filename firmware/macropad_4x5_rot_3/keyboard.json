@@ -1,6 +1,6 @@
 {
     "manufacturer": "Aung Tun Linn",
-    "keyboard_name": "macropad_4x5_rotary",
+    "keyboard_name": "Linn_macropad",
     "maintainer": "Aung Tun Linn",
     "bootloader": "rp2040",
     "diode_direction": "ROW2COL",

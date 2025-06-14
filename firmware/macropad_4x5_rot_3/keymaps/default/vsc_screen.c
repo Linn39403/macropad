@@ -66,14 +66,21 @@ bool VSC_boKeyReleasedCallBackFunction(uint16_t u16KeyCode)
     return VSC__boLayerGUIStateChange(u16KeyCode, false, GUI_vButtonRelease);
 }
 
-void VSC_vRotaryCallBackFunction(bool boClockwise)
+void VSC_vRotaryCallBackFunction(bool boClockwise, bool boRotaryButtonPressed, bool boModeButtonPressed)
 {
-    if(boClockwise == true)
+    if(boRotaryButtonPressed == false)
     {
-        tap_code(KC_UP);
+
+    }
+    if(boModeButtonPressed == false)
+    {
+
     }
     else
     {
-        tap_code(KC_DOWN);
+        if(boClockwise == true)
+            tap_code(KC_UP);
+        else
+            tap_code(KC_DOWN);
     }
 }

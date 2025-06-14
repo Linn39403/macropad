@@ -50,14 +50,21 @@ bool FUNKEYS_boKeyReleasedCallBackFunction(uint16_t u16KeyCode)
     return true;
 }
 
-void FUNKEYS_vRotaryCallBackFunction(bool boClockwise)
+void FUNKEYS_vRotaryCallBackFunction(bool boClockwise, bool boRotaryButtonPressed, bool boModeButtonPressed)
 {
-    if(boClockwise == true)
+    if(boRotaryButtonPressed == false)
     {
-        tap_code(KC_UP);
+
+    }
+    if(boModeButtonPressed == false)
+    {
+
     }
     else
     {
-        tap_code(KC_DOWN);
+        if(boClockwise == true)
+            tap_code(KC_UP);
+        else
+            tap_code(KC_DOWN);
     }
 }

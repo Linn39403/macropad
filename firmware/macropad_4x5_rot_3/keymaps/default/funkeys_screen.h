@@ -60,7 +60,7 @@ struct FUNKEYS_stBtnInfo FUNKEYS_staBtnInfo [20] =
 
 
 #define FUNKEYS_BUTTON_SIZE_X 70
-#define FUNKEYS_BUTTON_SIZE_Y 30
+#define FUNKEYS_BUTTON_SIZE_Y 25
 #define FUNKEYS_BUTTON_SPACE_X 5
 #define FUNKEYS_BUTTON_SPACE_Y 5
 #define FUNKEYS_X_OFFSET_FROM_LEFT 10
@@ -73,4 +73,4 @@ typedef void (*FUNKEYS_tpfnvGuiStateFunc)(lv_obj_t *);
 void FUNKEYS_vScreenCreate(lv_obj_t *);
 bool FUNKEYS_boKeyPressedCallBackFunction(uint16_t );
 bool FUNKEYS_boKeyReleasedCallBackFunction(uint16_t );
-void FUNKEYS_vRotaryCallBackFunction(bool boClockwise);
+void FUNKEYS_vRotaryCallBackFunction(bool boClockwise, bool boRotaryButtonPressed, bool boModeButtonPressed);

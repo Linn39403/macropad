@@ -65,7 +65,7 @@ struct BROWSER_stBtnInfo BROWSER_staBtnInfo [20] =
 
 
 #define BROWSER_BUTTON_SIZE_X 70
-#define BROWSER_BUTTON_SIZE_Y 30
+#define BROWSER_BUTTON_SIZE_Y 25
 #define BROWSER_BUTTON_SPACE_X 5
 #define BROWSER_BUTTON_SPACE_Y 5
 #define BROWSER_X_OFFSET_FROM_LEFT 10
@@ -78,4 +78,4 @@ typedef void (*BROWSER_tpfnvGuiStateFunc)(lv_obj_t *);
 void BROWSER_vScreenCreate(lv_obj_t *);
 bool BROWSER_boKeyPressedCallBackFunction(uint16_t );
 bool BROWSER_boKeyReleasedCallBackFunction(uint16_t );
-void BROWSER_vRotaryCallBackFunction(bool boClockwise);
+void BROWSER_vRotaryCallBackFunction(bool boClockwise, bool boRotaryButtonPressed, bool boModeButtonPressed);

@@ -60,7 +60,7 @@ struct TOTAL_COMMANDER_stBtnInfo TOTAL_COMMANDER_staBtnInfo [20] =
 
 
 #define TOTAL_COMMANDER_BUTTON_SIZE_X 70
-#define TOTAL_COMMANDER_BUTTON_SIZE_Y 30
+#define TOTAL_COMMANDER_BUTTON_SIZE_Y 25
 #define TOTAL_COMMANDER_BUTTON_SPACE_X 5
 #define TOTAL_COMMANDER_BUTTON_SPACE_Y 5
 #define TOTAL_COMMANDER_X_OFFSET_FROM_LEFT 10
@@ -73,4 +73,4 @@ typedef void (*TOTAL_COMMANDER_tpfnvGuiStateFunc)(lv_obj_t *);
 void TOTAL_COMMANDER_vScreenCreate(lv_obj_t *);
 bool TOTAL_COMMANDER_boKeyPressedCallBackFunction(uint16_t );
 bool TOTAL_COMMANDER_boKeyReleasedCallBackFunction(uint16_t );
-void TOTAL_COMMANDER_vRotaryCallBackFunction(bool boClockwise);
+void TOTAL_COMMANDER_vRotaryCallBackFunction(bool boClockwise, bool boRotaryButtonPressed, bool boModeButtonPressed);

@@ -57,7 +57,6 @@ bool process_record_user(uint16_t u16KeyCode, keyrecord_t * spRecord) {
 
 void matrix_scan_user(void)
 {
-    static bool KMAP__boEncoderLeftPushBtnStatePrev = false;
     static bool KMAP__boEncoderRightPushBtnStatePrev = false;
     static bool KMAP__boEncoderMainPushBtnStatePrev = false;
 
@@ -83,18 +82,9 @@ void matrix_scan_user(void)
         }
     }
 
-    /* Two Push Buttons Read Handling */
-    if((KMAP_boEncoderLeftPushBtnStateNow == false) &&
-       (KMAP_boEncoderLeftPushBtnStateNow != KMAP__boEncoderLeftPushBtnStatePrev))
-    {
-        if(--u8ActiveLayer == 0xFF) /* reach minus ? */
-        {
-            u8ActiveLayer = LAYER_COUNT - 1;
-        }
-        SCREEN_vChangeLayer(u8ActiveLayer);
-    }
-    else if((KMAP_boEncoderRightPushBtnStateNow == false) &&
-            (KMAP_boEncoderRightPushBtnStateNow != KMAP__boEncoderRightPushBtnStatePrev))
+    /* Right Side Push Button Read */
+    if((KMAP_boEncoderRightPushBtnStateNow == false) &&
+       (KMAP_boEncoderRightPushBtnStateNow != KMAP__boEncoderRightPushBtnStatePrev))
     {
         if(++u8ActiveLayer >= LAYER_COUNT)
         {
@@ -103,7 +93,6 @@ void matrix_scan_user(void)
         SCREEN_vChangeLayer(u8ActiveLayer);
     }
 
-    KMAP__boEncoderLeftPushBtnStatePrev = KMAP_boEncoderLeftPushBtnStateNow;
     KMAP__boEncoderRightPushBtnStatePrev = KMAP_boEncoderRightPushBtnStateNow;
     KMAP__boEncoderMainPushBtnStatePrev = KMAP_boEncoderMainPushBtnStateNow;
 
@@ -129,11 +118,11 @@ void matrix_scan_user(void)
 bool encoder_update_user(uint8_t index, bool clockwise)
 {
     uint8_t u8ActiveLayer = SCREEN_u8GetActiveLayer();
-    switch (index) {
-        case 0: /* left */
-            break;
+    bool boEncoderLeftPushBtnStateNow = readPin(ENCODER_LEFT_PUSH_BUTTON_PIN);
+    bool boEncoderMainPushBtnStateNow = readPin(ENCODER_MAIN_PUSH_BUTTON_PIN);
 
-        case 1: /* main, middle */
+    switch (index) {
+        case 1: /*  middle */
             /* Encoder can be use for other operations depending on different layer */
             switch(u8ActiveLayer)
             {
@@ -142,10 +131,6 @@ bool encoder_update_user(uint8_t index, bool clockwise)
                 #undef X
             }
             return false;
-
-        case 2: /* right */
-            return false;
-
         default:
             return false;
     }
@@ -175,7 +160,7 @@ void raw_hid_receive(uint8_t *u8pData, uint8_t u8Length)
         //int cpu_res_in_percent = (u8pData[2] - '0') * 100 + (u8pData[3] - '0') * 10 + (u8pData[4] - '0');
         //cpu_resource_set_value(cpu_res_in_percent);
     }
-    if(u8pData[0] == 'v' && u8pData[1] == 'o' && u8pData[2] == 'l' && u8pData[3] == '_')
+    if(memcmp(&u8pData[0], "vol_", 4) == 0)
     {
         /* speaker volume update to LVGL Arc */
         NUMPAD_i8SoundVolume = (u8pData[4] - '0') * 100 +
@@ -183,32 +168,23 @@ void raw_hid_receive(uint8_t *u8pData, uint8_t u8Length)
                              (u8pData[6] - '0');
         RingBuffer_Write(&DISP__stRbufSoundVolume, (uint8_t *)&NUMPAD_i8SoundVolume, 1);
     }
-    if(u8pData[0] == 'a' && u8pData[1] == 'p' && u8pData[2] == 'p' && u8pData[3] == '_')
+    if(memcmp(&u8pData[0], "app_", 4) == 0)
     {
-        uint8_t * app_name = &u8pData[4];
-        if(app_name[0] == 't' && app_name[1] == 't' && app_name[2] == 'c')
+        if(memcmp(&u8pData[4], "ttc", 3) == 0)
         {
-#ifdef ENABLE_TOTAL_COMMANDER_LAYER
             SCREEN_vChangeLayer(TOTAL_COMMANDER_LAYER);
-#endif
         }
-        else if(app_name[0] == 'c' && app_name[1] == 'a' && app_name[2] == 'l')
+        else if(memcmp(&u8pData[4], "cal", 3) == 0)
         {
-#ifdef ENABLE_NUMPAD_LAYER
             SCREEN_vChangeLayer(NUMPAD_LAYER);
-#endif
         }
-        else if(app_name[0] == 'v' && app_name[1] == 's' && app_name[2] == 'c')
+        else if(memcmp(&u8pData[4], "vsc", 3) == 0)
         {
-#ifdef ENABLE_VSC_LAYER
             SCREEN_vChangeLayer(VSC_LAYER);
-#endif
         }
-        else if(app_name[0] == 'b' && app_name[1] == 'w' && app_name[2] == 'r')
+        else if(memcmp(&u8pData[4], "bwr", 3) == 0)
         {
-#ifdef ENABLE_BROWSER_LAYER
             SCREEN_vChangeLayer(BROWSER_LAYER);
-#endif
         }
-    }/* end if(u8pData[0] == 'a' && u8pData[1] == 'p' && u8pData[2] == 'p' && u8pData[3] == '_') */
+   }
 }

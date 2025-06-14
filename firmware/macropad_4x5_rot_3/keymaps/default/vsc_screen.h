@@ -253,7 +253,7 @@ static struct VSC_stBtnInfo VSC_staBtnInfo [VSC_BUTTON_COUNT] =
 
 
 #define VSC_BUTTON_SIZE_X 70
-#define VSC_BUTTON_SIZE_Y 30
+#define VSC_BUTTON_SIZE_Y 25
 #define VSC_BUTTON_SPACE_X 5
 #define VSC_BUTTON_SPACE_Y 5
 #define VSC_X_OFFSET_FROM_LEFT 10
@@ -265,4 +265,4 @@ typedef void (*VSC_tpfnvGuiStateFunc)(lv_obj_t *);
 void VSC_vScreenCreate(lv_obj_t *);
 bool VSC_boKeyPressedCallBackFunction(uint16_t );
 bool VSC_boKeyReleasedCallBackFunction(uint16_t );
-void VSC_vRotaryCallBackFunction(bool boClockwise);
+void VSC_vRotaryCallBackFunction(bool boClockwise, bool boRotaryButtonPressed, bool boModeButtonPressed);

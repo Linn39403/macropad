@@ -13,6 +13,7 @@
 static painter_device_t DISP__stDisplay;
 RingBuffer DISP__stRbufSoundVolume;
 void SCREEN_vInit(void);
+uint8_t SCREEN_u8GetActiveLayer(void);
 
 enum DISP__enSoundVolumeAniState
 {
@@ -123,6 +124,14 @@ void housekeeping_task_user(void)
         break;
         default:
         break;
+    }/* end switch(DISP__enSoundVolumeAniState) */
+
+    uint8_t u8CurrentLayer = SCREEN_u8GetActiveLayer();
+    switch(u8CurrentLayer)
+    {
+        #define X X_HOUSEKEEPING
+        LAYER_LIST
+        #undef X
     }
 }
 

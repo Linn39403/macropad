@@ -266,3 +266,4 @@ void VSC_vScreenCreate(lv_obj_t *);
 bool VSC_boKeyPressedCallBackFunction(uint16_t );
 bool VSC_boKeyReleasedCallBackFunction(uint16_t );
 void VSC_vRotaryCallBackFunction(bool boClockwise, bool boRotaryButtonPressed, bool boModeButtonPressed);
+void VSC_vHouseKeeping(void);

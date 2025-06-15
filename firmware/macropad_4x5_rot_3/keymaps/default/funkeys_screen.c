@@ -68,3 +68,8 @@ void FUNKEYS_vRotaryCallBackFunction(bool boClockwise, bool boRotaryButtonPresse
             tap_code(KC_DOWN);
     }
 }
+
+void FUNKEYS_vHouseKeeping(void)
+{
+
+}

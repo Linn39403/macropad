@@ -124,3 +124,8 @@ void NUMPAD_vRotaryCallBackFunction(bool boClockwise, bool boRotaryButtonPressed
             tap_code(KC_VOLD);
     }
 }
+
+void NUMPAD_vHouseKeeping(void)
+{
+
+}

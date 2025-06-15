@@ -26,8 +26,9 @@
  * Encoder Right : A -> GP19, B ->GP20
  * Encoder Main  : A -> GP14, B ->GP15
  */
-
+#if 0
 #define ENCODER_RESOLUTIONS {1, 0} //Resolution, Encoder No
+#endif
 
 /*                     LEFT   MAIN  RIGHT */
 #define ENCODER_A_PINS {GP16, GP14, GP19}

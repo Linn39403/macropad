@@ -118,3 +118,4 @@ void NUMPAD_vScreenCreate(lv_obj_t *parent_screen);
 bool NUMPAD_boKeyPressedCallBackFunction(uint16_t );
 bool NUMPAD_boKeyReleasedCallBackFunction(uint16_t );
 void NUMPAD_vRotaryCallBackFunction(bool boClockwise, bool boRotaryButtonPressed, bool boModeButtonPressed);
+void NUMPAD_vHouseKeeping(void);

@@ -31,6 +31,11 @@ enum keyboard_layers_enum{
     case layer##_LAYER:\
         return layer##_boKeyReleasedCallBackFunction(u16KeyCode);
 
+#define X_HOUSEKEEPING(layer)\
+    case layer##_LAYER:\
+        layer##_vHouseKeeping();\
+        break;
+
 #define X_ROTARY(layer)\
     case layer##_LAYER:\
         layer##_vRotaryCallBackFunction(clockwise,boEncoderMainPushBtnStateNow,boEncoderLeftPushBtnStateNow);\

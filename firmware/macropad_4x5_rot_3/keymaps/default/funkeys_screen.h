@@ -74,3 +74,4 @@ void FUNKEYS_vScreenCreate(lv_obj_t *);
 bool FUNKEYS_boKeyPressedCallBackFunction(uint16_t );
 bool FUNKEYS_boKeyReleasedCallBackFunction(uint16_t );
 void FUNKEYS_vRotaryCallBackFunction(bool boClockwise, bool boRotaryButtonPressed, bool boModeButtonPressed);
+void FUNKEYS_vHouseKeeping(void);

@@ -84,3 +84,8 @@ void VSC_vRotaryCallBackFunction(bool boClockwise, bool boRotaryButtonPressed, b
             tap_code(KC_DOWN);
     }
 }
+
+void VSC_vHouseKeeping(void)
+{
+
+}

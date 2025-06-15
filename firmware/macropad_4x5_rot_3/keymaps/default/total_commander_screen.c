@@ -67,3 +67,8 @@ void TOTAL_COMMANDER_vRotaryCallBackFunction(bool boClockwise, bool boRotaryButt
             tap_code(KC_DOWN);
     }
 }
+
+void TOTAL_COMMANDER_vHouseKeeping(void)
+{
+
+}

@@ -79,3 +79,4 @@ void BROWSER_vScreenCreate(lv_obj_t *);
 bool BROWSER_boKeyPressedCallBackFunction(uint16_t );
 bool BROWSER_boKeyReleasedCallBackFunction(uint16_t );
 void BROWSER_vRotaryCallBackFunction(bool boClockwise, bool boRotaryButtonPressed, bool boModeButtonPressed);
+void BROWSER_vHouseKeeping(void);

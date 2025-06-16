@@ -1,6 +1,7 @@
 #pragma once
 #include "GUI_helper.h"
 #include QMK_KEYBOARD_H
+#include "fonts/fa_font_list.h"
 
 #define VSC_BUTTON_COUNT 20
 #define VSC_KEYCOMBINATION_COUNT 6
@@ -64,15 +65,18 @@ struct VSC_stBtnInfo
 {
     lv_obj_t * m_spBtn;
     const char * m_cpBtnName;
+    const lv_font_t * m_spFontName;
     struct VSC__stKeyCombination m_stKey[VSC_KEYCOMBINATION_COUNT];
 };
+
 
 static struct VSC_stBtnInfo VSC_staBtnInfo [VSC_BUTTON_COUNT] =
 {
     /*[0]*/
     {
         NULL,
-        "FindInF",
+        FA_SEARCH_CODE,
+        &fa_search,
         {
             {true,KC_LCTL},{true,KC_LSFT},{true,KC_F},
             {false,KC_LCTL},{false,KC_LSFT},{false,KC_F}
@@ -82,6 +86,7 @@ static struct VSC_stBtnInfo VSC_staBtnInfo [VSC_BUTTON_COUNT] =
     {
         NULL,
         "CloseF",
+        &lv_font_montserrat_14,
         {
             {true,KC_LCTL},{true,KC_F4},{true,KC_NO},
             {false,KC_LCTL},{false,KC_F4},{false,KC_NO}
@@ -91,6 +96,7 @@ static struct VSC_stBtnInfo VSC_staBtnInfo [VSC_BUTTON_COUNT] =
     {
         NULL,
         "TglSbar",
+        &lv_font_montserrat_14,
         {
             {true,KC_LCTL},{true,KC_B},{true,KC_NO},
             {false,KC_LCTL},{false,KC_B},{false,KC_NO},
@@ -100,6 +106,7 @@ static struct VSC_stBtnInfo VSC_staBtnInfo [VSC_BUTTON_COUNT] =
     {
         NULL,
         "Split",
+        &lv_font_montserrat_14,
         {
             {true,KC_LCTL},{true,KC_BACKSLASH},{true,KC_NO},
             {false,KC_LCTL},{false,KC_BACKSLASH},{false,KC_NO},
@@ -109,6 +116,7 @@ static struct VSC_stBtnInfo VSC_staBtnInfo [VSC_BUTTON_COUNT] =
     {
         NULL,
         "//",
+        &lv_font_montserrat_14,
         {
             {true,KC_LCTL},{true,KC_SLASH},{true,KC_NO},
             {false,KC_LCTL},{false,KC_SLASH},{false,KC_NO},
@@ -117,7 +125,8 @@ static struct VSC_stBtnInfo VSC_staBtnInfo [VSC_BUTTON_COUNT] =
     /*[5]*/
     {
         NULL,
-        "TglTermal",
+        FA_TERMINAL_CODE,
+        &fa_terminal,
         {
             {true,KC_LCTL},{true,KC_GRAVE},{true,KC_NO},
             {false,KC_LCTL},{false,KC_GRAVE},{false,KC_NO},
@@ -127,6 +136,7 @@ static struct VSC_stBtnInfo VSC_staBtnInfo [VSC_BUTTON_COUNT] =
     {
         NULL,
         "",
+        &lv_font_montserrat_14,
         {
             {true,KC_NO},{true,KC_NO},{true,KC_NO},
             {false,KC_NO},{false,KC_NO},{false,KC_NO},
@@ -136,6 +146,7 @@ static struct VSC_stBtnInfo VSC_staBtnInfo [VSC_BUTTON_COUNT] =
     {
         NULL,
         "",
+        &lv_font_montserrat_14,
         {
             {true,KC_NO},{true,KC_NO},{true,KC_NO},
             {false,KC_NO},{false,KC_NO},{false,KC_NO},
@@ -145,6 +156,7 @@ static struct VSC_stBtnInfo VSC_staBtnInfo [VSC_BUTTON_COUNT] =
     {
         NULL,
         "",
+        &lv_font_montserrat_14,
         {
             {true,KC_NO},{true,KC_NO},{true,KC_NO},
             {false,KC_NO},{false,KC_NO},{false,KC_NO},
@@ -154,6 +166,7 @@ static struct VSC_stBtnInfo VSC_staBtnInfo [VSC_BUTTON_COUNT] =
     {
         NULL,
         "",
+        &lv_font_montserrat_14,
         {
             {true,KC_NO},{true,KC_NO},{true,KC_NO},
             {false,KC_NO},{false,KC_NO},{false,KC_NO},
@@ -163,6 +176,7 @@ static struct VSC_stBtnInfo VSC_staBtnInfo [VSC_BUTTON_COUNT] =
     {
         NULL,
         "",
+        &lv_font_montserrat_14,
         {
             {true,KC_NO},{true,KC_NO},{true,KC_NO},
             {false,KC_NO},{false,KC_NO},{false,KC_NO},
@@ -172,6 +186,7 @@ static struct VSC_stBtnInfo VSC_staBtnInfo [VSC_BUTTON_COUNT] =
     {
         NULL,
         "",
+        &lv_font_montserrat_14,
         {
             {true,KC_NO},{true,KC_NO},{true,KC_NO},
             {false,KC_NO},{false,KC_NO},{false,KC_NO},
@@ -181,6 +196,7 @@ static struct VSC_stBtnInfo VSC_staBtnInfo [VSC_BUTTON_COUNT] =
     {
         NULL,
         LV_SYMBOL_LEFT,
+        &lv_font_montserrat_14,
         {
             {true,KC_LCTL},{true,KC_NO},{true,KC_PAGE_UP},
             {false,KC_LCTL},{false,KC_NO},{false,KC_PAGE_UP},
@@ -190,6 +206,7 @@ static struct VSC_stBtnInfo VSC_staBtnInfo [VSC_BUTTON_COUNT] =
     {
         NULL,
         LV_SYMBOL_RIGHT,
+        &lv_font_montserrat_14,
         {
             {true,KC_LCTL},{true,KC_NO},{true,KC_PAGE_DOWN},
             {false,KC_LCTL},{false,KC_NO},{false,KC_PAGE_DOWN},
@@ -199,6 +216,7 @@ static struct VSC_stBtnInfo VSC_staBtnInfo [VSC_BUTTON_COUNT] =
     {
         NULL,
         LV_SYMBOL_PREV,
+        &lv_font_montserrat_14,
         {
             {true,KC_LCTL},{true,KC_PAGE_UP},{true,KC_NO},
             {false,KC_LCTL},{false,KC_PAGE_UP},{false,KC_NO},
@@ -208,6 +226,7 @@ static struct VSC_stBtnInfo VSC_staBtnInfo [VSC_BUTTON_COUNT] =
     {
         NULL,
         LV_SYMBOL_NEXT,
+        &lv_font_montserrat_14,
         {
             {true,KC_LCTL},{true,KC_LSFT},{true,KC_PAGE_DOWN},
             {false,KC_LCTL},{false,KC_LSFT},{false,KC_PAGE_DOWN},
@@ -217,6 +236,7 @@ static struct VSC_stBtnInfo VSC_staBtnInfo [VSC_BUTTON_COUNT] =
     {
         NULL,
         LV_SYMBOL_UP,
+        &lv_font_montserrat_14,
         {
             {true,KC_LEFT_ALT},{true,KC_UP},{true,KC_NO},
             {false,KC_LEFT_ALT},{false,KC_UP},{false,KC_NO},
@@ -226,6 +246,7 @@ static struct VSC_stBtnInfo VSC_staBtnInfo [VSC_BUTTON_COUNT] =
     {
         NULL,
         LV_SYMBOL_DOWN,
+        &lv_font_montserrat_14,
         {
             {true,KC_LEFT_ALT},{true,KC_DOWN},{true,KC_NO},
             {false,KC_LEFT_ALT},{false,KC_DOWN},{false,KC_NO},
@@ -235,6 +256,7 @@ static struct VSC_stBtnInfo VSC_staBtnInfo [VSC_BUTTON_COUNT] =
     {
         NULL,
         "    ",
+        &lv_font_montserrat_14,
         {
             {true,KC_NO},{true,KC_NO},{true,KC_NO},
             {false,KC_NO},{false,KC_NO},{false,KC_NO},
@@ -244,6 +266,7 @@ static struct VSC_stBtnInfo VSC_staBtnInfo [VSC_BUTTON_COUNT] =
     {
         NULL,
         "    ",
+        &lv_font_montserrat_14,
         {
             {true,KC_NO},{true,KC_NO},{true,KC_NO},
             {false,KC_NO},{false,KC_NO},{false,KC_NO},
@@ -265,5 +288,6 @@ typedef void (*VSC_tpfnvGuiStateFunc)(lv_obj_t *);
 void VSC_vScreenCreate(lv_obj_t *);
 bool VSC_boKeyPressedCallBackFunction(uint16_t );
 bool VSC_boKeyReleasedCallBackFunction(uint16_t );
-void VSC_vRotaryCallBackFunction(bool boClockwise, bool boRotaryButtonPressed, bool boModeButtonPressed);
+void VSC_vRotaryCallBackFunction(bool boClockwise, bool boModeButtonPressed);
+void VSC_vRotaryButtonPressedCallBackFunction(void);
 void VSC_vHouseKeeping(void);

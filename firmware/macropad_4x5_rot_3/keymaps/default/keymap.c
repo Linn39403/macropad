@@ -72,11 +72,9 @@ void matrix_scan_user(void)
         /* Main Encoder Button Pressed */
         switch(u8ActiveLayer)
         {
-#ifdef ENABLE_TOTAL_COMMANDER_LAYER
-            case TOTAL_COMMANDER_LAYER:
-                tap_code(KC_ENT);
-            break;
-#endif
+            #define X X_ROTARY_BTN_PRESSED
+            LAYER_LIST
+            #undef X
             default:
             break;
         }
@@ -119,14 +117,13 @@ bool encoder_update_user(uint8_t index, bool clockwise)
 {
     uint8_t u8ActiveLayer = SCREEN_u8GetActiveLayer();
     bool boEncoderLeftPushBtnStateNow = readPin(ENCODER_LEFT_PUSH_BUTTON_PIN);
-    bool boEncoderMainPushBtnStateNow = readPin(ENCODER_MAIN_PUSH_BUTTON_PIN);
 
     switch (index) {
         case 1: /*  middle */
             /* Encoder can be use for other operations depending on different layer */
             switch(u8ActiveLayer)
             {
-                #define X X_ROTARY
+                #define X X_ROTARY_ROTATE
                 LAYER_LIST
                 #undef X
             }
@@ -176,7 +173,7 @@ void raw_hid_receive(uint8_t *u8pData, uint8_t u8Length)
         }
         else if(memcmp(&u8pData[4], "cal", 3) == 0)
         {
-            SCREEN_vChangeLayer(NUMPAD_LAYER);
+            //SCREEN_vChangeLayer(NUMPAD_LAYER);
         }
         else if(memcmp(&u8pData[4], "vsc", 3) == 0)
         {
@@ -184,7 +181,7 @@ void raw_hid_receive(uint8_t *u8pData, uint8_t u8Length)
         }
         else if(memcmp(&u8pData[4], "bwr", 3) == 0)
         {
-            SCREEN_vChangeLayer(BROWSER_LAYER);
+           // SCREEN_vChangeLayer(BROWSER_LAYER);
         }
    }
 }

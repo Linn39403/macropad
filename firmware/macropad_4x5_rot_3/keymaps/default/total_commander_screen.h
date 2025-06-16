@@ -1,6 +1,7 @@
 #pragma once
 #include "GUI_helper.h"
 #include QMK_KEYBOARD_H
+#include "fonts/fa_font_list.h"
 
 
 #define TOTAL_COMMANDER_KEY_0     S(KC_F6)        /* Rename Shortcut */
@@ -30,31 +31,32 @@ struct TOTAL_COMMANDER_stBtnInfo
 {
     lv_obj_t * m_spBtn;
 	const uint16_t m_u16KeyCode;
+    const lv_font_t * m_spFontName;
     const char * m_cpBtnName;
 };
 
 struct TOTAL_COMMANDER_stBtnInfo TOTAL_COMMANDER_staBtnInfo [20] =
 {
-    { NULL, TOTAL_COMMANDER_KEY_0  , "Rename"},
-    { NULL, TOTAL_COMMANDER_KEY_1  , "Prop"},
-    { NULL, TOTAL_COMMANDER_KEY_2  , "NewTxt"},
-    { NULL, TOTAL_COMMANDER_KEY_3  , "Root"},
-    { NULL, TOTAL_COMMANDER_KEY_4  , "NewTab"},
-    { NULL, TOTAL_COMMANDER_KEY_5  , "ClseTab"},
-    { NULL, TOTAL_COMMANDER_KEY_6  , "ChngTab"},
-    { NULL, TOTAL_COMMANDER_KEY_7  , "Switch"},
-    { NULL, TOTAL_COMMANDER_KEY_8  , "SName"},
-    { NULL, TOTAL_COMMANDER_KEY_9  , "SExtion"},
-    { NULL, TOTAL_COMMANDER_KEY_10 , "STime"},
-    { NULL, TOTAL_COMMANDER_KEY_11 , "SSize"},
-    { NULL, TOTAL_COMMANDER_KEY_12 , "Esc"},
-    { NULL, TOTAL_COMMANDER_KEY_13 , "    "},
-    { NULL, TOTAL_COMMANDER_KEY_14 , "    "},
-    { NULL, TOTAL_COMMANDER_KEY_15 , LV_SYMBOL_BACKSPACE},
-    { NULL, TOTAL_COMMANDER_KEY_16 , "    "},
-    { NULL, TOTAL_COMMANDER_KEY_17 , "    "},
-    { NULL, TOTAL_COMMANDER_KEY_18 , "    "},
-    { NULL, TOTAL_COMMANDER_KEY_19 , "    "},
+    { NULL, TOTAL_COMMANDER_KEY_0  , &lv_font_montserrat_14, "Rename"},
+    { NULL, TOTAL_COMMANDER_KEY_1  , &lv_font_montserrat_14, "Prop"},
+    { NULL, TOTAL_COMMANDER_KEY_2  , &lv_font_montserrat_14, "NewTxt"},
+    { NULL, TOTAL_COMMANDER_KEY_3  , &lv_font_montserrat_14, "Root"},
+    { NULL, TOTAL_COMMANDER_KEY_4  , &lv_font_montserrat_14, "NewTab"},
+    { NULL, TOTAL_COMMANDER_KEY_5  , &lv_font_montserrat_14, "ClseTab"},
+    { NULL, TOTAL_COMMANDER_KEY_6  , &lv_font_montserrat_14, "ChngTab"},
+    { NULL, TOTAL_COMMANDER_KEY_7  , &lv_font_montserrat_14, "Switch"},
+    { NULL, TOTAL_COMMANDER_KEY_8  , &fa_sort_alpha_asc,     FA_SORT_ALPHA_ASC_CODE},
+    { NULL, TOTAL_COMMANDER_KEY_9  , &lv_font_montserrat_14, "SExtion"},
+    { NULL, TOTAL_COMMANDER_KEY_10 , &lv_font_montserrat_14, "STime"},
+    { NULL, TOTAL_COMMANDER_KEY_11 , &fa_sort_amount_asc,    FA_SORT_AMOUNT_ASC_CODE},
+    { NULL, TOTAL_COMMANDER_KEY_12 , &lv_font_montserrat_14, "Esc"},
+    { NULL, TOTAL_COMMANDER_KEY_13 , &lv_font_montserrat_14, "    "},
+    { NULL, TOTAL_COMMANDER_KEY_14 , &lv_font_montserrat_14, "    "},
+    { NULL, TOTAL_COMMANDER_KEY_15 , &lv_font_montserrat_14, LV_SYMBOL_BACKSPACE},
+    { NULL, TOTAL_COMMANDER_KEY_16 , &lv_font_montserrat_14, "    "},
+    { NULL, TOTAL_COMMANDER_KEY_17 , &lv_font_montserrat_14, "    "},
+    { NULL, TOTAL_COMMANDER_KEY_18 , &lv_font_montserrat_14, "    "},
+    { NULL, TOTAL_COMMANDER_KEY_19 , &lv_font_montserrat_14, "    "},
 };
 
 
@@ -73,5 +75,6 @@ typedef void (*TOTAL_COMMANDER_tpfnvGuiStateFunc)(lv_obj_t *);
 void TOTAL_COMMANDER_vScreenCreate(lv_obj_t *);
 bool TOTAL_COMMANDER_boKeyPressedCallBackFunction(uint16_t );
 bool TOTAL_COMMANDER_boKeyReleasedCallBackFunction(uint16_t );
-void TOTAL_COMMANDER_vRotaryCallBackFunction(bool boClockwise, bool boRotaryButtonPressed, bool boModeButtonPressed);
+void TOTAL_COMMANDER_vRotaryCallBackFunction(bool boClockwise, bool boModeButtonPressed);
+void TOTAL_COMMANDER_vRotaryButtonPressedCallBackFunction(void);
 void TOTAL_COMMANDER_vHouseKeeping(void);

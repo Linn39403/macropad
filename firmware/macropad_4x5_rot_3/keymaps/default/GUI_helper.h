@@ -35,6 +35,7 @@ typedef struct GUI_tsBtnLocation
                     PREFIX##__spButtonCreate(                           \
                         spParentScreen,                                \
                         PREFIX##_staBtnInfo[u8Row + (u8RowCnt * u8Col)].m_cpBtnName, \
+                        PREFIX##_staBtnInfo[u8Row + (u8RowCnt * u8Col)].m_spFontName, \
                         &stBtnLoc);                                    \
             }                                                        \
         }                                                            \
@@ -44,6 +45,7 @@ void GUI_vButtonPress(lv_obj_t * );
 void GUI_vButtonRelease(lv_obj_t * );
 lv_obj_t * GUI_spButtonCreate(lv_obj_t* ,
                               const char * ,
+                              const lv_font_t * ,
                               lv_color_t ,
                               lv_color_t ,
                               GUI_tsBtnLocation * );

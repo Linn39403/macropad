@@ -7,14 +7,22 @@
 #include "keymaps/default/vsc_screen.h"
 #include "keymaps/default/browser_screen.h"
 #include "keymaps/default/funkeys_screen.h"
+#include "keymaps/default/win_explorer_screen.h"
 
+#if 0
 /* X MACRO */
 #define LAYER_LIST\
     X(TOTAL_COMMANDER)\
     X(NUMPAD)\
     X(VSC)\
     X(BROWSER)\
-    X(FUNKEYS)
+    X(FUNKEYS)\
+    X(WIN_EXPLORER)
+#endif
+
+#define LAYER_LIST\
+    X(TOTAL_COMMANDER)\
+    X(VSC)
 
 enum keyboard_layers_enum{
     #define X(layer) layer##_LAYER,
@@ -31,14 +39,19 @@ enum keyboard_layers_enum{
     case layer##_LAYER:\
         return layer##_boKeyReleasedCallBackFunction(u16KeyCode);
 
+#define X_ROTARY_BTN_PRESSED(layer)\
+    case layer##_LAYER:\
+        layer##_vRotaryButtonPressedCallBackFunction();\
+        break;
+
 #define X_HOUSEKEEPING(layer)\
     case layer##_LAYER:\
         layer##_vHouseKeeping();\
         break;
 
-#define X_ROTARY(layer)\
+#define X_ROTARY_ROTATE(layer)\
     case layer##_LAYER:\
-        layer##_vRotaryCallBackFunction(clockwise,boEncoderMainPushBtnStateNow,boEncoderLeftPushBtnStateNow);\
+        layer##_vRotaryCallBackFunction(clockwise,boEncoderLeftPushBtnStateNow);\
         break;
 
 #define X_SCREEN_LAYER(layer)\

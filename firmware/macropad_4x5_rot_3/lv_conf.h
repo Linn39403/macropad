@@ -19,3 +19,9 @@
 
 // #undef LV_FONT_MONTSERRAT_48
 // #define LV_FONT_MONTSERRAT_48 1
+
+#ifndef LV_FONT_CUSTOM_DECLARE
+#define LV_FONT_CUSTOM_DECLARE
+#endif
+
+

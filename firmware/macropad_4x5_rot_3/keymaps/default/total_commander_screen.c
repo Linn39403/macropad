@@ -2,10 +2,14 @@
 #include "total_commander_screen.h"
 #include "print.h"
 
-static lv_obj_t * TOTAL_COMMANDER__spButtonCreate(lv_obj_t* spParentScreen, const char * pcText, GUI_tsBtnLocation * spBtnInfo )
+static lv_obj_t * TOTAL_COMMANDER__spButtonCreate(lv_obj_t* spParentScreen,
+                                                  const char * pcText,
+                                                  const lv_font_t * font_name,
+                                                  GUI_tsBtnLocation * spBtnInfo )
 {
     return GUI_spButtonCreate(spParentScreen,
                               pcText,
+                              font_name,
                               lv_color_hex(0x4CCF35),
                               lv_color_hex(0x000000),
                               spBtnInfo);
@@ -50,14 +54,11 @@ bool TOTAL_COMMANDER_boKeyReleasedCallBackFunction(uint16_t u16KeyCode)
     return true;
 }
 
-void TOTAL_COMMANDER_vRotaryCallBackFunction(bool boClockwise, bool boRotaryButtonPressed, bool boModeButtonPressed)
+void TOTAL_COMMANDER_vRotaryCallBackFunction(bool boClockwise, bool boModeButtonPressed)
 {
-    if(boRotaryButtonPressed == false)
-    {
-        tap_code(KC_ENT);
-    }
     if(boModeButtonPressed == false)
     {
+
     }
     else
     {
@@ -66,6 +67,11 @@ void TOTAL_COMMANDER_vRotaryCallBackFunction(bool boClockwise, bool boRotaryButt
         else
             tap_code(KC_DOWN);
     }
+}
+
+void TOTAL_COMMANDER_vRotaryButtonPressedCallBackFunction()
+{
+    tap_code(KC_ENT);
 }
 
 void TOTAL_COMMANDER_vHouseKeeping(void)

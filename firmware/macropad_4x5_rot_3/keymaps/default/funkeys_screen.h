@@ -1,7 +1,7 @@
 #pragma once
 #include "GUI_helper.h"
 #include QMK_KEYBOARD_H
-
+#include "fonts/fa_font_list.h"
 
 #define FUNKEYS_KEY_0     KC_F13   /* */
 #define FUNKEYS_KEY_1     KC_F14   /* */
@@ -30,31 +30,32 @@ struct FUNKEYS_stBtnInfo
 {
     lv_obj_t * m_spBtn;
 	const uint16_t m_u16KeyCode;
+    const lv_font_t * m_spFontName;
     const char * m_cpBtnName;
 };
 
 struct FUNKEYS_stBtnInfo FUNKEYS_staBtnInfo [20] =
 {
-    { NULL, FUNKEYS_KEY_0  , "FN13"},
-    { NULL, FUNKEYS_KEY_1  , "FN14"},
-    { NULL, FUNKEYS_KEY_2  , "FN15"},
-    { NULL, FUNKEYS_KEY_3  , "FN16"},
-    { NULL, FUNKEYS_KEY_4  , "FN17"},
-    { NULL, FUNKEYS_KEY_5  , "FN18"},
-    { NULL, FUNKEYS_KEY_6  , "FN19"},
-    { NULL, FUNKEYS_KEY_7  , "FN20"},
-    { NULL, FUNKEYS_KEY_8  , "FN21"},
-    { NULL, FUNKEYS_KEY_9  , "FN22"},
-    { NULL, FUNKEYS_KEY_10 , "FN23"},
-    { NULL, FUNKEYS_KEY_11 , "FN24"},
-    { NULL, FUNKEYS_KEY_12 , "    "},
-    { NULL, FUNKEYS_KEY_13 , "    "},
-    { NULL, FUNKEYS_KEY_14 , "    "},
-    { NULL, FUNKEYS_KEY_15 , "    "},
-    { NULL, FUNKEYS_KEY_16 , "    "},
-    { NULL, FUNKEYS_KEY_17 , "    "},
-    { NULL, FUNKEYS_KEY_18 , "    "},
-    { NULL, FUNKEYS_KEY_19 , "    "},
+    { NULL, FUNKEYS_KEY_0  , &lv_font_montserrat_14, "FN13"},
+    { NULL, FUNKEYS_KEY_1  , &lv_font_montserrat_14, "FN14"},
+    { NULL, FUNKEYS_KEY_2  , &lv_font_montserrat_14, "FN15"},
+    { NULL, FUNKEYS_KEY_3  , &lv_font_montserrat_14, "FN16"},
+    { NULL, FUNKEYS_KEY_4  , &lv_font_montserrat_14, "FN17"},
+    { NULL, FUNKEYS_KEY_5  , &lv_font_montserrat_14, "FN18"},
+    { NULL, FUNKEYS_KEY_6  , &lv_font_montserrat_14, "FN19"},
+    { NULL, FUNKEYS_KEY_7  , &lv_font_montserrat_14, "FN20"},
+    { NULL, FUNKEYS_KEY_8  , &lv_font_montserrat_14, "FN21"},
+    { NULL, FUNKEYS_KEY_9  , &lv_font_montserrat_14, "FN22"},
+    { NULL, FUNKEYS_KEY_10 , &lv_font_montserrat_14, "FN23"},
+    { NULL, FUNKEYS_KEY_11 , &lv_font_montserrat_14, "FN24"},
+    { NULL, FUNKEYS_KEY_12 , &lv_font_montserrat_14, "    "},
+    { NULL, FUNKEYS_KEY_13 , &lv_font_montserrat_14, "    "},
+    { NULL, FUNKEYS_KEY_14 , &lv_font_montserrat_14, "    "},
+    { NULL, FUNKEYS_KEY_15 , &lv_font_montserrat_14, "    "},
+    { NULL, FUNKEYS_KEY_16 , &lv_font_montserrat_14, "    "},
+    { NULL, FUNKEYS_KEY_17 , &lv_font_montserrat_14, "    "},
+    { NULL, FUNKEYS_KEY_18 , &lv_font_montserrat_14, "    "},
+    { NULL, FUNKEYS_KEY_19 , &lv_font_montserrat_14, "    "},
 };
 
 
@@ -73,5 +74,6 @@ typedef void (*FUNKEYS_tpfnvGuiStateFunc)(lv_obj_t *);
 void FUNKEYS_vScreenCreate(lv_obj_t *);
 bool FUNKEYS_boKeyPressedCallBackFunction(uint16_t );
 bool FUNKEYS_boKeyReleasedCallBackFunction(uint16_t );
-void FUNKEYS_vRotaryCallBackFunction(bool boClockwise, bool boRotaryButtonPressed, bool boModeButtonPressed);
+void FUNKEYS_vRotaryCallBackFunction(bool , bool );
+void FUNKEYS_vRotaryButtonPressedCallBackFunction(void);
 void FUNKEYS_vHouseKeeping(void);

@@ -2,10 +2,14 @@
 #include "funkeys_screen.h"
 #include "print.h"
 
-static lv_obj_t * FUNKEYS__spButtonCreate(lv_obj_t* spParentScreen, const char * pcText, GUI_tsBtnLocation * spBtnInfo )
+static lv_obj_t * FUNKEYS__spButtonCreate(lv_obj_t* spParentScreen,
+                                          const char * pcText, 
+                                          const lv_font_t * font_name,
+                                          GUI_tsBtnLocation * spBtnInfo )
 {
     return GUI_spButtonCreate(spParentScreen,
                               pcText,
+                              font_name,
                               lv_color_hex(0xbf15e6),
                               lv_color_hex(0xFFFFFF),
                               spBtnInfo);
@@ -15,7 +19,7 @@ void FUNKEYS_vScreenCreate(lv_obj_t * spParentScreen)
 {
     GUI_SCREEN_CREATE(FUNKEYS, spParentScreen);
 
-    /* Total Commander Label */
+    /* Fun Keys Label */
     lv_obj_t* FUNKEYS_spVolumeTxt = lv_label_create(spParentScreen);
     lv_label_set_text(FUNKEYS_spVolumeTxt , "FUN Keys");
     lv_obj_set_style_text_font(FUNKEYS_spVolumeTxt , &lv_font_montserrat_24, LV_PART_MAIN);
@@ -50,23 +54,17 @@ bool FUNKEYS_boKeyReleasedCallBackFunction(uint16_t u16KeyCode)
     return true;
 }
 
-void FUNKEYS_vRotaryCallBackFunction(bool boClockwise, bool boRotaryButtonPressed, bool boModeButtonPressed)
+void FUNKEYS_vRotaryCallBackFunction(bool boClockwise, bool boModeButtonPressed)
 {
-    if(boRotaryButtonPressed == false)
-    {
-
-    }
-    if(boModeButtonPressed == false)
-    {
-
-    }
+    if(boClockwise == true)
+        tap_code(KC_UP);
     else
-    {
-        if(boClockwise == true)
-            tap_code(KC_UP);
-        else
-            tap_code(KC_DOWN);
-    }
+        tap_code(KC_DOWN);
+}
+
+void FUNKEYS_vRotaryButtonPressedCallBackFunction(void)
+{
+    /* Do nothing */
 }
 
 void FUNKEYS_vHouseKeeping(void)

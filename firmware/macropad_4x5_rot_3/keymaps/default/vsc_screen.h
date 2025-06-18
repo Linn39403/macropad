@@ -5,32 +5,6 @@
 
 #define VSC_BUTTON_COUNT 20
 #define VSC_KEYCOMBINATION_COUNT 6
-#if 0
-enum VSC__enButtons
-{
-    enVSC_Btn_FIND_IN_FILES = SAFE_RANGE,
-    enVSC_Btn_CLOSE_FILE,
-    enVSC_Btn_NEW_TXT_FILE,
-    enVSC_Btn_JUMP_TO_ROOT,
-    enVSC_Btn_NEW_TAB ,
-    enVSC_Btn_CLOSE_TAB,
-    enVSC_Btn_TAB_CHANGE,
-    enVSC_Btn_SWIVSCH_TAB,
-    enVSC_Btn_SORT_BY_NAME,
-    enVSC_Btn_SORT_BY_EXT,
-    enVSC_Btn_SORT_BY_TIME,
-    enVSC_Btn_SORT_BY_SIZE,
-    enVSC_Btn_UNUSED_1,
-    enVSC_Btn_UNUSED_2,
-    enVSC_Btn_LEFT,
-    enVSC_Btn_RIGHT,
-    enVSC_Btn_UNUSED_4,
-    enVSC_Btn_UNUSED_5,
-    enVSC_Btn_UNUSED_6,
-    enVSC_Btn_UNUSED_7,
-    enVSC_Btn_COUNT
-};
-#endif
 
 #define VSC_KEY_0   SAFE_RANGE
 #define VSC_KEY_1   SAFE_RANGE + 1
@@ -288,6 +262,6 @@ typedef void (*VSC_tpfnvGuiStateFunc)(lv_obj_t *);
 void VSC_vScreenCreate(lv_obj_t *);
 bool VSC_boKeyPressedCallBackFunction(uint16_t );
 bool VSC_boKeyReleasedCallBackFunction(uint16_t );
-void VSC_vRotaryCallBackFunction(bool boClockwise, bool boModeButtonPressed);
+void VSC_vRotaryCallBackFunction(bool , bool );
 void VSC_vRotaryButtonPressedCallBackFunction(void);
 void VSC_vHouseKeeping(void);

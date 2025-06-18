@@ -24,6 +24,7 @@
     X(TOTAL_COMMANDER)\
     X(VSC)\
     X(BROWSER)\
+    X(FUNKEYS)\
 
 enum keyboard_layers_enum{
     #define X(layer) layer##_LAYER,

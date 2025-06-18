@@ -96,60 +96,30 @@ bool VSC_boKeyReleasedCallBackFunction(uint16_t u16KeyCode)
 
 void VSC_vRotaryCallBackFunction(bool boClockwise, bool boModeButtonPressed)
 {
-    if(boModeButtonPressed == false)
+    VSC__u16ScreenTimer = timer_read();
+    const char * cp_text = NULL;
+    uint16_t u16_keycode = 0;
+    uint8_t u8_repeat = 0;
+
+    switch(VSC__enKNOB_State)
     {
-        /* Button Pressed */
-        VSC__u16ScreenTimer = timer_read();
-        switch(VSC__enKNOB_State)
-        {
-            case enKnobUpDown_State :
-                lv_label_set_text(VSC_spKnobText, VSC_KNOB_2X_UP_DOWN_TEXT );
-                if(boClockwise == true){
-                    tap_code(KC_UP);
-                    tap_code(KC_UP);
-                }
-                else{
-                    tap_code(KC_DOWN);
-                    tap_code(KC_DOWN);
-                }
+        case enKnobUpDown_State :
+            cp_text = (boModeButtonPressed == false) ? VSC_KNOB_2X_UP_DOWN_TEXT : VSC_KNOB_UP_DOWN_TEXT;
+            u16_keycode = boClockwise ? KC_UP : KC_DOWN;
             break;
 
-            case enKnobLeftRight_State :
-                lv_label_set_text(VSC_spKnobText, VSC_KNOB_2X_LEFT_RIGHT_TEXT );
-                if(boClockwise == true){
-                    tap_code(KC_RIGHT);
-                    tap_code(KC_RIGHT);
-                }
-                else{
-                    tap_code(KC_LEFT);
-                    tap_code(KC_LEFT);
-                }
+        case enKnobLeftRight_State :
+            cp_text = (boModeButtonPressed == false) ? VSC_KNOB_2X_LEFT_RIGHT_TEXT : VSC_KNOB_LEFT_RIGHT_TEXT;
+            u16_keycode = boClockwise ? KC_RIGHT : KC_LEFT;
             break;
-        }
+        break;
     }
-    else
+    lv_label_set_text(VSC_spKnobText, cp_text);
+    u8_repeat = (boModeButtonPressed == false) ? 2 : 1;
+    do
     {
-        /* Button Not Pressed */
-        VSC__u16ScreenTimer = timer_read();
-        switch(VSC__enKNOB_State)
-        {
-            case enKnobUpDown_State :
-                lv_label_set_text(VSC_spKnobText, VSC_KNOB_UP_DOWN_TEXT );
-                if(boClockwise == true)
-                    tap_code(KC_UP);
-                else
-                    tap_code(KC_DOWN);
-            break;
-
-            case enKnobLeftRight_State :
-                lv_label_set_text(VSC_spKnobText, VSC_KNOB_LEFT_RIGHT_TEXT );
-                if(boClockwise == true)
-                    tap_code(KC_RIGHT);
-                else
-                    tap_code(KC_LEFT);
-            break;
-        }
-    }
+        tap_code(u16_keycode);
+    }while(u8_repeat--);
 }
 
 void VSC_vRotaryButtonPressedCallBackFunction(void)

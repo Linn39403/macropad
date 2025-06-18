@@ -1,6 +1,7 @@
 #pragma once
 #include "GUI_helper.h"
 #include QMK_KEYBOARD_H
+#include "fonts/fa_font_list.h"
 
 #define BROWSER_KEY_0     KC_F5           /* Refresh */
 #define BROWSER_KEY_1     LCTL(KC_W)      /* Close Tab */
@@ -35,31 +36,32 @@ struct BROWSER_stBtnInfo
 {
     lv_obj_t * m_spBtn;
 	const uint16_t m_u16KeyCode;
+    const lv_font_t * m_spFontName;
     const char * m_cpBtnName;
 };
 
 struct BROWSER_stBtnInfo BROWSER_staBtnInfo [20] =
 {
-    { NULL, BROWSER_KEY_0  , "Refresh"},
-    { NULL, BROWSER_KEY_1  , "ClTab"},
-    { NULL, BROWSER_KEY_2  , "Download"},
-    { NULL, BROWSER_KEY_3  , "History"},
-    { NULL, BROWSER_KEY_4  , "    "},
-    { NULL, BROWSER_KEY_5  , "    "},
-    { NULL, BROWSER_KEY_6  , "    "},
-    { NULL, BROWSER_KEY_7  , "    "},
-    { NULL, BROWSER_KEY_8  , "Zoom+"},
-    { NULL, BROWSER_KEY_9  , "Zoom-"},
-    { NULL, BROWSER_KEY_10 , "Zoom0"},
-    { NULL, BROWSER_KEY_11 , "Mute"},
-    { NULL, BROWSER_KEY_12 , LV_SYMBOL_LEFT},
-    { NULL, BROWSER_KEY_13 , LV_SYMBOL_RIGHT},
-    { NULL, BROWSER_KEY_14 , "    "},
-    { NULL, BROWSER_KEY_15 , "    "},
-    { NULL, BROWSER_KEY_16 , "CtlC"},
-    { NULL, BROWSER_KEY_17 , "CtlX"},
-    { NULL, BROWSER_KEY_18 , "CtlV"},
-    { NULL, BROWSER_KEY_19 , "CtlV+Plain"},
+    { NULL, BROWSER_KEY_0  , &lv_font_montserrat_14, "Refresh"},
+    { NULL, BROWSER_KEY_1  , &lv_font_montserrat_14, "ClTab"},
+    { NULL, BROWSER_KEY_2  , &lv_font_montserrat_14, "Download"},
+    { NULL, BROWSER_KEY_3  , &lv_font_montserrat_14, "History"},
+    { NULL, BROWSER_KEY_4  , &lv_font_montserrat_14, "    "},
+    { NULL, BROWSER_KEY_5  , &lv_font_montserrat_14, "    "},
+    { NULL, BROWSER_KEY_6  , &lv_font_montserrat_14, "    "},
+    { NULL, BROWSER_KEY_7  , &lv_font_montserrat_14, "    "},
+    { NULL, BROWSER_KEY_8  , &lv_font_montserrat_14, "Zoom+"},
+    { NULL, BROWSER_KEY_9  , &lv_font_montserrat_14, "Zoom-"},
+    { NULL, BROWSER_KEY_10 , &lv_font_montserrat_14, "Zoom0"},
+    { NULL, BROWSER_KEY_11 , &lv_font_montserrat_14, "Mute"},
+    { NULL, BROWSER_KEY_12 , &lv_font_montserrat_14, LV_SYMBOL_LEFT},
+    { NULL, BROWSER_KEY_13 , &lv_font_montserrat_14, LV_SYMBOL_RIGHT},
+    { NULL, BROWSER_KEY_14 , &lv_font_montserrat_14, "    "},
+    { NULL, BROWSER_KEY_15 , &lv_font_montserrat_14, "    "},
+    { NULL, BROWSER_KEY_16 , &lv_font_montserrat_14, "CtlC"},
+    { NULL, BROWSER_KEY_17 , &lv_font_montserrat_14, "CtlX"},
+    { NULL, BROWSER_KEY_18 , &lv_font_montserrat_14, "CtlV"},
+    { NULL, BROWSER_KEY_19 , &lv_font_montserrat_14, "CtlV+Plain"},
 };
 
 
@@ -78,5 +80,6 @@ typedef void (*BROWSER_tpfnvGuiStateFunc)(lv_obj_t *);
 void BROWSER_vScreenCreate(lv_obj_t *);
 bool BROWSER_boKeyPressedCallBackFunction(uint16_t );
 bool BROWSER_boKeyReleasedCallBackFunction(uint16_t );
-void BROWSER_vRotaryCallBackFunction(bool boClockwise, bool boRotaryButtonPressed, bool boModeButtonPressed);
+void BROWSER_vRotaryCallBackFunction(bool boClockwise, bool boModeButtonPressed);
+void BROWSER_vRotaryButtonPressedCallBackFunction(void);
 void BROWSER_vHouseKeeping(void);

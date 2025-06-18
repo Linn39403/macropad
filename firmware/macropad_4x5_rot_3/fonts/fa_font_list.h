@@ -22,3 +22,6 @@ LV_FONT_DECLARE(fa_angles_34pxl_collection)
 #define FA_ANGLE_DOWN_CODE         "\uf107" /* fa_angle_down */
 #define FA_ROTATE_LEFT_CODE        "\uf0e2" /* fa_rotate_left */
 #define FA_ROTATE_RIGHT_CODE       "\uf01e" /* fa_rotate_right */
+#define FA_VOLUME_UP_CODE          "\uf028" /* fa_volume_up */
+#define FA_VOLUME_DOWN_CODE        "\uf027" /* fa_volume_down */
+#define FA_VOLUME_MUTE_CODE        "\uf026" /* fa_volume_mute */

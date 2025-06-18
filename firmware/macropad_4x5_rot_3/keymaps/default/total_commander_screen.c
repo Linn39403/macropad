@@ -69,7 +69,7 @@ void TOTAL_COMMANDER_vRotaryCallBackFunction(bool boClockwise, bool boModeButton
     }
 }
 
-void TOTAL_COMMANDER_vRotaryButtonPressedCallBackFunction()
+void TOTAL_COMMANDER_vRotaryButtonPressedCallBackFunction(void)
 {
     tap_code(KC_ENT);
 }

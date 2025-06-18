@@ -22,7 +22,8 @@
 
 #define LAYER_LIST\
     X(TOTAL_COMMANDER)\
-    X(VSC)
+    X(VSC)\
+    X(BROWSER)\
 
 enum keyboard_layers_enum{
     #define X(layer) layer##_LAYER,

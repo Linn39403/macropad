@@ -22,7 +22,8 @@ selected_applications = {'Total Commander': 'app_ttc',
                          'Calculator': 'app_cal',
                          'Visual Studio Code' : 'app_vsc',
                          'Edge' : 'app_bwr',
-                         'Brave' : 'app_bwr'}
+                         'Brave' : 'app_bwr',
+                         'File Explorer' : 'app_exp'}
 
 # Initialize COM once at the start
 def initialize_com():

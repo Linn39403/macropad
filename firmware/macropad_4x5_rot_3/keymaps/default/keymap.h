@@ -25,6 +25,8 @@
     X(VSC)\
     X(BROWSER)\
     X(FUNKEYS)\
+    X(NUMPAD)\
+    X(WIN_EXPLORER)\
 
 enum keyboard_layers_enum{
     #define X(layer) layer##_LAYER,

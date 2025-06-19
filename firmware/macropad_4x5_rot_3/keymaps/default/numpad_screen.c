@@ -6,7 +6,10 @@ int8_t NUMPAD_i8SoundVolume = -1;
 #define NUMPAD__nButtonColor lv_palette_darken(LV_PALETTE_AMBER, 3)
 #define NUMPAD__nArcColor  lv_palette_darken(LV_PALETTE_AMBER, 3)
 
-static lv_obj_t * NUMPAD__spButtonCreate(lv_obj_t* spParentScreen, const char * text, GUI_tsBtnLocation * stBtnLoc )
+static lv_obj_t * NUMPAD__spButtonCreate(lv_obj_t* spParentScreen,
+                                         const char * text,
+                                         const lv_font_t * font_name,
+                                         GUI_tsBtnLocation * stBtnLoc )
 {
     lv_obj_t *btn = lv_btn_create(spParentScreen);
     lv_obj_set_size(btn, stBtnLoc->m_u8BtnSizeX, stBtnLoc->m_u8BtnSizeY);
@@ -65,7 +68,10 @@ void NUMPAD_vScreenCreate(lv_obj_t *spParentScreen)
                 stBtnLoc.m_u8BtnSizeY = (NUMPAD_staBtnInfo[u8Index].m_boBtnYDouble == true ) ? ((NUMPAD_BUTTON_SIZE_Y * 2) + NUMPAD_BUTTON_SPACE_Y) : NUMPAD_BUTTON_SIZE_Y;
                 stBtnLoc.m_u8BtnLocX = NUMPAD_X_OFFSET_FROM_LEFT + (u8Row * NUMPAD_BUTTON_SPACE_X) + (u8Row * NUMPAD_BUTTON_SIZE_X);
                 stBtnLoc.m_u8BtnLocY = NUMPAD_Y_OFFSET_FROM_TOP + (u8Col * NUMPAD_BUTTON_SPACE_Y) + (u8Col * NUMPAD_BUTTON_SIZE_Y);
-                NUMPAD_staBtnInfo[u8Index].m_spBtn = NUMPAD__spButtonCreate(spParentScreen, NUMPAD_staBtnInfo[u8Index].m_cpBtnName, &stBtnLoc);
+                NUMPAD_staBtnInfo[u8Index].m_spBtn = NUMPAD__spButtonCreate(spParentScreen,
+                                                     NUMPAD_staBtnInfo[u8Index].m_cpBtnName,
+                                                     NUMPAD_staBtnInfo[u8Index].m_spFontName,
+                                                     &stBtnLoc);
             }
         }
     }
@@ -106,12 +112,8 @@ bool NUMPAD_boKeyReleasedCallBackFunction(uint16_t u16KeyCode)
     return NUMPAD_LET_QMK_HANDLE_KEYBOARD_EVENT;
 }
 
-void NUMPAD_vRotaryCallBackFunction(bool boClockwise, bool boRotaryButtonPressed, bool boModeButtonPressed)
+void NUMPAD_vRotaryCallBackFunction(bool boClockwise, bool boModeButtonPressed)
 {
-    if(boRotaryButtonPressed == false)
-    {
-
-    }
     if(boModeButtonPressed == false)
     {
 
@@ -123,6 +125,11 @@ void NUMPAD_vRotaryCallBackFunction(bool boClockwise, bool boRotaryButtonPressed
         else
             tap_code(KC_VOLD);
     }
+}
+
+void NUMPAD_vRotaryButtonPressedCallBackFunction(void)
+{
+
 }
 
 void NUMPAD_vHouseKeeping(void)

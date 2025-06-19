@@ -2,10 +2,14 @@
 #include "win_explorer_screen.h"
 #include "print.h"
 
-static lv_obj_t * WIN_EXPLORER__spButtonCreate(lv_obj_t* spParentScreen, const char * pcText, GUI_tsBtnLocation * spBtnInfo )
+static lv_obj_t * WIN_EXPLORER__spButtonCreate(lv_obj_t* spParentScreen,
+                                               const char * pcText,
+                                               const lv_font_t * font_name,
+                                               GUI_tsBtnLocation * spBtnInfo )
 {
     return GUI_spButtonCreate(spParentScreen,
                               pcText,
+                              font_name,
                               lv_color_hex(0xf3b51e),
                               lv_color_hex(0x000000),
                               spBtnInfo);
@@ -17,7 +21,7 @@ void WIN_EXPLORER_vScreenCreate(lv_obj_t * spParentScreen)
 
     /* Total Commander Label */
     lv_obj_t* WIN_EXPLORER_spVolumeTxt = lv_label_create(spParentScreen);
-    lv_label_set_text(WIN_EXPLORER_spVolumeTxt , "Total Commander");
+    lv_label_set_text(WIN_EXPLORER_spVolumeTxt , "Window Explorer");
     lv_obj_set_style_text_font(WIN_EXPLORER_spVolumeTxt , &lv_font_montserrat_24, LV_PART_MAIN);
     lv_obj_align(WIN_EXPLORER_spVolumeTxt ,LV_ALIGN_BOTTOM_MID, 0, -10);
     lv_obj_set_style_text_align(WIN_EXPLORER_spVolumeTxt ,LV_ALIGN_CENTER, 0);
@@ -50,22 +54,25 @@ bool WIN_EXPLORER_boKeyReleasedCallBackFunction(uint16_t u16KeyCode)
     return true;
 }
 
-void WIN_EXPLORER_vRotaryCallBackFunction(bool boClockwise, bool boRotaryButtonPressed, bool boModeButtonPressed)
+void WIN_EXPLORER_vRotaryCallBackFunction(bool boClockwise, bool boModeButtonPressed)
 {
-    if(boRotaryButtonPressed == false)
-    {
-        tap_code(KC_ENT);
-    }
     if(boModeButtonPressed == false)
     {
+        register_code(KC_LSFT);
     }
     else
     {
-        if(boClockwise == true)
-            tap_code(KC_UP);
-        else
-            tap_code(KC_DOWN);
+        unregister_code(KC_LSFT);
     }
+    if(boClockwise == false)
+        tap_code(KC_UP);
+    else
+        tap_code(KC_DOWN);
+}
+
+void WIN_EXPLORER_vRotaryButtonPressedCallBackFunction(void)
+{
+    tap_code(KC_ENT);
 }
 
 void WIN_EXPLORER_vHouseKeeping(void)

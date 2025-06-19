@@ -138,6 +138,18 @@ bool encoder_update_user(uint8_t index, bool clockwise)
 void raw_hid_receive(uint8_t *u8pData, uint8_t u8Length)
 {
     extern int8_t NUMPAD_i8SoundVolume;
+    typedef struct {
+        const char * m_cpCmd;
+        uint16_t m_u16Layer;
+    } CmdMap;
+    static const CmdMap mapping[] =
+    {
+        { "ttc", TOTAL_COMMANDER_LAYER },
+        { "cal", NUMPAD_LAYER },
+        { "vsc", VSC_LAYER},
+        { "bwr", BROWSER_LAYER},
+        { "exp", WIN_EXPLORER_LAYER},
+    };
     //uint8_t response[length];
     //memset(response, 0, length);
     //response[0] = 'B';
@@ -167,21 +179,12 @@ void raw_hid_receive(uint8_t *u8pData, uint8_t u8Length)
     }
     if(memcmp(&u8pData[0], "app_", 4) == 0)
     {
-        if(memcmp(&u8pData[4], "ttc", 3) == 0)
+        for (uint8_t i = 0; i < sizeof(mapping)/sizeof(mapping[0]); i++)
         {
-            SCREEN_vChangeLayer(TOTAL_COMMANDER_LAYER);
+            if(memcmp(&u8pData[4], mapping[i].m_cpCmd, 3) == 0) {
+                SCREEN_vChangeLayer(mapping[i].m_u16Layer);
+            break;
+            }
         }
-        else if(memcmp(&u8pData[4], "cal", 3) == 0)
-        {
-            //SCREEN_vChangeLayer(NUMPAD_LAYER);
-        }
-        else if(memcmp(&u8pData[4], "vsc", 3) == 0)
-        {
-            SCREEN_vChangeLayer(VSC_LAYER);
-        }
-        else if(memcmp(&u8pData[4], "bwr", 3) == 0)
-        {
-           // SCREEN_vChangeLayer(BROWSER_LAYER);
-        }
-   }
+    }
 }

@@ -2,6 +2,7 @@
 #include "keymap.h"
 #include QMK_KEYBOARD_H
 #include "GUI_helper.h"
+#include "fonts/fa_font_list.h"
 
 #ifndef __KEPAD_SCREEN_C
     #define NUMPAD_SCREEN_EXTERN
@@ -67,6 +68,7 @@ struct NUMPAD_stBtnInfo
 {
     lv_obj_t * m_spBtn;
     const uint16_t m_u16KeyCode;
+    const lv_font_t * m_spFontName;
     const char * m_cpBtnName;
     const bool  m_boBtnXDouble;
     const bool  m_boBtnYDouble;
@@ -75,31 +77,27 @@ struct NUMPAD_stBtnInfo
 
 struct NUMPAD_stBtnInfo NUMPAD_staBtnInfo [20] =
 {
-/*  m_spBtn    m_u16KeyCode         m_cpBtnName       BtnXDouble BtnYDouble SkipBtn */
-    { NULL, KC_BACKSPACE        , LV_SYMBOL_BACKSPACE , false, false, false},
-    { NULL, KC_KP_SLASH         , "/"                 , false, false, false},
-    { NULL, KC_KP_ASTERISK      , "*"                 , false, false, false},
-    { NULL, KC_KP_MINUS         , "-"                 , false, false, false},
-
-    { NULL, TD(NUMPAD_KEY_7_AND_A) , "7  A"              , false, false, false},
-    { NULL, TD(NUMPAD_KEY_8_AND_B) , "8  B"              , false, false, false},
-    { NULL, TD(NUMPAD_KEY_9_AND_C) , "9  C"              , false, false, false},
-    { NULL, KC_KP_PLUS          , "+"                 , false, true , false},
-
-    { NULL, TD(NUMPAD_KEY_4_AND_D) , "4  D"              , false, false, false},
-    { NULL, TD(NUMPAD_KEY_5_AND_E) , "5  E"              , false, false, false},
-    { NULL, TD(NUMPAD_KEY_6_AND_F) , "6  F"              , false, false, false},
-    { NULL, KC_KP_PLUS          , "+"                 , false, false, true }, /**/
-
-    { NULL, KC_KP_1             , "1"                 , false, false, false},
-    { NULL, KC_KP_2             , "2"                 , false, false, false},
-    { NULL, KC_KP_3             , "3"                 , false, false, false},
-    { NULL, KC_KP_ENTER         , LV_SYMBOL_NEW_LINE  , false, true , false},
-
-    { NULL, KC_KP_0             , "0"                 , true , false, false},
-	{ NULL, KC_KP_0             , "0"                 , false, false, true }, /**/
-    { NULL, KC_KP_DOT           , "."                 , false, false, false},
-	{ NULL, KC_KP_ENTER         , LV_SYMBOL_NEW_LINE  , false, false, true }, /**/
+/*  m_spBtn    m_u16KeyCode            m_sp_FontName         m_cpBtnName       BtnXDouble BtnYDouble SkipBtn */
+    { NULL, KC_BACKSPACE           , &lv_font_montserrat_14 , LV_SYMBOL_BACKSPACE , false, false, false},
+    { NULL, KC_KP_SLASH            , &lv_font_montserrat_14 , "/"                 , false, false, false},
+    { NULL, KC_KP_ASTERISK         , &lv_font_montserrat_14 , "*"                 , false, false, false},
+    { NULL, KC_KP_MINUS            , &lv_font_montserrat_14 , "-"                 , false, false, false},
+    { NULL, TD(NUMPAD_KEY_7_AND_A) , &lv_font_montserrat_14 , "7  A"              , false, false, false},
+    { NULL, TD(NUMPAD_KEY_8_AND_B) , &lv_font_montserrat_14 , "8  B"              , false, false, false},
+    { NULL, TD(NUMPAD_KEY_9_AND_C) , &lv_font_montserrat_14 , "9  C"              , false, false, false},
+    { NULL, KC_KP_PLUS             , &lv_font_montserrat_14 , "+"                 , false, true , false},
+    { NULL, TD(NUMPAD_KEY_4_AND_D) , &lv_font_montserrat_14 , "4  D"              , false, false, false},
+    { NULL, TD(NUMPAD_KEY_5_AND_E) , &lv_font_montserrat_14 , "5  E"              , false, false, false},
+    { NULL, TD(NUMPAD_KEY_6_AND_F) , &lv_font_montserrat_14 , "6  F"              , false, false, false},
+    { NULL, KC_KP_PLUS             , &lv_font_montserrat_14 , "+"                 , false, false, true }, /**/
+    { NULL, KC_KP_1                , &lv_font_montserrat_14 , "1"                 , false, false, false},
+    { NULL, KC_KP_2                , &lv_font_montserrat_14 , "2"                 , false, false, false},
+    { NULL, KC_KP_3                , &lv_font_montserrat_14 , "3"                 , false, false, false},
+    { NULL, KC_KP_ENTER            , &lv_font_montserrat_14 , LV_SYMBOL_NEW_LINE  , false, true , false},
+    { NULL, KC_KP_0                , &lv_font_montserrat_14 , "0"                 , true , false, false},
+	{ NULL, KC_KP_0                , &lv_font_montserrat_14 , "0"                 , false, false, true }, /**/
+    { NULL, KC_KP_DOT              , &lv_font_montserrat_14 , "."                 , false, false, false},
+	{ NULL, KC_KP_ENTER            , &lv_font_montserrat_14 , LV_SYMBOL_NEW_LINE  , false, false, true }, /**/
 };
 
 #define NUMPAD_BUTTON_SIZE_X 40
@@ -117,5 +115,6 @@ typedef void (*lv_obj_state_fptr)(lv_obj_t *);
 void NUMPAD_vScreenCreate(lv_obj_t *parent_screen);
 bool NUMPAD_boKeyPressedCallBackFunction(uint16_t );
 bool NUMPAD_boKeyReleasedCallBackFunction(uint16_t );
-void NUMPAD_vRotaryCallBackFunction(bool boClockwise, bool boRotaryButtonPressed, bool boModeButtonPressed);
+void NUMPAD_vRotaryCallBackFunction(bool , bool);
+void NUMPAD_vRotaryButtonPressedCallBackFunction(void);
 void NUMPAD_vHouseKeeping(void);

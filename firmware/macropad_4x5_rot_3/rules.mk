@@ -19,6 +19,7 @@ SRC += display.c \
 	   keymaps/default/browser_screen.c \
 	   keymaps/default/funkeys_screen.c \
 	   keymaps/default/win_explorer_screen.c \
+	   keymaps/default/lock_screen.c \
 	   fonts/fa_terminal.c \
 	   fonts/fa_search.c \
 	   fonts/fa_sort_alpha_asc.c \

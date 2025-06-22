@@ -8,19 +8,10 @@
 #include "keymaps/default/browser_screen.h"
 #include "keymaps/default/funkeys_screen.h"
 #include "keymaps/default/win_explorer_screen.h"
-
-#if 0
-/* X MACRO */
-#define LAYER_LIST\
-    X(TOTAL_COMMANDER)\
-    X(NUMPAD)\
-    X(VSC)\
-    X(BROWSER)\
-    X(FUNKEYS)\
-    X(WIN_EXPLORER)
-#endif
+#include "keymaps/default/lock_screen.h"
 
 #define LAYER_LIST\
+    X(LOCK)\
     X(TOTAL_COMMANDER)\
     X(VSC)\
     X(BROWSER)\

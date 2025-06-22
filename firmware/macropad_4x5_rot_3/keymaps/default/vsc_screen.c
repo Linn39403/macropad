@@ -34,21 +34,15 @@ void VSC_vScreenCreate(lv_obj_t * spParentScreen)
     GUI_SCREEN_CREATE(VSC, spParentScreen);
 
     /* Visual Studio Code Label */
-    lv_obj_t* VSC_spVolumeTxt = lv_label_create(spParentScreen);
-    lv_label_set_text(VSC_spVolumeTxt , "Visual Studio Code");
-    lv_obj_set_style_text_font(VSC_spVolumeTxt , &lv_font_montserrat_24, LV_PART_MAIN);
-    lv_obj_align(VSC_spVolumeTxt ,LV_ALIGN_BOTTOM_MID, 0, -10);
-    lv_obj_set_style_text_align(VSC_spVolumeTxt ,LV_ALIGN_CENTER, 0);
-    lv_obj_update_layout(VSC_spVolumeTxt);
+    GUI_spLayerNameCreate(spParentScreen,
+                          "Visual Studio Code",
+                          &lv_font_montserrat_24);
 
     /* Knob Text */
-    VSC_spKnobText = lv_label_create(spParentScreen);
-    lv_label_set_text(VSC_spKnobText, VSC_KNOB_EMPTY_TEXT);
-    lv_obj_set_style_text_font(VSC_spKnobText , &fa_angles_34pxl_collection, LV_PART_MAIN);
-    lv_obj_set_style_text_color(VSC_spKnobText, lv_color_hex(0xE9B316), 0);
-    lv_obj_align(VSC_spKnobText ,LV_ALIGN_BOTTOM_MID, 0, -40);
-    lv_obj_set_style_text_align(VSC_spKnobText ,LV_ALIGN_CENTER, 0);
-    lv_obj_update_layout(VSC_spKnobText);
+    VSC_spKnobText = GUI_spKnobTextCreate(spParentScreen,
+                                          VSC_KNOB_EMPTY_TEXT,
+                                          lv_color_hex(0xE9B316),
+                                          &fa_angles_34pxl_collection);
 }
 
 static void VSC__executeKeys(uint16_t u16Index, bool boKeyPressed)

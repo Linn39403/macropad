@@ -49,3 +49,12 @@ lv_obj_t * GUI_spButtonCreate(lv_obj_t* ,
                               lv_color_t ,
                               lv_color_t ,
                               GUI_tsBtnLocation * );
+
+lv_obj_t * GUI_spLayerNameCreate(lv_obj_t* spParentScreen,
+                          const char * pcText,
+                          const lv_font_t * fontName);
+
+lv_obj_t * GUI_spKnobTextCreate(lv_obj_t* spParentScreen,
+                                const char * pcText,
+                                lv_color_t color,
+                                const lv_font_t * fontName);

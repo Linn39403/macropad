@@ -35,22 +35,15 @@ void BROWSER_vScreenCreate(lv_obj_t * spParentScreen)
     GUI_SCREEN_CREATE(BROWSER, spParentScreen);
 
     /* Browser Label */
-    lv_obj_t* BROWSER_spScreen = lv_label_create(spParentScreen);
-    lv_label_set_text(BROWSER_spScreen , "Edge Browser");
-    lv_obj_set_style_text_font(BROWSER_spScreen , &lv_font_montserrat_24, LV_PART_MAIN);
-    lv_obj_align(BROWSER_spScreen ,LV_ALIGN_BOTTOM_MID, 0, -10);
-    lv_obj_set_style_text_align(BROWSER_spScreen ,LV_ALIGN_CENTER, 0);
-    lv_obj_update_layout(BROWSER_spScreen);
-
+    GUI_spLayerNameCreate(spParentScreen,
+                          "Edge Browser",
+                          &lv_font_montserrat_24);
 
     /* Knob Text */
-    BROWSER_spKnobText = lv_label_create(spParentScreen);
-    lv_label_set_text(BROWSER_spKnobText, BROWSER_KNOB_EMPTY_TEXT);
-    lv_obj_set_style_text_font(BROWSER_spKnobText , &fa_angles_34pxl_collection, LV_PART_MAIN);
-    lv_obj_set_style_text_color(BROWSER_spKnobText, lv_color_hex(0xFC6703), 0);
-    lv_obj_align(BROWSER_spKnobText ,LV_ALIGN_BOTTOM_MID, 0, -40);
-    lv_obj_set_style_text_align(BROWSER_spKnobText ,LV_ALIGN_CENTER, 0);
-    lv_obj_update_layout(BROWSER_spKnobText);
+    BROWSER_spKnobText = GUI_spKnobTextCreate(spParentScreen,
+                                              BROWSER_KNOB_EMPTY_TEXT,
+                                              lv_color_hex(0xFFFF13),
+                                              &fa_angles_34pxl_collection);
 }
 
 static void BROWSER__vLayerGUIStateChange(uint16_t u16KeyCode, BROWSER_tpfnvGuiStateFunc pfnStateCb)

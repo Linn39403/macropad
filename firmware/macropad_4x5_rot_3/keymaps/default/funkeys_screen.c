@@ -3,7 +3,7 @@
 #include "print.h"
 
 static lv_obj_t * FUNKEYS__spButtonCreate(lv_obj_t* spParentScreen,
-                                          const char * pcText, 
+                                          const char * pcText,
                                           const lv_font_t * font_name,
                                           GUI_tsBtnLocation * spBtnInfo )
 {
@@ -20,12 +20,9 @@ void FUNKEYS_vScreenCreate(lv_obj_t * spParentScreen)
     GUI_SCREEN_CREATE(FUNKEYS, spParentScreen);
 
     /* Fun Keys Label */
-    lv_obj_t* FUNKEYS_spVolumeTxt = lv_label_create(spParentScreen);
-    lv_label_set_text(FUNKEYS_spVolumeTxt , "FUN Keys");
-    lv_obj_set_style_text_font(FUNKEYS_spVolumeTxt , &lv_font_montserrat_24, LV_PART_MAIN);
-    lv_obj_align(FUNKEYS_spVolumeTxt ,LV_ALIGN_BOTTOM_MID, 0, -10);
-    lv_obj_set_style_text_align(FUNKEYS_spVolumeTxt ,LV_ALIGN_CENTER, 0);
-    lv_obj_update_layout(FUNKEYS_spVolumeTxt);
+    GUI_spLayerNameCreate(spParentScreen,
+                          "FUN Keys",
+                          &lv_font_montserrat_24);
 }
 
 static void FUNKEYS__vLayerGUIStateChange(uint16_t u16KeyCode, FUNKEYS_tpfnvGuiStateFunc pfnStateCb)

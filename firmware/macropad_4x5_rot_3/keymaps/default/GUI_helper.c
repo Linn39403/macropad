@@ -33,3 +33,31 @@ lv_obj_t * GUI_spButtonCreate(lv_obj_t* spParentScreen,
     lv_obj_set_style_text_color(spBtnLabel, stTextColor, 0);
     return spBtn;
 }
+
+lv_obj_t * GUI_spLayerNameCreate(lv_obj_t* spParentScreen,
+                                 const char * pcText,
+                                 const lv_font_t * fontName)
+{
+    lv_obj_t * spLabel = lv_label_create(spParentScreen);
+    lv_label_set_text(spLabel, pcText);
+    lv_obj_set_style_text_font(spLabel, fontName, LV_PART_MAIN);
+    lv_obj_align(spLabel,LV_ALIGN_BOTTOM_MID, 0, -10);
+    lv_obj_set_style_text_align(spLabel,LV_ALIGN_CENTER, 0);
+    lv_obj_update_layout(spLabel);
+    return spLabel;
+}
+
+lv_obj_t * GUI_spKnobTextCreate(lv_obj_t* spParentScreen,
+                                const char * pcText,
+                                lv_color_t color,
+                                const lv_font_t * fontName)
+{
+    lv_obj_t * spLabel = lv_label_create(spParentScreen);
+    lv_label_set_text(spLabel, pcText);
+    lv_obj_set_style_text_font(spLabel , fontName, LV_PART_MAIN);
+    lv_obj_set_style_text_color(spLabel, color, 0);
+    lv_obj_align(spLabel ,LV_ALIGN_BOTTOM_MID, 0, -40);
+    lv_obj_set_style_text_align(spLabel ,LV_ALIGN_CENTER, 0);
+    lv_obj_update_layout(spLabel);
+    return spLabel;
+}

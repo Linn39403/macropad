@@ -20,12 +20,9 @@ void WIN_EXPLORER_vScreenCreate(lv_obj_t * spParentScreen)
     GUI_SCREEN_CREATE(WIN_EXPLORER, spParentScreen);
 
     /* Total Commander Label */
-    lv_obj_t* WIN_EXPLORER_spVolumeTxt = lv_label_create(spParentScreen);
-    lv_label_set_text(WIN_EXPLORER_spVolumeTxt , "Window Explorer");
-    lv_obj_set_style_text_font(WIN_EXPLORER_spVolumeTxt , &lv_font_montserrat_24, LV_PART_MAIN);
-    lv_obj_align(WIN_EXPLORER_spVolumeTxt ,LV_ALIGN_BOTTOM_MID, 0, -10);
-    lv_obj_set_style_text_align(WIN_EXPLORER_spVolumeTxt ,LV_ALIGN_CENTER, 0);
-    lv_obj_update_layout(WIN_EXPLORER_spVolumeTxt);
+    GUI_spLayerNameCreate(spParentScreen,
+                          "Window Explorer",
+                          &lv_font_montserrat_24);
 }
 
 static void WIN_EXPLORER__vLayerGUIStateChange(uint16_t u16KeyCode, WIN_EXPLORER_tpfnvGuiStateFunc pfnStateCb)

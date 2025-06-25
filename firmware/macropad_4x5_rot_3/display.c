@@ -61,7 +61,7 @@ void keyboard_post_init_kb(void)
 }
 
 
-
+void LOCK_vLockTimerCheck(void);
 void housekeeping_task_user(void)
 {
     static uint8_t DISP__stSoundVolumeFromFifo;
@@ -133,7 +133,5 @@ void housekeeping_task_user(void)
         LAYER_LIST
         #undef X
     }
-}
-
-__attribute__((weak)) void display_process_caps(bool active) {
+    LOCK_vLockTimerCheck();
 }

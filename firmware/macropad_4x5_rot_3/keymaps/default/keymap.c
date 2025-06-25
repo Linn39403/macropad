@@ -10,6 +10,7 @@ extern RingBuffer DISP__stRbufSoundVolume;
 extern struct kb_layer_type kb_layers[LAYER_COUNT];
 uint8_t SCREEN_u8GetActiveLayer(void);
 void SCREEN_vChangeLayer(uint16_t kb_layer_index);
+bool SCREEN_boIsLock(void);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     #define X X_QMK_KEYS_LAYER
@@ -84,11 +85,15 @@ void matrix_scan_user(void)
     if((KMAP_boEncoderRightPushBtnStateNow == false) &&
        (KMAP_boEncoderRightPushBtnStateNow != KMAP__boEncoderRightPushBtnStatePrev))
     {
-        if(++u8ActiveLayer >= LAYER_COUNT)
+        wait_ms(100);
+        if(SCREEN_boIsLock() == false)
         {
-            u8ActiveLayer = 0;
+            if(++u8ActiveLayer >= LAYER_COUNT)
+            {
+                u8ActiveLayer = 0;
+            }
+            SCREEN_vChangeLayer(u8ActiveLayer);
         }
-        SCREEN_vChangeLayer(u8ActiveLayer);
     }
 
     KMAP__boEncoderRightPushBtnStatePrev = KMAP_boEncoderRightPushBtnStateNow;

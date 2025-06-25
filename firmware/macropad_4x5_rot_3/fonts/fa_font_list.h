@@ -6,6 +6,8 @@ LV_FONT_DECLARE(fa_sort_alpha_asc)
 LV_FONT_DECLARE(fa_sort_amount_asc)
 LV_FONT_DECLARE(fa_angle_double_right)
 LV_FONT_DECLARE(fa_angles_34pxl_collection)
+LV_FONT_DECLARE(fa_lock_unlock)
+LV_FONT_DECLARE(fa_folder)
 
 
 #define FA_TERMINAL_CODE  "\uf120" /* fa_terminal */
@@ -25,3 +27,6 @@ LV_FONT_DECLARE(fa_angles_34pxl_collection)
 #define FA_VOLUME_UP_CODE          "\uf028" /* fa_volume_up */
 #define FA_VOLUME_DOWN_CODE        "\uf027" /* fa_volume_down */
 #define FA_VOLUME_MUTE_CODE        "\uf026" /* fa_volume_mute */
+#define FA_LOCK                    "\uf023" /* fa_lock */
+#define FA_UNLOCK                  "\uf09c" /* fa_unlock */
+#define FA_FOLDER                  "\uf07b" /* fa_folder */

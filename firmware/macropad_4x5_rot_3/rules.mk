@@ -25,5 +25,7 @@ SRC += display.c \
 	   fonts/fa_sort_alpha_asc.c \
 	   fonts/fa_sort_amount_asc.c \
 	   fonts/fa_angles_34pxl_collection.c \
+	   fonts/fa_lock_unlock.c \
+	   fonts/fa_folder.c \
 
 

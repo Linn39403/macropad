@@ -10,7 +10,7 @@
 #define WIN_EXPLORER_KEY_3     S(KC_F10)       /* Right Click Menu */
 #define WIN_EXPLORER_KEY_4     LCTL(KC_L)      /* Copy Address Bar */
 #define WIN_EXPLORER_KEY_5     LALT(KC_UP)     /* Jump to Parent Folder */
-#define WIN_EXPLORER_KEY_6     KC_NO           /* */
+#define WIN_EXPLORER_KEY_6     LCTL(S(KC_N))   /* New Folder */
 #define WIN_EXPLORER_KEY_7     KC_NO           /* */
 
 #define WIN_EXPLORER_KEY_8     LCTL(KC_1)/* */
@@ -20,7 +20,7 @@
 
 #define WIN_EXPLORER_KEY_12    LCTL(KC_C)      /* Unused */
 #define WIN_EXPLORER_KEY_13    LCTL(KC_X)      /* Unused */
-#define WIN_EXPLORER_KEY_14    LCTL(KC_V)      /* Unused */
+#define WIN_EXPLORER_KEY_14    LGUI(LCTL(LALT(KC_V))) /* Unused */
 #define WIN_EXPLORER_KEY_15    KC_DEL          /* Unused */
 
 #define WIN_EXPLORER_KEY_16    LCTL(S(KC_2))      /* Large Icon View */
@@ -46,7 +46,7 @@ struct WIN_EXPLORER_stBtnInfo WIN_EXPLORER_staBtnInfo [20] =
     { NULL, WIN_EXPLORER_KEY_3  , &lv_font_montserrat_14, "Menu"},
     { NULL, WIN_EXPLORER_KEY_4  , &lv_font_montserrat_14, "CpyAddr"},
     { NULL, WIN_EXPLORER_KEY_5  , &lv_font_montserrat_14, "Root"},
-    { NULL, WIN_EXPLORER_KEY_6  , &lv_font_montserrat_14, "    "},
+    { NULL, WIN_EXPLORER_KEY_6  , &fa_folder, FA_FOLDER},
     { NULL, WIN_EXPLORER_KEY_7  , &lv_font_montserrat_14, "    "},
 
     { NULL, WIN_EXPLORER_KEY_8  , &lv_font_montserrat_14, "1stExp"},

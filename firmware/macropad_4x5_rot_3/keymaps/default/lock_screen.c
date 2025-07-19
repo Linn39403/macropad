@@ -6,7 +6,8 @@
 #define UNLOCK_KEY_0 LOCK_KEY_1
 #define UNLOCK_KEY_1 LOCK_KEY_0
 #define LOCK_KEY_PRESS_TIME 1000UL
-#define LOCK_KEY_TIME_OUT   1000*60*60UL
+//#define LOCK_KEY_TIME_OUT   1000*60*60UL
+#define LOCK_KEY_TIME_OUT   1000*60UL
 static uint32_t unlock__u32Timer = 0;
 static uint16_t unlock__key_press_value = 0;
 static lv_obj_t * spLockLabel;
@@ -28,7 +29,7 @@ void LOCK_vScreenCreate(lv_obj_t * spParentScreen)
 
     /* LOCK SCREEN Label */
     spLockLabel = lv_label_create(spParentScreen);
-    lv_label_set_text(spLockLabel, FA_LOCK);
+    lv_label_set_text(spLockLabel, FA_LOCK_CODE);
     //lv_obj_set_style_text_font(spLockLabel, &lv_font_montserrat_48, LV_PART_MAIN);
     lv_obj_set_style_text_font(spLockLabel, &fa_lock_unlock, LV_PART_MAIN);
     lv_obj_set_style_text_color(spLockLabel, lv_color_hex(0xFF0000), 0);
@@ -63,7 +64,7 @@ bool LOCK_boKeyPressedCallBackFunction(uint16_t u16KeyCode)
             unlock__key_press_value = 0;
             SCREEN_vSetUnLock();
             print("unlocked\n");
-            lv_label_set_text(spLockLabel, FA_UNLOCK);
+            lv_label_set_text(spLockLabel, FA_UNLOCK_CODE);
             lv_obj_set_style_text_color(spLockLabel, lv_color_hex(0x00FF00), 0);
         }
     }
@@ -74,7 +75,7 @@ bool LOCK_boKeyPressedCallBackFunction(uint16_t u16KeyCode)
             SCREEN_vSetLock();
             unlock__u32Timer = timer_read32();
             print("locked\n");
-            lv_label_set_text(spLockLabel, FA_LOCK);
+            lv_label_set_text(spLockLabel, FA_LOCK_CODE);
             lv_obj_set_style_text_color(spLockLabel, lv_color_hex(0xFF0000), 0);
         }
     }
@@ -120,7 +121,7 @@ void LOCK_vLockTimerCheck(void)
         {
                 SCREEN_vSetLock();
                 print("locked\n");
-                lv_label_set_text(spLockLabel, FA_LOCK);
+                lv_label_set_text(spLockLabel, FA_LOCK_CODE);
                 SCREEN_vChangeLayer(0);
                 lv_obj_set_style_text_color(spLockLabel, lv_color_hex(0xFF0000), 0);
         }

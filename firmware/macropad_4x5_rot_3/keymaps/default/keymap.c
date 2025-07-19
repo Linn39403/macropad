@@ -162,6 +162,7 @@ void raw_hid_receive(uint8_t *u8pData, uint8_t u8Length)
     /* getting time from host
      * FOrmat : ti123456
     */
+    if(SCREEN_boIsLock()) return;
     if(u8pData[0] == 't' && u8pData[1] == 'i') {
         //int hr = (u8pData[2] - '0')*10 + (u8pData[3] - '0');
         //int min= (u8pData[4] - '0')*10 + (u8pData[5] - '0');

@@ -129,11 +129,11 @@ static struct VSC_stBtnInfo VSC_staBtnInfo [VSC_BUTTON_COUNT] =
     /*[8]*/
     {
         NULL,
-        "",
-        &lv_font_montserrat_14,
+        FA_BOOKMARK_CODE,
+        &fa_bookmark,
         {
-            {true,KC_NO},{true,KC_NO},{true,KC_NO},
-            {false,KC_NO},{false,KC_NO},{false,KC_NO},
+            {true,KC_LCTL},{true,KC_LALT},{true,KC_K},
+            {false,KC_LCTL},{false,KC_LALT},{false,KC_K},
         }
     },
     /*[9]*/

@@ -46,7 +46,7 @@ struct WIN_EXPLORER_stBtnInfo WIN_EXPLORER_staBtnInfo [20] =
     { NULL, WIN_EXPLORER_KEY_3  , &lv_font_montserrat_14, "Menu"},
     { NULL, WIN_EXPLORER_KEY_4  , &lv_font_montserrat_14, "CpyAddr"},
     { NULL, WIN_EXPLORER_KEY_5  , &lv_font_montserrat_14, "Root"},
-    { NULL, WIN_EXPLORER_KEY_6  , &fa_folder, FA_FOLDER},
+    { NULL, WIN_EXPLORER_KEY_6  , &fa_folder            , FA_FOLDER_CODE},
     { NULL, WIN_EXPLORER_KEY_7  , &lv_font_montserrat_14, "    "},
 
     { NULL, WIN_EXPLORER_KEY_8  , &lv_font_montserrat_14, "1stExp"},

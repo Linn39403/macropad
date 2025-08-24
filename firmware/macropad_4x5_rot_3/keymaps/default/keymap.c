@@ -5,12 +5,14 @@
 #include "keymaps/default/numpad_screen.h"
 #include "ringbuffer.h"
 
-bool is_locked = false;
+static uint8_t KMAP_u8StoreCurrentLayer = -1;
 extern RingBuffer DISP__stRbufSoundVolume;
 extern struct kb_layer_type kb_layers[LAYER_COUNT];
 uint8_t SCREEN_u8GetActiveLayer(void);
 void SCREEN_vChangeLayer(uint16_t kb_layer_index);
+void SCREEN_vChangeToSpecialLayer(void);
 bool SCREEN_boIsLock(void);
+void SPECIAL_vStartScreenTimer(void);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     #define X X_QMK_KEYS_LAYER
@@ -88,7 +90,7 @@ void matrix_scan_user(void)
         wait_ms(100);
         if(SCREEN_boIsLock() == false)
         {
-            if(++u8ActiveLayer >= LAYER_COUNT)
+            if(++u8ActiveLayer >= LAYER_COUNT - 1)
             {
                 /* when the screen is unlock, don't show again the lock layer */
                 u8ActiveLayer = 1;
@@ -112,8 +114,23 @@ void matrix_scan_user(void)
             reset_keyboard();
         }
     }
+    /* if only left button is pressed, we need to show the special screen only when the screen is unlocked */
+    else if(KMAP_boEncoderLeftPushBtnStateNow == false && SCREEN_boIsLock() == false)
+    {
+        wait_ms(200);
+        if(KMAP_boEncoderLeftPushBtnStateNow == false)
+        {
+            print("Change to Special Layer\n");
+            KMAP_u8StoreCurrentLayer = u8ActiveLayer;
+            SPECIAL_vStartScreenTimer();
+            SCREEN_vChangeToSpecialLayer();
+        }
+    }
+}
 
-
+uint8_t KMAP_u8GetStoredLayer(void)
+{
+    return KMAP_u8StoreCurrentLayer;
 }
 
 /* This Encoder Update User function is only called when user rotate the knob.
@@ -154,26 +171,18 @@ void raw_hid_receive(uint8_t *u8pData, uint8_t u8Length)
         { "bwr", BROWSER_LAYER},
         { "exp", WIN_EXPLORER_LAYER},
     };
-    //uint8_t response[length];
-    //memset(response, 0, length);
-    //response[0] = 'B';
-
-    /* getting time from host
-     * FOrmat : ti123456
+    /*
+     * Reset the macropad and goes to the bootloader mode.
+     * Don't care about the Screen Lock.
     */
-    if(SCREEN_boIsLock()) return;
-    if(u8pData[0] == 't' && u8pData[1] == 'i') {
-        //int hr = (u8pData[2] - '0')*10 + (u8pData[3] - '0');
-        //int min= (u8pData[4] - '0')*10 + (u8pData[5] - '0');
-        //int sec= (u8pData[6] - '0')*10 + (u8pData[7] - '0');
-        //clock_update_time(hr, min,sec);
-        //raw_hid_send(response, length);
-    }
-    if(u8pData[0] == 'c' && u8pData[1] == 'p')
+    if(memcmp(&u8pData[0], "rst_", 4) == 0)
     {
-        //int cpu_res_in_percent = (u8pData[2] - '0') * 100 + (u8pData[3] - '0') * 10 + (u8pData[4] - '0');
-        //cpu_resource_set_value(cpu_res_in_percent);
+        reset_keyboard();
     }
+
+    /* If the screen is locked, just return it. */
+    if(SCREEN_boIsLock()) return;
+
     if(memcmp(&u8pData[0], "vol_", 4) == 0)
     {
         /* speaker volume update to LVGL Arc */

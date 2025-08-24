@@ -40,11 +40,17 @@ uint8_t SCREEN_u8GetActiveLayer(void)
 
 void SCREEN_vChangeLayer(uint8_t u8Layer)
 {
-    if(u8Layer < LAYER_COUNT)
+    if(u8Layer < LAYER_COUNT - 1)
     {
         u8SCREEN__CurrentActiveLayer = u8Layer;
         lv_scr_load(kb_layers[u8SCREEN__CurrentActiveLayer].m_spScreenObj);
     }
+}
+
+void SCREEN_vChangeToSpecialLayer(void)
+{
+    u8SCREEN__CurrentActiveLayer = LAYER_COUNT-1;
+    lv_scr_load(kb_layers[u8SCREEN__CurrentActiveLayer].m_spScreenObj);
 }
 
 void SCREEN_vInit(void)

@@ -9,6 +9,7 @@
 #include "keymaps/default/funkeys_screen.h"
 #include "keymaps/default/win_explorer_screen.h"
 #include "keymaps/default/lock_screen.h"
+#include "keymaps/default/special_screen.h"
 
 #define LAYER_LIST\
     X(LOCK)\
@@ -18,6 +19,7 @@
     X(FUNKEYS)\
     X(NUMPAD)\
     X(WIN_EXPLORER)\
+    X(SPECIAL)\
 
 enum keyboard_layers_enum{
     #define X(layer) layer##_LAYER,

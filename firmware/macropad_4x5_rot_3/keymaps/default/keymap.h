@@ -46,7 +46,7 @@ enum keyboard_layers_enum{
 
 #define X_ROTARY_ROTATE(layer)\
     case layer##_LAYER:\
-        layer##_vRotaryCallBackFunction(clockwise,boEncoderLeftPushBtnStateNow);\
+        layer##_vRotaryCallBackFunction(clockwise);\
         break;
 
 #define X_SCREEN_LAYER(layer)\

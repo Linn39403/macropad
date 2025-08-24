@@ -10,8 +10,8 @@ static lv_obj_t * FUNKEYS__spButtonCreate(lv_obj_t* spParentScreen,
     return GUI_spButtonCreate(spParentScreen,
                               pcText,
                               font_name,
-                              lv_color_hex(0xbf15e6),
-                              lv_color_hex(0xFFFFFF),
+                              lv_color_hex(0xA1FA4F),
+                              lv_color_hex(0x000000),
                               spBtnInfo);
 }
 
@@ -51,7 +51,7 @@ bool FUNKEYS_boKeyReleasedCallBackFunction(uint16_t u16KeyCode)
     return true;
 }
 
-void FUNKEYS_vRotaryCallBackFunction(bool boClockwise, bool boModeButtonPressed)
+void FUNKEYS_vRotaryCallBackFunction(bool boClockwise)
 {
     if(boClockwise == true)
         tap_code(KC_UP);

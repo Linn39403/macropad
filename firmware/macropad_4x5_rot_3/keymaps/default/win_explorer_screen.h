@@ -81,6 +81,6 @@ typedef void (*WIN_EXPLORER_tpfnvGuiStateFunc)(lv_obj_t *);
 void WIN_EXPLORER_vScreenCreate(lv_obj_t *);
 bool WIN_EXPLORER_boKeyPressedCallBackFunction(uint16_t );
 bool WIN_EXPLORER_boKeyReleasedCallBackFunction(uint16_t );
-void WIN_EXPLORER_vRotaryCallBackFunction(bool , bool );
+void WIN_EXPLORER_vRotaryCallBackFunction(bool);
 void WIN_EXPLORER_vRotaryButtonPressedCallBackFunction(void);
 void WIN_EXPLORER_vHouseKeeping(void);

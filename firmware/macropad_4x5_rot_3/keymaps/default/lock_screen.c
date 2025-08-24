@@ -5,10 +5,13 @@
 
 #define UNLOCK_KEY_0 LOCK_KEY_1
 #define UNLOCK_KEY_1 LOCK_KEY_0
-#define LOCK_KEY_PRESS_TIME 1000UL
-//#define LOCK_KEY_TIME_OUT   1000*60*60UL
-#define LOCK_KEY_TIME_OUT   1000*60UL
+
+#define LOCK_KEY_PRESS_TIME 1000UL               /* 1000ms */
+#define LOCK_KEY_TIME_OUT   2000*60*60UL         /* 2hr    */
+#define LOCK_KEY_ANIMATION_TIME_OUT 500UL        /* 500ms */
+
 static uint32_t unlock__u32Timer = 0;
+static uint32_t lock__u32Timer = 0;
 static uint16_t unlock__key_press_value = 0;
 static lv_obj_t * spLockLabel;
 void SCREEN_vSetLock(void);
@@ -63,7 +66,7 @@ bool LOCK_boKeyPressedCallBackFunction(uint16_t u16KeyCode)
             (u16KeyCode == UNLOCK_KEY_1 && unlock__key_press_value == UNLOCK_KEY_0)) {
             unlock__key_press_value = 0;
             SCREEN_vSetUnLock();
-            print("unlocked\n");
+            lock__u32Timer = timer_read32();
             lv_label_set_text(spLockLabel, FA_UNLOCK_CODE);
             lv_obj_set_style_text_color(spLockLabel, lv_color_hex(0x00FF00), 0);
         }
@@ -74,7 +77,6 @@ bool LOCK_boKeyPressedCallBackFunction(uint16_t u16KeyCode)
             unlock__key_press_value = 0;
             SCREEN_vSetLock();
             unlock__u32Timer = timer_read32();
-            print("locked\n");
             lv_label_set_text(spLockLabel, FA_LOCK_CODE);
             lv_obj_set_style_text_color(spLockLabel, lv_color_hex(0xFF0000), 0);
         }
@@ -89,7 +91,7 @@ bool LOCK_boKeyReleasedCallBackFunction(uint16_t u16KeyCode)
     return false;
 }
 
-void LOCK_vRotaryCallBackFunction(bool boClockwise, bool boModeButtonPressed)
+void LOCK_vRotaryCallBackFunction(bool boClockwise)
 {
     /* Do Nothing */
 }
@@ -125,5 +127,15 @@ void LOCK_vLockTimerCheck(void)
                 SCREEN_vChangeLayer(0);
                 lv_obj_set_style_text_color(spLockLabel, lv_color_hex(0xFF0000), 0);
         }
+
+    }
+    if(lock__u32Timer)
+    {
+        /* after locked animation timer is expired, switch to layer 1 */
+        if(timer_elapsed32(lock__u32Timer) > LOCK_KEY_ANIMATION_TIME_OUT &&
+           timer_elapsed32(lock__u32Timer) < LOCK_KEY_ANIMATION_TIME_OUT + (200UL))
+           {
+                SCREEN_vChangeLayer(1);
+           }
     }
 }

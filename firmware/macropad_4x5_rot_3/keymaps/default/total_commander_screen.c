@@ -10,7 +10,7 @@ static lv_obj_t * TOTAL_COMMANDER__spButtonCreate(lv_obj_t* spParentScreen,
     return GUI_spButtonCreate(spParentScreen,
                               pcText,
                               font_name,
-                              lv_color_hex(0x4CCF35),
+                              lv_color_hex(0xA1FA4F),
                               lv_color_hex(0x000000),
                               spBtnInfo);
 }
@@ -51,19 +51,12 @@ bool TOTAL_COMMANDER_boKeyReleasedCallBackFunction(uint16_t u16KeyCode)
     return true;
 }
 
-void TOTAL_COMMANDER_vRotaryCallBackFunction(bool boClockwise, bool boModeButtonPressed)
+void TOTAL_COMMANDER_vRotaryCallBackFunction(bool boClockwise)
 {
-    if(boModeButtonPressed == false)
-    {
-
-    }
+    if(boClockwise == true)
+        tap_code(KC_UP);
     else
-    {
-        if(boClockwise == true)
-            tap_code(KC_UP);
-        else
-            tap_code(KC_DOWN);
-    }
+        tap_code(KC_DOWN);
 }
 
 void TOTAL_COMMANDER_vRotaryButtonPressedCallBackFunction(void)

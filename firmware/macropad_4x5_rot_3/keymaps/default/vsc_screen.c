@@ -24,8 +24,8 @@ static lv_obj_t * VSC__spButtonCreate(lv_obj_t* spParentScreen,
     return GUI_spButtonCreate(spParentScreen,
                           pcText,
                           font_name,
-                          lv_color_hex(0x1177CF),
-                          lv_color_hex(0xC7C7C7),
+                          lv_color_hex(0xA1FA4F),
+                          lv_color_hex(0x000000),
                           spBtnInfo);
 }
 
@@ -88,32 +88,27 @@ bool VSC_boKeyReleasedCallBackFunction(uint16_t u16KeyCode)
     return VSC__boLayerGUIStateChange(u16KeyCode, false, GUI_vButtonRelease);
 }
 
-void VSC_vRotaryCallBackFunction(bool boClockwise, bool boModeButtonPressed)
+void VSC_vRotaryCallBackFunction(bool boClockwise)
 {
     VSC__u16ScreenTimer = timer_read();
     const char * cp_text = NULL;
     uint16_t u16_keycode = 0;
-    uint8_t u8_repeat = 0;
 
     switch(VSC__enKNOB_State)
     {
         case enKnobUpDown_State :
-            cp_text = (boModeButtonPressed == false) ? VSC_KNOB_2X_UP_DOWN_TEXT : VSC_KNOB_UP_DOWN_TEXT;
+            cp_text = VSC_KNOB_UP_DOWN_TEXT;
             u16_keycode = boClockwise ? KC_UP : KC_DOWN;
             break;
 
         case enKnobLeftRight_State :
-            cp_text = (boModeButtonPressed == false) ? VSC_KNOB_2X_LEFT_RIGHT_TEXT : VSC_KNOB_LEFT_RIGHT_TEXT;
+            cp_text = VSC_KNOB_LEFT_RIGHT_TEXT;
             u16_keycode = boClockwise ? KC_RIGHT : KC_LEFT;
             break;
         break;
     }
     lv_label_set_text(VSC_spKnobText, cp_text);
-    u8_repeat = (boModeButtonPressed == false) ? 2 : 1;
-    do
-    {
-        tap_code(u16_keycode);
-    }while(u8_repeat--);
+    tap_code(u16_keycode);
 }
 
 void VSC_vRotaryButtonPressedCallBackFunction(void)

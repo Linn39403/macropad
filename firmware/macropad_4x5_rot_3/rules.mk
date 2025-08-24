@@ -13,7 +13,6 @@ SRC += display.c \
 	   screens.c \
 	   keymaps/default/GUI_helper.c \
 	   keymaps/default/numpad_screen.c \
-	   keymaps/default/resource_screen.c \
 	   keymaps/default/vsc_screen.c \
 	   keymaps/default/total_commander_screen.c \
 	   keymaps/default/browser_screen.c \

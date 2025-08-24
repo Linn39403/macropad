@@ -74,6 +74,6 @@ typedef void (*FUNKEYS_tpfnvGuiStateFunc)(lv_obj_t *);
 void FUNKEYS_vScreenCreate(lv_obj_t *);
 bool FUNKEYS_boKeyPressedCallBackFunction(uint16_t );
 bool FUNKEYS_boKeyReleasedCallBackFunction(uint16_t );
-void FUNKEYS_vRotaryCallBackFunction(bool , bool );
+void FUNKEYS_vRotaryCallBackFunction(bool);
 void FUNKEYS_vRotaryButtonPressedCallBackFunction(void);
 void FUNKEYS_vHouseKeeping(void);

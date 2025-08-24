@@ -262,6 +262,6 @@ typedef void (*VSC_tpfnvGuiStateFunc)(lv_obj_t *);
 void VSC_vScreenCreate(lv_obj_t *);
 bool VSC_boKeyPressedCallBackFunction(uint16_t );
 bool VSC_boKeyReleasedCallBackFunction(uint16_t );
-void VSC_vRotaryCallBackFunction(bool , bool );
+void VSC_vRotaryCallBackFunction(bool);
 void VSC_vRotaryButtonPressedCallBackFunction(void);
 void VSC_vHouseKeeping(void);

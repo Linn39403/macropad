@@ -90,7 +90,8 @@ void matrix_scan_user(void)
         {
             if(++u8ActiveLayer >= LAYER_COUNT)
             {
-                u8ActiveLayer = 0;
+                /* when the screen is unlock, don't show again the lock layer */
+                u8ActiveLayer = 1;
             }
             SCREEN_vChangeLayer(u8ActiveLayer);
         }
@@ -121,8 +122,6 @@ void matrix_scan_user(void)
 bool encoder_update_user(uint8_t index, bool clockwise)
 {
     uint8_t u8ActiveLayer = SCREEN_u8GetActiveLayer();
-    bool boEncoderLeftPushBtnStateNow = readPin(ENCODER_LEFT_PUSH_BUTTON_PIN);
-
     switch (index) {
         case 1: /*  middle */
             /* Encoder can be use for other operations depending on different layer */

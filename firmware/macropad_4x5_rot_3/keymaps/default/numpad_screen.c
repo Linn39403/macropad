@@ -3,8 +3,8 @@
 
 int8_t NUMPAD_i8SoundVolume = -1;
 
-#define NUMPAD__nButtonColor lv_palette_darken(LV_PALETTE_AMBER, 3)
-#define NUMPAD__nArcColor  lv_palette_darken(LV_PALETTE_AMBER, 3)
+#define NUMPAD__nButtonColor lv_color_hex(0xA1FA4F)
+#define NUMPAD__nArcColor    lv_color_hex(0xA1FA4F)
 
 static lv_obj_t * NUMPAD__spButtonCreate(lv_obj_t* spParentScreen,
                                          const char * text,
@@ -23,7 +23,7 @@ static lv_obj_t * NUMPAD__spButtonCreate(lv_obj_t* spParentScreen,
     lv_obj_center(label_btn);
 
     /* Keypad Text Color */
-    lv_obj_set_style_text_color(label_btn, lv_color_hex(0xffffff), 0);
+    lv_obj_set_style_text_color(label_btn, lv_color_hex(0x000000), 0);
     return btn;
 }
 
@@ -112,19 +112,12 @@ bool NUMPAD_boKeyReleasedCallBackFunction(uint16_t u16KeyCode)
     return NUMPAD_LET_QMK_HANDLE_KEYBOARD_EVENT;
 }
 
-void NUMPAD_vRotaryCallBackFunction(bool boClockwise, bool boModeButtonPressed)
+void NUMPAD_vRotaryCallBackFunction(bool boClockwise)
 {
-    if(boModeButtonPressed == false)
-    {
-
-    }
+    if(boClockwise == true)
+        tap_code(KC_VOLU);
     else
-    {
-        if(boClockwise == true)
-            tap_code(KC_VOLU);
-        else
-            tap_code(KC_VOLD);
-    }
+        tap_code(KC_VOLD);
 }
 
 void NUMPAD_vRotaryButtonPressedCallBackFunction(void)

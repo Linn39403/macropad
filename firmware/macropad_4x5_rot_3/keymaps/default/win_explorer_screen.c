@@ -10,7 +10,7 @@ static lv_obj_t * WIN_EXPLORER__spButtonCreate(lv_obj_t* spParentScreen,
     return GUI_spButtonCreate(spParentScreen,
                               pcText,
                               font_name,
-                              lv_color_hex(0xf3b51e),
+                              lv_color_hex(0xA1FA4F),
                               lv_color_hex(0x000000),
                               spBtnInfo);
 }
@@ -51,16 +51,8 @@ bool WIN_EXPLORER_boKeyReleasedCallBackFunction(uint16_t u16KeyCode)
     return true;
 }
 
-void WIN_EXPLORER_vRotaryCallBackFunction(bool boClockwise, bool boModeButtonPressed)
+void WIN_EXPLORER_vRotaryCallBackFunction(bool boClockwise)
 {
-    if(boModeButtonPressed == false)
-    {
-        register_code(KC_LSFT);
-    }
-    else
-    {
-        unregister_code(KC_LSFT);
-    }
     if(boClockwise == false)
         tap_code(KC_UP);
     else

@@ -25,7 +25,7 @@ static lv_obj_t * BROWSER__spButtonCreate(lv_obj_t* spParentScreen,
     return GUI_spButtonCreate(spParentScreen,
                               pcText,
                               font_name,
-                              lv_color_hex(0x73FBFD),
+                              lv_color_hex(0xA1FA4F),
                               lv_color_hex(0x000000),
                               spBtnInfo);
 }
@@ -72,38 +72,26 @@ bool BROWSER_boKeyReleasedCallBackFunction(uint16_t u16KeyCode)
     return BROWSER_LET_QMK_HANDLE_KEYBOARD_EVENT;
 }
 
-void BROWSER_vRotaryCallBackFunction(bool boClockwise, bool boModeButtonPressed)
+void BROWSER_vRotaryCallBackFunction(bool boClockwise)
 {
     BROWSER__u16ScreenTimer = timer_read();
     const char * cp_text = NULL;
     uint16_t u16_keycode = 0;
-    uint8_t u8_repeat = 1;
 
     switch(BROWSER__enKNOB_State)
     {
         case enKnobUpDown_State:
-            cp_text = (boModeButtonPressed == false) ? BROWSER_KNOB_2X_UP_DOWN_TEXT : BROWSER_KNOB_UP_DOWN_TEXT;
+            cp_text =  BROWSER_KNOB_UP_DOWN_TEXT;
             u16_keycode = boClockwise ? KC_MS_WH_UP : KC_MS_WH_DOWN;
-            u8_repeat = (boModeButtonPressed == false) ? 2 : 1;
         break;
 
         case enKnobVolUpDown_State:
-            if(boModeButtonPressed == false){
-                cp_text = BROWSER_KNOB_MUTE_TEXT;
-                u16_keycode = KC_VOLD;
-                u8_repeat = 50;
-            }else{
-                cp_text = BROWSER_KNOB_VOL_UP_DOWN_TEXT;
-                u16_keycode = boClockwise ? KC_VOLU : KC_VOLD;
-                u8_repeat = (boModeButtonPressed == false) ? 2 : 1;
-            }
+            cp_text = BROWSER_KNOB_VOL_UP_DOWN_TEXT;
+            u16_keycode = boClockwise ? KC_VOLU : KC_VOLD;
         break;
     }
     lv_label_set_text(BROWSER_spKnobText, cp_text);
-    do
-    {
-        tap_code(u16_keycode);
-    }while(u8_repeat--);
+    tap_code(u16_keycode);
 }
 
 void BROWSER_vRotaryButtonPressedCallBackFunction(void)

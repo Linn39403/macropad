@@ -75,6 +75,6 @@ typedef void (*LOCK_tpfnvGuiStateFunc)(lv_obj_t *);
 void LOCK_vScreenCreate(lv_obj_t *);
 bool LOCK_boKeyPressedCallBackFunction(uint16_t );
 bool LOCK_boKeyReleasedCallBackFunction(uint16_t );
-void LOCK_vRotaryCallBackFunction(bool boClockwise, bool boModeButtonPressed);
+void LOCK_vRotaryCallBackFunction(bool boClockwise);
 void LOCK_vRotaryButtonPressedCallBackFunction(void);
 void LOCK_vHouseKeeping(void);

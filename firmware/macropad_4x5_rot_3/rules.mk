@@ -1,11 +1,5 @@
 QUANTUM_PAINTER_DRIVERS += st7789_spi
 QUANTUM_PAINTER_LVGL_INTEGRATION = yes
-TAP_DANCE_ENABLE = yes
-ENCODER_ENABLE = yes
-CONSOSLE_ENABLE = yes
-MOUSEKEY_ENABLE = yes
-RAW_ENABLE = yes
-CONSOLE_ENABLE = yes
 CFLAGS += -DLV_LVGL_H_INCLUDE_SIMPLE
 SRC += display.c \
 	   ringbuffer.c \
@@ -28,5 +22,4 @@ SRC += display.c \
 	   fonts/fa_lock_unlock.c \
 	   fonts/fa_folder.c \
 	   fonts/fa_bookmark.c \
-
 

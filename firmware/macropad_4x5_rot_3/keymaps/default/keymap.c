@@ -22,9 +22,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void keyboard_pre_init_user(void)
 {
-    setPinInputHigh(ENCODER_LEFT_PUSH_BUTTON_PIN);
-    setPinInputHigh(ENCODER_MAIN_PUSH_BUTTON_PIN);
-    setPinInputHigh(ENCODER_RIGHT_PUSH_BUTTON_PIN);
+    gpio_set_pin_input_high(ENCODER_LEFT_PUSH_BUTTON_PIN);
+    gpio_set_pin_input_high(ENCODER_MAIN_PUSH_BUTTON_PIN);
+    gpio_set_pin_input_high(ENCODER_RIGHT_PUSH_BUTTON_PIN);
 }
 
 /*
@@ -63,9 +63,9 @@ void matrix_scan_user(void)
     static bool KMAP__boEncoderRightPushBtnStatePrev = false;
     static bool KMAP__boEncoderMainPushBtnStatePrev = false;
 
-    bool KMAP_boEncoderLeftPushBtnStateNow = readPin(ENCODER_LEFT_PUSH_BUTTON_PIN);
-    bool KMAP_boEncoderRightPushBtnStateNow = readPin(ENCODER_RIGHT_PUSH_BUTTON_PIN);
-    bool KMAP_boEncoderMainPushBtnStateNow = readPin(ENCODER_MAIN_PUSH_BUTTON_PIN);
+    bool KMAP_boEncoderLeftPushBtnStateNow = gpio_read_pin(ENCODER_LEFT_PUSH_BUTTON_PIN);
+    bool KMAP_boEncoderRightPushBtnStateNow = gpio_read_pin(ENCODER_RIGHT_PUSH_BUTTON_PIN);
+    bool KMAP_boEncoderMainPushBtnStateNow = gpio_read_pin(ENCODER_MAIN_PUSH_BUTTON_PIN);
 
     uint8_t u8ActiveLayer = SCREEN_u8GetActiveLayer();
 
@@ -107,8 +107,8 @@ void matrix_scan_user(void)
     {
         wait_ms(1000);
         //check again the buttons press value
-        KMAP_boEncoderLeftPushBtnStateNow = readPin(ENCODER_LEFT_PUSH_BUTTON_PIN);
-        KMAP_boEncoderRightPushBtnStateNow = readPin(ENCODER_RIGHT_PUSH_BUTTON_PIN);
+        KMAP_boEncoderLeftPushBtnStateNow = gpio_read_pin(ENCODER_LEFT_PUSH_BUTTON_PIN);
+        KMAP_boEncoderRightPushBtnStateNow = gpio_read_pin(ENCODER_RIGHT_PUSH_BUTTON_PIN);
         if(KMAP_boEncoderLeftPushBtnStateNow == false && KMAP_boEncoderRightPushBtnStateNow == false)
         {
             reset_keyboard();

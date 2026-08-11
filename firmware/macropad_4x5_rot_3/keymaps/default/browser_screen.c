@@ -82,7 +82,7 @@ void BROWSER_vRotaryCallBackFunction(bool boClockwise)
     {
         case enKnobUpDown_State:
             cp_text =  BROWSER_KNOB_UP_DOWN_TEXT;
-            u16_keycode = boClockwise ? KC_MS_WH_UP : KC_MS_WH_DOWN;
+            u16_keycode = boClockwise ? MS_WHLU : MS_WHLD;
         break;
 
         case enKnobVolUpDown_State:

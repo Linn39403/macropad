@@ -77,10 +77,10 @@ void BROWSER_vRotaryCallBackFunction(bool boClockwise, bool boRotaryButtonPresse
         BROWSER__u16ScreenTimer = timer_read();
         lv_label_set_text(BROWSER_spKnobText, BROWSER_BTN_PRESS_KNOB_TEXT);
         if(boClockwise == true){
-            tap_code(KC_MS_WH_DOWN);
+            tap_code(MS_WHLD);
         }
         else{
-            tap_code(KC_MS_WH_UP);
+            tap_code(MS_WHLU);
         }
     }
     else

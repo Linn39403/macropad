@@ -7,6 +7,7 @@ QMK_REF ?= 0.32.13
 KEYBOARD ?= linn/macropad
 KEYMAP ?= default
 JOBS ?= $(shell nproc 2>/dev/null || echo 1)
+PYTHON ?= python3
 
 KEYBOARD_SOURCE := $(REPO_ROOT)/firmware/macropad_4x5_rot_3
 KEYBOARD_DIR := $(QMK_DIR)/keyboards/$(KEYBOARD)
@@ -14,10 +15,11 @@ BUILD_DIR := $(REPO_ROOT)/build
 ARTIFACT_NAME := $(subst /,_,$(KEYBOARD))_$(KEYMAP).uf2
 QMK_ARTIFACT := $(QMK_DIR)/.build/$(ARTIFACT_NAME)
 ARTIFACT := $(BUILD_DIR)/$(ARTIFACT_NAME)
+UPLOADER := $(REPO_ROOT)/firmware/host_side/upload_firmware.py
 QMK_SUBMODULES := lib/chibios lib/chibios-contrib lib/pico-sdk lib/lvgl lib/lufa lib/printf
 
 .DEFAULT_GOAL := firmware
-.PHONY: all firmware setup sync doctor clean help
+.PHONY: all firmware upload test-host setup sync doctor clean help
 
 all: firmware
 
@@ -35,6 +37,14 @@ firmware: sync
 	mkdir -p "$(BUILD_DIR)"
 	cp "$(QMK_ARTIFACT)" "$(ARTIFACT)"
 	printf 'Firmware written to %s\n' "$(ARTIFACT)"
+
+upload: firmware
+	@set -euo pipefail
+	"$(PYTHON)" "$(UPLOADER)" --firmware "$(ARTIFACT)"
+
+test-host:
+	@set -euo pipefail
+	"$(PYTHON)" -m unittest discover -s "$(REPO_ROOT)/firmware/host_side/tests" -p 'test_*.py'
 
 setup:
 	@set -euo pipefail
@@ -108,6 +118,8 @@ help:
 		'Commands:' \
 		'  make setup    Clone pinned QMK and install build dependencies.' \
 		'  make          Synchronize and compile the default firmware.' \
+		'  make upload   Build firmware, enter the RP2040 bootloader, and copy the UF2.' \
+		'  make test-host Run uploader unit tests.' \
 		'  make doctor   Check required QMK build prerequisites.' \
 		'  make clean    Remove copied firmware artifacts.' \
 		'' \

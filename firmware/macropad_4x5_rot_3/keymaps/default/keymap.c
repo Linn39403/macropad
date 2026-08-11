@@ -158,6 +158,10 @@ bool encoder_update_user(uint8_t index, bool clockwise)
 #include "raw_hid.h"
 void raw_hid_receive(uint8_t *u8pData, uint8_t u8Length)
 {
+    if (u8Length < 4) {
+        return;
+    }
+
     extern int8_t NUMPAD_i8SoundVolume;
     typedef struct {
         const char * m_cpCmd;
@@ -171,13 +175,11 @@ void raw_hid_receive(uint8_t *u8pData, uint8_t u8Length)
         { "bwr", BROWSER_LAYER},
         { "exp", WIN_EXPLORER_LAYER},
     };
-    /*
-     * Reset the macropad and goes to the bootloader mode.
-     * Don't care about the Screen Lock.
-    */
+    /* `rst_` enters the RP2040 UF2 bootloader, even when the screen is locked. */
     if(memcmp(&u8pData[0], "rst_", 4) == 0)
     {
         reset_keyboard();
+        return;
     }
 
     /* If the screen is locked, just return it. */

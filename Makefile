@@ -16,10 +16,13 @@ ARTIFACT_NAME := $(subst /,_,$(KEYBOARD))_$(KEYMAP).uf2
 QMK_ARTIFACT := $(QMK_DIR)/.build/$(ARTIFACT_NAME)
 ARTIFACT := $(BUILD_DIR)/$(ARTIFACT_NAME)
 UPLOADER := $(REPO_ROOT)/firmware/host_side/upload_firmware.py
+LOCK_CONFIGURER := $(REPO_ROOT)/firmware/host_side/configure_lock_pin.py
+LOCK_PIN_FILE ?= $(REPO_ROOT)/lock_pin.txt
+LOCKED_ARTIFACT := $(BUILD_DIR)/$(basename $(ARTIFACT_NAME))_locked.uf2
 QMK_SUBMODULES := lib/chibios lib/chibios-contrib lib/pico-sdk lib/lvgl lib/lufa lib/printf
 
 .DEFAULT_GOAL := firmware
-.PHONY: all firmware upload test-host setup sync doctor clean help
+.PHONY: all firmware configure-lock upload test-host setup sync doctor clean help
 
 all: firmware
 
@@ -38,9 +41,17 @@ firmware: sync
 	cp "$(QMK_ARTIFACT)" "$(ARTIFACT)"
 	printf 'Firmware written to %s\n' "$(ARTIFACT)"
 
-upload: firmware
+configure-lock: firmware
 	@set -euo pipefail
-	"$(PYTHON)" "$(UPLOADER)" --firmware "$(ARTIFACT)"
+	if [[ ! -f "$(LOCK_PIN_FILE)" ]]; then
+		printf '%s\n' 'Lock PIN file is missing. Copy lock_pin.example.txt to lock_pin.txt and edit four key numbers (1..20).' >&2
+		exit 1
+	fi
+	"$(PYTHON)" "$(LOCK_CONFIGURER)" --pin-file "$(LOCK_PIN_FILE)" --input "$(ARTIFACT)" --output "$(LOCKED_ARTIFACT)"
+
+upload: configure-lock
+	@set -euo pipefail
+	"$(PYTHON)" "$(UPLOADER)" --firmware "$(LOCKED_ARTIFACT)"
 
 test-host:
 	@set -euo pipefail
@@ -118,9 +129,10 @@ help:
 		'Commands:' \
 		'  make setup    Clone pinned QMK and install build dependencies.' \
 		'  make          Synchronize and compile the default firmware.' \
-		'  make upload   Build firmware, enter the RP2040 bootloader, and copy the UF2.' \
+		'  make configure-lock Build firmware and create a PIN-configured UF2.' \
+		'  make upload   Configure firmware, enter the RP2040 bootloader, and copy the UF2.' \
 		'  make test-host Run uploader unit tests.' \
 		'  make doctor   Check required QMK build prerequisites.' \
 		'  make clean    Remove copied firmware artifacts.' \
 		'' \
-		'Overrides: KEYMAP=<name> JOBS=<count> QMK_DIR=<path> QMK_REF=<ref>'
+		'Overrides: KEYMAP=<name> JOBS=<count> QMK_DIR=<path> QMK_REF=<ref> LOCK_PIN_FILE=<path>'
